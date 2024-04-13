@@ -9,7 +9,7 @@ import { EventStore, type EventStoreType } from './EventStore.ts'
 import type { LimitType } from './Limit.ts'
 import { useNodeRects, type NodeRectType } from './NodeRects.ts'
 import type { OptionsType } from './Options.ts'
-import { PercentOfView, type PercentOfViewType } from './PercentOfView.ts'
+import { usePercentOfView, type PercentOfViewType } from './PercentOfView.ts'
 import { ResizeHandler, type ResizeHandlerType } from './ResizeHandler.ts'
 import { ScrollBody, type ScrollBodyType } from './ScrollBody.ts'
 import { ScrollBounds, type ScrollBoundsType } from './ScrollBounds.ts'
@@ -17,7 +17,7 @@ import { ScrollContain } from './ScrollContain.ts'
 import { ScrollLimit } from './ScrollLimit.ts'
 import { ScrollLooper, type ScrollLooperType } from './ScrollLooper.ts'
 import { ScrollProgress, type ScrollProgressType } from './ScrollProgress.ts'
-import { ScrollSnaps } from './ScrollSnaps.ts'
+import { useScrollSnaps } from './ScrollSnaps.ts'
 import { SlideRegistry, type SlideRegistryType } from './SlideRegistry.ts'
 import { ScrollTarget, type ScrollTargetType } from './ScrollTarget.ts'
 import { ScrollTo, type ScrollToType } from './ScrollTo.ts'
@@ -25,8 +25,8 @@ import { SlideFocus, type SlideFocusType } from './SlideFocus.ts'
 import { SlideLooper, type SlideLooperType } from './SlideLooper.ts'
 import { SlidesHandler, type SlidesHandlerType } from './SlidesHandler.ts'
 import { SlidesInView, type SlidesInViewType } from './SlidesInView.ts'
-import { SlideSizes } from './SlideSizes.ts'
-import { SlidesToScroll, type SlidesToScrollType } from './SlidesToScroll.ts'
+import { useSlideSizes } from './SlideSizes.ts'
+import { useSlidesToScroll, type SlidesToScrollType } from './SlidesToScroll.ts'
 import { Translate, type TranslateType } from './Translate.ts'
 import { arrayKeys, arrayLast, arrayLastIndex, type WindowType } from './utils.ts'
 import { Vector1D, type Vector1DType } from './Vector1d.ts'
@@ -103,11 +103,11 @@ export function useEngine(
   const slideRects = slides.map(nodeRects.measure)
   const axis = useAxis(scrollAxis, direction)
   const viewSize = axis.measureSize(containerRect)
-  const percentOfView = PercentOfView(viewSize)
+  const percentOfView = usePercentOfView(viewSize)
   const alignment = useSlideAlignment(align, viewSize)
   const containSnaps = !loop && !!containScroll
   const readEdgeGap = loop || !!containScroll
-  const { slideSizes, slideSizesWithGaps, startGap, endGap } = SlideSizes(
+  const { slideSizes, slideSizesWithGaps, startGap, endGap } = useSlideSizes(
     axis,
     containerRect,
     slideRects,
@@ -115,7 +115,7 @@ export function useEngine(
     readEdgeGap,
     ownerWindow
   )
-  const slidesToScroll = SlidesToScroll(
+  const slidesToScroll = useSlidesToScroll(
     axis,
     viewSize,
     groupSlides,
@@ -126,7 +126,7 @@ export function useEngine(
     endGap,
     pixelTolerance
   )
-  const { snaps, snapsAligned } = ScrollSnaps(axis, alignment, containerRect, slideRects, slidesToScroll)
+  const { snaps, snapsAligned } = useScrollSnaps(axis, alignment, containerRect, slideRects, slidesToScroll)
   const contentSize = -arrayLast(snaps) + arrayLast(slideSizesWithGaps)
   const { snapsContained, scrollContainLimit } = ScrollContain(
     viewSize,

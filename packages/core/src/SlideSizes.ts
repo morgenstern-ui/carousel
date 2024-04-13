@@ -2,7 +2,7 @@ import type { AxisType } from './Axis.ts'
 import type { NodeRectType } from './NodeRects.ts'
 import { arrayIsLastIndex, arrayLast, mathAbs, type WindowType } from './utils.ts'
 
-export type SlideSizesType = ReturnType<typeof SlideSizes>
+export type SlideSizesType = ReturnType<typeof useSlideSizes>
 
 /**
  * Функция для измерения размеров слайдов.
@@ -14,7 +14,7 @@ export type SlideSizesType = ReturnType<typeof SlideSizes>
  * @param {WindowType} ownerWindow - Окно, в котором находятся слайды.
  * @returns {SlideSizesType} Возвращает объект с измеренными размерами слайдов.
  */
-export function SlideSizes(
+export function useSlideSizes(
   axis: AxisType,
   containerRect: NodeRectType,
   slideRects: NodeRectType[],
@@ -60,10 +60,32 @@ export function SlideSizes(
         const isLast = arrayIsLastIndex(rects, index)
         if (isFirst) return slideSizes[index] + startGap
         if (isLast) return slideSizes[index] + endGap
+
         return rects[index + 1][startEdge] - rect[startEdge]
       })
       .map(mathAbs)
   }
+
+  // function measureWithGapsFoo(): number[] {
+  //   const len = slideRects.length
+  //   const result = new Array(len)
+
+  //   for (let index = 0; index < len; index++) {
+  //     const rect = slideRects[index]
+  //     const isFirst = !index
+  //     const isLast = arrayIsLastIndex(slideRects, index)
+
+  //     if (isFirst) {
+  //       result[index] = slideSizes[index] + startGap
+  //     } else if (isLast) {
+  //       result[index] = slideSizes[index] + endGap
+  //     } else {
+  //       result[index] = mathAbs(slideRects[index + 1][startEdge] - rect[startEdge])
+  //     }
+  //   }
+
+  //   return result
+  // }
 
   const self = {
     slideSizes,

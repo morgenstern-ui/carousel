@@ -4,7 +4,7 @@ import type { NodeRectType } from './NodeRects.ts'
 import type { SlidesToScrollType } from './SlidesToScroll.ts'
 import { arrayLast, mathAbs } from './utils.ts'
 
-export type ScrollSnapsType = ReturnType<typeof ScrollSnaps>
+export type ScrollSnapsType = ReturnType<typeof useScrollSnaps>
 /**
  * Экспортируемая функция ScrollSnaps, которая создает объект для управления снимками прокрутки.
  * @param {AxisType} axis - Ось, по которой происходит прокрутка.
@@ -14,7 +14,7 @@ export type ScrollSnapsType = ReturnType<typeof ScrollSnaps>
  * @param {SlidesToScrollType} slidesToScroll - Объект для управления группами слайдов.
  * @returns {ScrollSnapsType} Возвращает объект ScrollSnaps.
  */
-export function ScrollSnaps(
+export function useScrollSnaps(
   axis: AxisType,
   alignment: SlideAlignmentType,
   containerRect: NodeRectType,

@@ -4,7 +4,7 @@ import { arrayKeys, arrayLast, arrayLastIndex, isNumber, mathAbs } from './utils
 
 export type SlidesToScrollOptionType = 'auto' | number
 
-export type SlidesToScrollType = ReturnType<typeof SlidesToScroll>
+export type SlidesToScrollType = ReturnType<typeof useSlidesToScroll>
 
 /**
  * Экспортируемая функция SlidesToScroll, которая создает объект для управления группами слайдов.
@@ -19,7 +19,7 @@ export type SlidesToScrollType = ReturnType<typeof SlidesToScroll>
  * @param {number} pixelTolerance - Толерантность в пикселях.
  * @returns {SlidesToScrollType} Возвращает объект SlidesToScroll.
  */
-export function SlidesToScroll(
+export function useSlidesToScroll(
   axis: AxisType,
   viewSize: number,
   slidesToScroll: SlidesToScrollOptionType,
@@ -74,6 +74,39 @@ export function SlidesToScroll(
         return array.slice(previousSize, currentSize)
       })
   }
+
+  // function bySize<Type>(array: Type[]): Type[][] {
+  //   if (!array.length) return []
+  
+  //   const groups: number[] = [];
+  //   const keys = arrayKeys(array);
+  
+  //   for (let index = 0; index < arrayKeys.length; index++) {
+  //     const rectB = keys[index];
+  //     const rectA = arrayLast(groups) || 0;
+  //     const isFirst = rectA === 0;
+  //     const isLast = rectB === arrayLastIndex(array);
+  
+  //     const edgeA = containerRect[startEdge] - slideRects[rectA][startEdge];
+  //     const edgeB = containerRect[startEdge] - slideRects[rectB][endEdge];
+  //     const gapA = !loop && isFirst ? direction(startGap) : 0;
+  //     const gapB = !loop && isLast ? direction(endGap) : 0;
+  //     const chunkSize = mathAbs(edgeB - gapB - (edgeA + gapA));
+  
+  //     if (index && chunkSize > viewSize + pixelTolerance) groups.push(rectB);
+  //     if (isLast) groups.push(array.length);
+  //   }
+  
+  //   const result: Type[][] = [];
+    
+  //   for (let index = 0; index < groups.length; index++) {
+  //     const currentSize = groups[index];
+  //     const previousSize = Math.max(groups[index - 1] || 0);
+  //     result.push(array.slice(previousSize, currentSize));
+  //   }
+  
+  //   return result;
+  // }
 
   /**
    * Группирует слайды.
