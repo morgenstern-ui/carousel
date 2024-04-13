@@ -11,20 +11,9 @@ import type { ScrollToType } from './ScrollTo.ts'
 import type { Vector1DType } from './Vector1d.ts'
 import type { PercentOfViewType } from './PercentOfView.ts'
 import { Limit } from './Limit.ts'
-import {
-  deltaAbs,
-  factorAbs,
-  isBoolean,
-  isMouseEvent,
-  mathAbs,
-  mathSign,
-  type WindowType
-} from './utils.ts'
+import { deltaAbs, factorAbs, isBoolean, isMouseEvent, mathAbs, mathSign, type WindowType } from './utils.ts'
 
-type DragHandlerCallbackType = (
-  emblaApi: EmblaCarouselType,
-  evt: PointerEventType
-) => boolean | void
+type DragHandlerCallbackType = (emblaApi: EmblaCarouselType, evt: PointerEventType) => boolean | void
 
 export type DragHandlerOptionType = boolean | DragHandlerCallbackType
 

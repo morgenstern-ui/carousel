@@ -2,10 +2,7 @@ import type { EmblaCarouselType } from './EmblaCarousel.ts'
 import type { EventHandlerType } from './EventHandler.ts'
 import { isBoolean } from './utils.ts'
 
-type SlidesHandlerCallbackType = (
-  emblaApi: EmblaCarouselType,
-  mutations: MutationRecord[]
-) => boolean | void
+type SlidesHandlerCallbackType = (emblaApi: EmblaCarouselType, mutations: MutationRecord[]) => boolean | void
 
 export type SlidesHandlerOptionType = boolean | SlidesHandlerCallbackType
 

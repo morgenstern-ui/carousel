@@ -1,10 +1,5 @@
 import { Alignment } from './Alignment.ts'
-import {
-  Animations,
-  type AnimationsType,
-  type AnimationsUpdateType,
-  type AnimationsRenderType
-} from './Animations.ts'
+import { Animations, type AnimationsType, type AnimationsUpdateType, type AnimationsRenderType } from './Animations.ts'
 import { Axis, type AxisType } from './Axis.ts'
 import { Counter, type CounterType } from './Counter.ts'
 import { DragHandler, type DragHandlerType } from './DragHandler.ts'
@@ -33,12 +28,7 @@ import { SlidesInView, type SlidesInViewType } from './SlidesInView.ts'
 import { SlideSizes } from './SlideSizes.ts'
 import { SlidesToScroll, type SlidesToScrollType } from './SlidesToScroll.ts'
 import { Translate, type TranslateType } from './Translate.ts'
-import {
-  arrayKeys,
-  arrayLast,
-  arrayLastIndex,
-  type WindowType
-} from './utils.ts'
+import { arrayKeys, arrayLast, arrayLastIndex, type WindowType } from './utils.ts'
 import { Vector1D, type Vector1DType } from './Vector1d.ts'
 
 export type EngineType = {
@@ -136,13 +126,7 @@ export function Engine(
     endGap,
     pixelTolerance
   )
-  const { snaps, snapsAligned } = ScrollSnaps(
-    axis,
-    alignment,
-    containerRect,
-    slideRects,
-    slidesToScroll
-  )
+  const { snaps, snapsAligned } = ScrollSnaps(axis, alignment, containerRect, slideRects, slidesToScroll)
   const contentSize = -arrayLast(snaps) + arrayLast(slideSizesWithGaps)
   const { snapsContained, scrollContainLimit } = ScrollContain(
     viewSize,
@@ -160,12 +144,7 @@ export function Engine(
   const slideIndexes = arrayKeys(slides)
 
   // Animation
-  const update: AnimationsUpdateType = ({
-    dragHandler,
-    scrollBody,
-    scrollBounds,
-    options: { loop }
-  }) => {
+  const update: AnimationsUpdateType = ({ dragHandler, scrollBody, scrollBounds, options: { loop } }) => {
     if (!loop) scrollBounds.constrain(dragHandler.pointerDown())
     scrollBody.seek()
   }
@@ -216,37 +195,12 @@ export function Engine(
   const location = Vector1D(startLocation)
   const offsetLocation = Vector1D(startLocation)
   const target = Vector1D(startLocation)
-  const scrollBody = ScrollBody(
-    location,
-    offsetLocation,
-    target,
-    duration,
-    friction
-  )
-  const scrollTarget = ScrollTarget(
-    loop,
-    scrollSnaps,
-    contentSize,
-    limit,
-    target
-  )
-  const scrollTo = ScrollTo(
-    animation,
-    index,
-    indexPrevious,
-    scrollBody,
-    scrollTarget,
-    target,
-    eventHandler
-  )
+  const scrollBody = ScrollBody(location, offsetLocation, target, duration, friction)
+  const scrollTarget = ScrollTarget(loop, scrollSnaps, contentSize, limit, target)
+  const scrollTo = ScrollTo(animation, index, indexPrevious, scrollBody, scrollTarget, target, eventHandler)
   const scrollProgress = ScrollProgress(limit)
   const eventStore = EventStore()
-  const slidesInView = SlidesInView(
-    container,
-    slides,
-    eventHandler,
-    inViewThreshold
-  )
+  const slidesInView = SlidesInView(container, slides, eventHandler, inViewThreshold)
   const { slideRegistry } = SlideRegistry(
     containSnaps,
     containScroll,
@@ -255,14 +209,7 @@ export function Engine(
     slidesToScroll,
     slideIndexes
   )
-  const slideFocus = SlideFocus(
-    root,
-    slides,
-    slideRegistry,
-    scrollTo,
-    scrollBody,
-    eventStore
-  )
+  const slideFocus = SlideFocus(root, slides, slideRegistry, scrollTo, scrollBody, eventStore)
 
   // Engine
   const engine: EngineType = {
@@ -302,28 +249,10 @@ export function Engine(
     location,
     offsetLocation,
     options,
-    resizeHandler: ResizeHandler(
-      container,
-      eventHandler,
-      ownerWindow,
-      slides,
-      axis,
-      watchResize,
-      nodeRects
-    ),
+    resizeHandler: ResizeHandler(container, eventHandler, ownerWindow, slides, axis, watchResize, nodeRects),
     scrollBody,
-    scrollBounds: ScrollBounds(
-      limit,
-      offsetLocation,
-      target,
-      scrollBody,
-      percentOfView
-    ),
-    scrollLooper: ScrollLooper(contentSize, limit, offsetLocation, [
-      location,
-      offsetLocation,
-      target
-    ]),
+    scrollBounds: ScrollBounds(limit, offsetLocation, target, scrollBody, percentOfView),
+    scrollLooper: ScrollLooper(contentSize, limit, offsetLocation, [location, offsetLocation, target]),
     scrollProgress,
     scrollSnapList: scrollSnaps.map(scrollProgress.get),
     scrollSnaps,

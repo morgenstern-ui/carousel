@@ -18,19 +18,11 @@ export function PluginsHandler(optionsHandler: OptionsHandlerType) {
    * @param {EmblaPluginType[]} plugins - Список плагинов.
    * @returns {EmblaPluginsType} Объект с инициализированными плагинами.
    */
-  function init(
-    emblaApi: EmblaCarouselType,
-    plugins: EmblaPluginType[]
-  ): EmblaPluginsType {
-    activePlugins = plugins.filter(
-      ({ options }) => optionsHandler.optionsAtMedia(options).active !== false
-    )
+  function init(emblaApi: EmblaCarouselType, plugins: EmblaPluginType[]): EmblaPluginsType {
+    activePlugins = plugins.filter(({ options }) => optionsHandler.optionsAtMedia(options).active !== false)
     activePlugins.forEach((plugin) => plugin.init(emblaApi, optionsHandler))
 
-    return plugins.reduce(
-      (map, plugin) => Object.assign(map, { [plugin.name]: plugin }),
-      {}
-    )
+    return plugins.reduce((map, plugin) => Object.assign(map, { [plugin.name]: plugin }), {})
   }
 
   /**

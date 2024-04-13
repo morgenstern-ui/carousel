@@ -3,10 +3,7 @@ import { EventStore } from './EventStore.ts'
 import { mathAbs, type WindowType } from './utils.ts'
 
 export type AnimationsUpdateType = (engine: EngineType) => void
-export type AnimationsRenderType = (
-  engine: EngineType,
-  lagOffset: number
-) => void
+export type AnimationsRenderType = (engine: EngineType, lagOffset: number) => void
 
 export type AnimationsType = ReturnType<typeof Animations>
 /**

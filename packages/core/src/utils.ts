@@ -151,10 +151,7 @@ export function objectsMergeDeep(
       const areObjects = isObject(valueA) && isObject(valueB)
 
       mergedObjects[key] = areObjects
-        ? objectsMergeDeep(
-            valueA as Record<string, unknown>,
-            valueB as Record<string, unknown>
-          )
+        ? objectsMergeDeep(valueA as Record<string, unknown>, valueB as Record<string, unknown>)
         : valueB
     }
   }
@@ -168,12 +165,6 @@ export function objectsMergeDeep(
  * @param {WindowType} ownerWindow - Объект окна.
  * @returns {boolean} Возвращает true, если событие является событием мыши, иначе false.
  */
-export function isMouseEvent(
-  evt: PointerEventType,
-  ownerWindow: WindowType
-): evt is MouseEvent {
-  return (
-    typeof ownerWindow.MouseEvent !== 'undefined' &&
-    evt instanceof ownerWindow.MouseEvent
-  )
+export function isMouseEvent(evt: PointerEventType, ownerWindow: WindowType): evt is MouseEvent {
+  return typeof ownerWindow.MouseEvent !== 'undefined' && evt instanceof ownerWindow.MouseEvent
 }

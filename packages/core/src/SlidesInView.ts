@@ -69,18 +69,15 @@ export function SlidesInView(
    * @returns {number[]} Список индексов слайдов.
    */
   function createInViewList(inView: boolean): number[] {
-    return objectKeys(intersectionEntryMap).reduce(
-      (list: number[], slideIndex) => {
-        const index = parseInt(slideIndex)
-        const { isIntersecting } = intersectionEntryMap[index]
-        const inViewMatch = inView && isIntersecting
-        const notInViewMatch = !inView && !isIntersecting
+    return objectKeys(intersectionEntryMap).reduce((list: number[], slideIndex) => {
+      const index = parseInt(slideIndex)
+      const { isIntersecting } = intersectionEntryMap[index]
+      const inViewMatch = inView && isIntersecting
+      const notInViewMatch = !inView && !isIntersecting
 
-        if (inViewMatch || notInViewMatch) list.push(index)
-        return list
-      },
-      []
-    )
+      if (inViewMatch || notInViewMatch) list.push(index)
+      return list
+    }, [])
   }
 
   /**

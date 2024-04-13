@@ -4,10 +4,7 @@ import type { EventHandlerType } from './EventHandler.ts'
 import type { NodeRectsType } from './NodeRects.ts'
 import { isBoolean, mathAbs, type WindowType } from './utils.ts'
 
-type ResizeHandlerCallbackType = (
-  emblaApi: EmblaCarouselType,
-  entries: ResizeObserverEntry[]
-) => boolean | void
+type ResizeHandlerCallbackType = (emblaApi: EmblaCarouselType, entries: ResizeObserverEntry[]) => boolean | void
 
 export type ResizeHandlerOptionType = boolean | ResizeHandlerCallbackType
 

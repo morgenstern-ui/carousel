@@ -12,10 +12,7 @@ export type AxisType = ReturnType<typeof Axis>
  * @param {AxisDirectionOptionType} contentDirection - Направление содержимого, может быть 'ltr' или 'rtl'.
  * @returns {AxisType} Объект, представляющий ось.
  */
-export function Axis(
-  axis: AxisOptionType,
-  contentDirection: AxisDirectionOptionType
-) {
+export function Axis(axis: AxisOptionType, contentDirection: AxisDirectionOptionType) {
   const isRightToLeft = contentDirection === 'rtl'
   const isVertical = axis === 'y'
   const scroll = isVertical ? 'y' : 'x'

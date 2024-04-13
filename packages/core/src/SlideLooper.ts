@@ -91,11 +91,7 @@ export function SlideLooper(
    * @param {boolean} isEndEdge - Флаг, указывающий на конечную границу.
    * @returns {LoopPointType[]} Возвращает массив объектов точек цикла.
    */
-  function findLoopPoints(
-    indexes: number[],
-    offset: number,
-    isEndEdge: boolean
-  ): LoopPointType[] {
+  function findLoopPoints(indexes: number[], offset: number, isEndEdge: boolean): LoopPointType[] {
     const slideBounds = findSlideBounds(offset)
 
     return indexes.map((index) => {

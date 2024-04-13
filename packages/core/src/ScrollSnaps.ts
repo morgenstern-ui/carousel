@@ -42,9 +42,7 @@ export function ScrollSnaps(
    * @returns {number[]} Возвращает массив снимков.
    */
   function measureUnaligned(): number[] {
-    return slideRects
-      .map((rect) => containerRect[startEdge] - rect[startEdge])
-      .map((snap) => -mathAbs(snap))
+    return slideRects.map((rect) => containerRect[startEdge] - rect[startEdge]).map((snap) => -mathAbs(snap))
   }
 
   /**

@@ -1,11 +1,7 @@
 import { Engine, type EngineType } from './Engine.ts'
 import { EventStore } from './EventStore.ts'
 import { EventHandler, type EventHandlerType } from './EventHandler.ts'
-import {
-  defaultOptions,
-  type EmblaOptionsType,
-  type OptionsType
-} from './Options.ts'
+import { defaultOptions, type EmblaOptionsType, type OptionsType } from './Options.ts'
 import { OptionsHandler } from './OptionsHandler.ts'
 import { PluginsHandler } from './PluginsHandler.ts'
 import type { EmblaPluginsType, EmblaPluginType } from './Plugins.ts'
@@ -63,27 +59,15 @@ function EmblaCarousel(
   function storeElements(): void {
     const { container: userContainer, slides: userSlides } = options
 
-    const customContainer = isString(userContainer)
-      ? root.querySelector(userContainer)
-      : userContainer
+    const customContainer = isString(userContainer) ? root.querySelector(userContainer) : userContainer
     container = <HTMLElement>(customContainer || root.children[0])
 
-    const customSlides = isString(userSlides)
-      ? container.querySelectorAll(userSlides)
-      : userSlides
+    const customSlides = isString(userSlides) ? container.querySelectorAll(userSlides) : userSlides
     slides = <HTMLElement[]>[].slice.call(customSlides || container.children)
   }
 
   function createEngine(options: OptionsType): EngineType {
-    const engine = Engine(
-      root,
-      container,
-      slides,
-      ownerDocument,
-      ownerWindow,
-      options,
-      eventHandler
-    )
+    const engine = Engine(root, container, slides, ownerDocument, ownerWindow, options, eventHandler)
 
     if (options.loop && !engine.slideLooper.canLoop()) {
       const optionsWithoutLoop = Object.assign({}, options, { loop: false })
@@ -92,10 +76,7 @@ function EmblaCarousel(
     return engine
   }
 
-  function activate(
-    withOptions?: EmblaOptionsType,
-    withPlugins?: EmblaPluginType[]
-  ): void {
+  function activate(withOptions?: EmblaOptionsType, withPlugins?: EmblaPluginType[]): void {
     if (destroyed) return
 
     optionsBase = mergeOptions(optionsBase, withOptions)
@@ -106,10 +87,9 @@ function EmblaCarousel(
 
     engine = createEngine(options)
 
-    optionsMediaQueries([
-      optionsBase,
-      ...pluginList.map(({ options }) => options)
-    ]).forEach((query) => mediaHandlers.add(query, 'change', reActivate))
+    optionsMediaQueries([optionsBase, ...pluginList.map(({ options }) => options)]).forEach((query) =>
+      mediaHandlers.add(query, 'change', reActivate)
+    )
 
     if (!options.active) return
 
@@ -127,10 +107,7 @@ function EmblaCarousel(
     pluginApis = pluginsHandler.init(self, pluginList)
   }
 
-  function reActivate(
-    withOptions?: EmblaOptionsType,
-    withPlugins?: EmblaPluginType[]
-  ): void {
+  function reActivate(withOptions?: EmblaOptionsType, withPlugins?: EmblaPluginType[]): void {
     const startIndex = selectedScrollSnap()
     deActivate()
     activate(mergeOptions({ startIndex }, withOptions), withPlugins)
@@ -160,9 +137,7 @@ function EmblaCarousel(
 
   function scrollTo(index: number, jump?: boolean, direction?: number): void {
     if (!options.active || destroyed) return
-    engine.scrollBody
-      .useBaseFriction()
-      .useDuration(jump === true ? 0 : options.duration)
+    engine.scrollBody.useBaseFriction().useDuration(jump === true ? 0 : options.duration)
     engine.scrollTo.index(index, direction || 0)
   }
 

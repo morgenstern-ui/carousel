@@ -1,12 +1,6 @@
 import type { AxisType } from './Axis.ts'
 import type { NodeRectType } from './NodeRects.ts'
-import {
-  arrayKeys,
-  arrayLast,
-  arrayLastIndex,
-  isNumber,
-  mathAbs
-} from './utils'
+import { arrayKeys, arrayLast, arrayLastIndex, isNumber, mathAbs } from './utils'
 
 export type SlidesToScrollOptionType = 'auto' | number
 

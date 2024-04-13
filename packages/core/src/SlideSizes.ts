@@ -1,11 +1,6 @@
 import type { AxisType } from './Axis.ts'
 import type { NodeRectType } from './NodeRects.ts'
-import {
-  arrayIsLastIndex,
-  arrayLast,
-  mathAbs,
-  type WindowType
-} from './utils.ts'
+import { arrayIsLastIndex, arrayLast, mathAbs, type WindowType } from './utils.ts'
 
 export type SlideSizesType = ReturnType<typeof SlideSizes>
 

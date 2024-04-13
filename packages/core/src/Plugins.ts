@@ -6,10 +6,7 @@ export type LoosePluginType = {
   [key: string]: unknown
 }
 
-export type CreatePluginType<
-  TypeA extends LoosePluginType,
-  TypeB extends LooseOptionsType
-> = TypeA & {
+export type CreatePluginType<TypeA extends LoosePluginType, TypeB extends LooseOptionsType> = TypeA & {
   name: string
   options: Partial<CreateOptionsType<TypeB>>
   init: (embla: EmblaCarouselType, OptionsHandler: OptionsHandlerType) => void
