@@ -1,4 +1,4 @@
-import { Alignment } from './Alignment.ts'
+import { useSlideAlignment } from './Alignment.ts'
 import { Animations, type AnimationsType, type AnimationsUpdateType, type AnimationsRenderType } from './Animations.ts'
 import { Axis, type AxisType } from './Axis.ts'
 import { Counter, type CounterType } from './Counter.ts'
@@ -104,7 +104,7 @@ export function Engine(
   const axis = Axis(scrollAxis, direction)
   const viewSize = axis.measureSize(containerRect)
   const percentOfView = PercentOfView(viewSize)
-  const alignment = Alignment(align, viewSize)
+  const alignment = useSlideAlignment(align, viewSize)
   const containSnaps = !loop && !!containScroll
   const readEdgeGap = loop || !!containScroll
   const { slideSizes, slideSizesWithGaps, startGap, endGap } = SlideSizes(

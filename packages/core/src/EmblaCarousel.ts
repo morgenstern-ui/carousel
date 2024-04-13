@@ -31,7 +31,7 @@ export type EmblaCarouselType = {
   slidesNotInView: () => number[]
 }
 
-function EmblaCarousel(
+export function EmblaCarousel(
   root: HTMLElement,
   userOptions?: EmblaOptionsType,
   userPlugins?: EmblaPluginType[]
@@ -236,4 +236,3 @@ function EmblaCarousel(
 
 EmblaCarousel.globalOptions = <EmblaOptionsType | undefined>undefined
 
-export default EmblaCarousel

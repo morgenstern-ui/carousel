@@ -1,4 +1,4 @@
-import type { AlignmentType } from './Alignment.ts'
+import type { SlideAlignmentType } from './Alignment.ts'
 import type { AxisType } from './Axis.ts'
 import type { NodeRectType } from './NodeRects.ts'
 import type { SlidesToScrollType } from './SlidesToScroll.ts'
@@ -8,7 +8,7 @@ export type ScrollSnapsType = ReturnType<typeof ScrollSnaps>
 /**
  * Экспортируемая функция ScrollSnaps, которая создает объект для управления снимками прокрутки.
  * @param {AxisType} axis - Ось, по которой происходит прокрутка.
- * @param {AlignmentType} alignment - Выравнивание.
+ * @param {SlideAlignmentType} alignment - Выравнивание.
  * @param {NodeRectType} containerRect - Объект, описывающий прямоугольник контейнера.
  * @param {NodeRectType[]} slideRects - Массив объектов, описывающих прямоугольники слайдов.
  * @param {SlidesToScrollType} slidesToScroll - Объект для управления группами слайдов.
@@ -16,7 +16,7 @@ export type ScrollSnapsType = ReturnType<typeof ScrollSnaps>
  */
 export function ScrollSnaps(
   axis: AxisType,
-  alignment: AlignmentType,
+  alignment: SlideAlignmentType,
   containerRect: NodeRectType,
   slideRects: NodeRectType[],
   slidesToScroll: SlidesToScrollType
