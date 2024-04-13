@@ -8,10 +8,7 @@ export type TranslateType = ReturnType<typeof Translate>
  * @param {HTMLElement} container - Элемент контейнера.
  * @returns {TranslateType} Возвращает объект перевода.
  */
-export function Translate(
-  axis: AxisType,
-  container: HTMLElement
-) {
+export function Translate(axis: AxisType, container: HTMLElement) {
   const translate = axis.scroll === 'x' ? x : y
   const containerStyle = container.style
   let disabled = false

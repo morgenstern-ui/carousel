@@ -14,7 +14,7 @@ export type NodeRectsType = ReturnType<typeof NodeRects>
  * @returns {NodeRectsType} Объект с функцией измерения.
  */
 export function NodeRects() {
-   /**
+  /**
    * Функция, которая измеряет node и возвращает его размеры и позицию.
    * @param {HTMLElement} node - Node для измерения.
    * @returns {NodeRectType} Размеры и позиция узла.

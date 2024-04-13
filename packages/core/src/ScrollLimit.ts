@@ -21,6 +21,6 @@ export function ScrollLimit(
   const self = {
     limit
   } as const
-  
+
   return self
 }

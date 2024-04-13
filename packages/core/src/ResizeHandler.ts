@@ -32,8 +32,7 @@ export function ResizeHandler(
   axis: AxisType,
   watchResize: ResizeHandlerOptionType,
   nodeRects: NodeRectsType
-)
- {
+) {
   let resizeObserver: ResizeObserver
   let containerSize: number
   let slideSizes: number[] = []
@@ -95,8 +94,7 @@ export function ResizeHandler(
     destroyed = true
   }
 
-  const self
-   = {
+  const self = {
     init,
     destroy
   } as const

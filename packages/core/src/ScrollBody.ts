@@ -112,7 +112,7 @@ export function ScrollBody(
    */
   function useDuration(n: number): ScrollBodyType {
     scrollDuration = n
-  
+
     return self
   }
 

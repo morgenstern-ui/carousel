@@ -14,10 +14,7 @@ export type AlignmentType = ReturnType<typeof Alignment>
  * @param {number} viewSize - Размер области просмотра.
  * @returns {AlignmentType} Возвращает объект выравнивания.
  */
-export function Alignment(
-  align: AlignmentOptionType,
-  viewSize: number
-) {
+export function Alignment(align: AlignmentOptionType, viewSize: number) {
   const predefined = { start, center, end }
 
   /**

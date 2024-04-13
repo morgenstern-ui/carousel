@@ -12,10 +12,7 @@ export type DragTrackerType = ReturnType<typeof DragTracker>
  * @param {WindowType} ownerWindow - Окно, в котором происходит перетаскивание.
  * @returns {DragTrackerType} Возвращает объект трекера перетаскивания.
  */
-export function DragTracker(
-  axis: AxisType,
-  ownerWindow: WindowType
-) {
+export function DragTracker(axis: AxisType, ownerWindow: WindowType) {
   const logInterval = 170
 
   let startEvent: PointerEventType
