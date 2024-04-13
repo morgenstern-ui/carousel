@@ -1,5 +1,5 @@
-import type { AxisType } from './Axis.ts'
-import type { NodeRectType } from './NodeRects.ts'
+import type { AxisType } from './useAxis.ts'
+import type { NodeRectType } from './useNodeRects.ts'
 import { arrayIsLastIndex, arrayLast, mathAbs, type WindowType } from './utils.ts'
 /**
  * Возвращает тип размеров слайдов, возвращаемый функцией `useSlideSizes`.

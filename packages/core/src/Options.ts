@@ -1,11 +1,11 @@
-import type { AlignmentOptionType } from './Alignment.ts'
-import type { AxisDirectionOptionType, AxisOptionType } from './Axis.ts'
-import type { SlidesToScrollOptionType } from './SlidesToScroll.ts'
-import type { ScrollContainOptionType } from './ScrollContain.ts'
-import type { DragHandlerOptionType } from './DragHandler.ts'
-import type { ResizeHandlerOptionType } from './ResizeHandler.ts'
-import type { SlidesHandlerOptionType } from './SlidesHandler.ts'
-import type { SlidesInViewOptionsType } from './SlidesInView.ts'
+import type { AlignmentOptionType } from './useSlideAlignment.ts'
+import type { AxisDirectionOptionType, AxisOptionType } from './useAxis.ts'
+import type { SlidesToScrollOptionType } from './useSlidesToScroll.ts'
+import type { ScrollContainOptionType } from './useScrollContain.ts'
+import type { DragHandlerOptionType } from './useDragHandler.ts'
+import type { ResizeHandlerOptionType } from './useResizeHandler.ts'
+import type { SlidesHandlerOptionType } from './useSlidesHandler.ts'
+import type { SlidesInViewOptionsType } from './useSlidesInView.ts'
 
 export type LooseOptionsType = {
   [key: string]: unknown

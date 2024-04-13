@@ -1,4 +1,4 @@
-import type { AxisType } from './Axis'
+import type { AxisType } from './useAxis'
 
 export type TranslateType = ReturnType<typeof useTranslate>
 

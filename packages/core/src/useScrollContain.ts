@@ -1,4 +1,4 @@
-import { useLimit, type LimitType } from './Limit.ts'
+import { useLimit, type LimitType } from './useLimit.ts'
 import { arrayIsLastIndex, arrayLast, deltaAbs } from './utils.ts'
 
 export type ScrollContainOptionType = false | 'trimSnaps' | 'keepSnaps'

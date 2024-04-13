@@ -1,12 +1,12 @@
 import { describe, expect, test } from 'vitest'
-import { EmblaCarousel } from '../EmblaCarousel'
+import { useEmblaCarousel } from '../useEmblaCarousel'
 import { mockTestElements } from './mocks'
 import { FIXTURE_SCROLL_PROGRESS_LTR_1, FIXTURE_SCROLL_PROGRESS_LTR_2 } from './fixtures/scrollProgress-ltr.fixture'
 
 describe('➡️  ScrollProgress - Horizontal LTR', () => {
   describe('Корректен для каждой точки привязки, когда:', () => {
     test('Слайды БЕЗ ОТСТУПОВ', () => {
-      const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_SCROLL_PROGRESS_LTR_1))
+      const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_SCROLL_PROGRESS_LTR_1))
 
       expect(emblaApi.scrollProgress()).toBe(-0)
 
@@ -24,7 +24,7 @@ describe('➡️  ScrollProgress - Horizontal LTR', () => {
     })
 
     test('Слайды С ОТСТУПАМИ', () => {
-      const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_SCROLL_PROGRESS_LTR_2))
+      const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_SCROLL_PROGRESS_LTR_2))
 
       expect(emblaApi.scrollProgress()).toBe(-0)
 

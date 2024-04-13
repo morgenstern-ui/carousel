@@ -1,4 +1,4 @@
-import type { LimitType } from './Limit.ts'
+import type { LimitType } from './useLimit.ts'
 
 export type ScrollProgressType = ReturnType<typeof useScrollProgress>
 

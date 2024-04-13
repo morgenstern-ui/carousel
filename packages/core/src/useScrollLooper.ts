@@ -1,5 +1,5 @@
-import { useLimit, type LimitType } from './Limit.ts'
-import type { Vector1DType } from './Vector1d'
+import { useLimit, type LimitType } from './useLimit.ts'
+import type { Vector1DType } from './Vector1d.ts'
 
 export type ScrollLooperType = ReturnType<typeof useScrollLooper>
 

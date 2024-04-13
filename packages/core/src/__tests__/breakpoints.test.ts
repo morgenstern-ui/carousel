@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test } from 'vitest'
-import { EmblaCarousel } from '../EmblaCarousel'
+import { useEmblaCarousel } from '../useEmblaCarousel'
 import { mockTestElements, resetMatchingMediaQuery, setMatchingMediaQuery } from './mocks'
 import { FIXTURE_BREAKPOINTS } from './fixtures/breakpoints.fixture'
 
@@ -7,7 +7,7 @@ const MEDIA_QUERY_EXTRA_LARGE = '(min-width: 1200px)'
 const MEDIA_QUERY_EXTRA_SMALL = '(min-width: 576px)'
 
 describe('➡️  Breakpoints', () => {
-  const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_BREAKPOINTS), {
+  const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_BREAKPOINTS), {
     align: 'start',
     breakpoints: {
       [MEDIA_QUERY_EXTRA_LARGE]: {

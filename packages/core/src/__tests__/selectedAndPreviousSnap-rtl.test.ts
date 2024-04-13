@@ -1,11 +1,11 @@
 import { beforeEach, describe, expect, test } from 'vitest'
-import { EmblaCarousel } from '../EmblaCarousel'
+import { useEmblaCarousel } from '../useEmblaCarousel'
 import { mockTestElements } from './mocks'
 import { FIXTURE_SELECTED_PREVIOUS_SNAP_RTL } from './fixtures/selectedAndPreviousSnap-rtl.fixture'
 
 describe('➡️  SelectedScrollSnap & PreviousScrollSnap - Horizontal RTL', () => {
   describe('Корректно, когда LOOP:FALSE, когда:', () => {
-    const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_SELECTED_PREVIOUS_SNAP_RTL), { direction: 'rtl' })
+    const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_SELECTED_PREVIOUS_SNAP_RTL), { direction: 'rtl' })
     const lastIndex = FIXTURE_SELECTED_PREVIOUS_SNAP_RTL.slideOffsets.length - 1
     const firstIndex = 0
 
@@ -79,7 +79,7 @@ describe('➡️  SelectedScrollSnap & PreviousScrollSnap - Horizontal RTL', () 
   })
 
   describe('Корректно, когда LOOP:TRUE, когда:', () => {
-    const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_SELECTED_PREVIOUS_SNAP_RTL), {
+    const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_SELECTED_PREVIOUS_SNAP_RTL), {
       direction: 'rtl',
       loop: true
     })

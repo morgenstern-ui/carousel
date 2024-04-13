@@ -1,8 +1,8 @@
-import { useLimit, type LimitType } from './Limit.ts'
-import type { ScrollBodyType } from './ScrollBody.ts'
+import { useLimit, type LimitType } from './useLimit.ts'
+import type { ScrollBodyType } from './useScrollBody.ts'
 import type { Vector1DType } from './Vector1d.ts'
 import { mathAbs } from './utils.ts'
-import type { PercentOfViewType } from './PercentOfView.ts'
+import type { PercentOfViewType } from './usePercentOfView.ts'
 
 /**
  * Представляет тип хука `useScrollBounds`.

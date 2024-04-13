@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest'
-import { EmblaCarousel, type EmblaCarouselType } from '../EmblaCarousel'
+import { useEmblaCarousel, type EmblaCarouselType } from '../useEmblaCarousel'
 import { mockTestElements } from './mocks'
 import { FIXTURE_PLUGINS } from './fixtures/plugins.fixture'
 import { EmblaPluginType } from '../Plugins'
@@ -23,7 +23,7 @@ describe('➡️  Plugins', () => {
 
   beforeEach(() => {
     vi.clearAllMocks()
-    emblaApi = EmblaCarousel(mockTestElements(FIXTURE_PLUGINS), {}, [PLUGIN_ONE, PLUGIN_TWO])
+    emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_PLUGINS), {}, [PLUGIN_ONE, PLUGIN_TWO])
   })
 
   test('Инициализируются при инициализации карусели с помощью конструктора', () => {

@@ -1,4 +1,4 @@
-import type { AxisOptionType, AxisType } from './Axis.ts'
+import type { AxisOptionType, AxisType } from './useAxis.ts'
 import { isMouseEvent, mathAbs, type WindowType } from './utils.ts'
 
 type PointerCoordType = keyof Touch | keyof MouseEvent

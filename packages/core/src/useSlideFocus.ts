@@ -1,7 +1,7 @@
-import type { EventStoreType } from './EventStore.ts'
-import type { ScrollBodyType } from './ScrollBody.ts'
-import type { ScrollToType } from './ScrollTo.ts'
-import type { SlideRegistryType } from './SlideRegistry.ts'
+import type { EventStoreType } from './useEventStore.ts'
+import type { ScrollBodyType } from './useScrollBody.ts'
+import type { ScrollToType } from './useScrollTo.ts'
+import type { SlideRegistryType } from './useSlideRegistry.ts'
 import { isNumber } from './utils.ts'
 
 /**

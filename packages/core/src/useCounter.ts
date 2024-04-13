@@ -1,4 +1,4 @@
-import { useLimit } from "./Limit.ts"
+import { useLimit } from "./useLimit.ts"
 import { mathAbs } from "./utils.ts"
 
 /**

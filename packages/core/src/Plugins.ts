@@ -1,6 +1,6 @@
 import type { CreateOptionsType, LooseOptionsType } from './Options.ts'
-import type { EmblaCarouselType } from './EmblaCarousel.ts'
-import type { OptionsHandlerType } from './OptionsHandler.ts'
+import type { EmblaCarouselType } from './useEmblaCarousel.ts'
+import type { OptionsHandlerType } from './useOptionsHandler.ts'
 
 export type LoosePluginType = {
   [key: string]: unknown

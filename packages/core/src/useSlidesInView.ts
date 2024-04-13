@@ -1,4 +1,4 @@
-import type { EventHandlerType } from './EventHandler.ts'
+import type { EventHandlerType } from './useEventHandler.ts'
 import { objectKeys } from './utils.ts'
 
 type IntersectionEntryMapType = {

@@ -1,10 +1,10 @@
 import { describe, expect, test, vi } from 'vitest'
-import { EmblaCarousel } from '../EmblaCarousel'
+import { useEmblaCarousel } from '../useEmblaCarousel'
 import { mockTestElements } from './mocks'
 import { FIXTURE_EVENTS } from './fixtures/events.fixture'
 
 describe('➡️  Events', () => {
-  const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_EVENTS))
+  const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_EVENTS))
 
   describe('События, добавленные с помощью on():', () => {
     test('Вызывает указанный обратный вызов при возникновении связанного события', () => {

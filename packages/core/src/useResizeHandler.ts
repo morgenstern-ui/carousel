@@ -1,7 +1,7 @@
-import type { AxisType } from './Axis.ts'
-import type { EmblaCarouselType } from './EmblaCarousel.ts'
-import type { EventHandlerType } from './EventHandler.ts'
-import type { NodeRectsType } from './NodeRects.ts'
+import type { AxisType } from './useAxis.ts'
+import type { EmblaCarouselType } from './useEmblaCarousel.ts'
+import type { EventHandlerType } from './useEventHandler.ts'
+import type { NodeRectsType } from './useNodeRects.ts'
 import { isBoolean, mathAbs, type WindowType } from './utils.ts'
 
 type ResizeHandlerCallbackType = (emblaApi: EmblaCarouselType, entries: ResizeObserverEntry[]) => boolean | void
@@ -43,7 +43,7 @@ export function useResizeHandler(
   /**
    * Инициализирует обработчик изменения размера.
    *
-   * @param emblaApi - Экземпляр EmblaCarousel.
+   * @param emblaApi - Экземпляр useEmblaCarousel.
    */
   function init(emblaApi: EmblaCarouselType): void {
     if (!watchResize) return

@@ -1,5 +1,5 @@
-import type { EngineType } from './Engine.ts'
-import { useEventStore } from './EventStore.ts'
+import type { EngineType } from './useEngine.ts'
+import { useEventStore } from './useEventStore.ts'
 import { mathAbs, type WindowType } from './utils.ts'
 
 export type AnimationsUpdateType = (engine: EngineType) => void

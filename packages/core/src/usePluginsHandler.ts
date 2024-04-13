@@ -1,5 +1,5 @@
-import type { EmblaCarouselType } from './EmblaCarousel.ts'
-import type { OptionsHandlerType } from './OptionsHandler.ts'
+import type { EmblaCarouselType } from './useEmblaCarousel.ts'
+import type { OptionsHandlerType } from './useOptionsHandler.ts'
 import type { EmblaPluginsType, EmblaPluginType } from './Plugins.ts'
 
 /**
@@ -16,8 +16,8 @@ export function usePluginsHandler(optionsHandler: OptionsHandlerType) {
   let activePlugins: EmblaPluginType[] = []
 
   /**
-   * Инициализирует плагины с предоставленным экземпляром EmblaCarousel.
-   * @param emblaApi - Экземпляр EmblaCarousel.
+   * Инициализирует плагины с предоставленным экземпляром useEmblaCarousel.
+   * @param emblaApi - Экземпляр useEmblaCarousel.
    * @param plugins - Массив экземпляров EmblaPlugin.
    * @returns Карта имен плагинов и экземпляров плагинов.
    */

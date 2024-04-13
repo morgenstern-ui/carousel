@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest'
-import { EmblaCarousel } from '../EmblaCarousel'
+import { useEmblaCarousel } from '../useEmblaCarousel'
 import { mockTestElementDimensions, mockTestElements } from './mocks'
 import { FIXTURE_REINIT_1, FIXTURE_REINIT_2 } from './fixtures/reInit.fixture'
 
@@ -7,7 +7,7 @@ const FIRST_SNAP_INDEX = 0
 
 describe('➡️  ReInit', () => {
   test('Учитывает изменения размеров элемента', () => {
-    const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_REINIT_1))
+    const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_REINIT_1))
 
     const engine = emblaApi.internalEngine()
     const expectedScrollSnaps = [0, -500, -800, -1150, -1200]
@@ -24,7 +24,7 @@ describe('➡️  ReInit', () => {
   })
 
   test('Учитывает изменения количества слайдов', () => {
-    const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_REINIT_1))
+    const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_REINIT_1))
 
     const engine = emblaApi.internalEngine()
     const expectedScrollSnaps = [0, -500, -800, -1150, -1200]

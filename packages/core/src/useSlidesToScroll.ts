@@ -1,6 +1,6 @@
-import type { AxisType } from './Axis.ts'
-import type { NodeRectType } from './NodeRects.ts'
-import { arrayKeys, arrayLast, arrayLastIndex, isNumber, mathAbs } from './utils'
+import type { AxisType } from './useAxis.ts'
+import type { NodeRectType } from './useNodeRects.ts'
+import { arrayKeys, arrayLast, arrayLastIndex, isNumber, mathAbs } from './utils.ts'
 
 /**
  * Тип опции `slidesToScroll`.

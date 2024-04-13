@@ -1,8 +1,8 @@
-import type { AnimationsType } from './Animations.ts'
-import type { CounterType } from './Counter.ts'
-import type { EventHandlerType } from './EventHandler.ts'
-import type { ScrollBodyType } from './ScrollBody.ts'
-import type { ScrollTargetType, TargetType } from './ScrollTarget.ts'
+import type { AnimationsType } from './useAnimations.ts'
+import type { CounterType } from './useCounter.ts'
+import type { EventHandlerType } from './useEventHandler.ts'
+import type { ScrollBodyType } from './useScrollBody.ts'
+import type { ScrollTargetType, TargetType } from './useScrollTarget.ts'
 import type { Vector1DType } from './Vector1d.ts'
 
 export type ScrollToType = ReturnType<typeof useScrollTo>

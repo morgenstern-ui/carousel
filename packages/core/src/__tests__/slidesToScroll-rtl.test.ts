@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test } from 'vitest'
-import { EmblaCarousel } from '../EmblaCarousel'
+import { useEmblaCarousel } from '../useEmblaCarousel'
 import { defaultOptions } from '../Options'
 import { mockTestElements } from './mocks'
 import {
@@ -12,7 +12,7 @@ const FIRST_SNAP_INDEX = 0
 
 describe('➡️  Слайды для прокрутки - Горизонтальная RTL', () => {
   describe('"auto" правильно для слайдов БЕЗ ОТСТУПОВ и:', () => {
-    const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_SLIDES_TO_SCROLL_RTL_1))
+    const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_SLIDES_TO_SCROLL_RTL_1))
     beforeEach(() => {
       emblaApi.reInit({
         ...defaultOptions,
@@ -60,7 +60,7 @@ describe('➡️  Слайды для прокрутки - Горизонтал�
     })
   })
   describe('"auto" правильно для слайдов С ОТСТУПАМИ и:', () => {
-    const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_SLIDES_TO_SCROLL_RTL_2))
+    const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_SLIDES_TO_SCROLL_RTL_2))
     beforeEach(() => {
       emblaApi.reInit({
         ...defaultOptions,
@@ -108,7 +108,7 @@ describe('➡️  Слайды для прокрутки - Горизонтал�
     })
   })
   describe('"auto" правильно для крайних случаев, когда ширина слайда больше видимой области и:', () => {
-    const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_SLIDES_TO_SCROLL_RTL_3))
+    const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_SLIDES_TO_SCROLL_RTL_3))
     beforeEach(() => {
       emblaApi.reInit({
         ...defaultOptions,
@@ -141,7 +141,7 @@ describe('➡️  Слайды для прокрутки - Горизонтал�
     })
   })
   describe('"Пользовательское число 2" правильно для слайдов БЕЗ ОТСТУПОВ и:', () => {
-    const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_SLIDES_TO_SCROLL_RTL_1))
+    const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_SLIDES_TO_SCROLL_RTL_1))
     beforeEach(() => {
       emblaApi.reInit({
         ...defaultOptions,
@@ -192,7 +192,7 @@ describe('➡️  Слайды для прокрутки - Горизонтал�
     })
   })
   describe('"Пользовательское число 2" правильно для слайдов С ОТСТУПАМИ и:', () => {
-    const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_SLIDES_TO_SCROLL_RTL_2))
+    const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_SLIDES_TO_SCROLL_RTL_2))
     beforeEach(() => {
       emblaApi.reInit({
         ...defaultOptions,

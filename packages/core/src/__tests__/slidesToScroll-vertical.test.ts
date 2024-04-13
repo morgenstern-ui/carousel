@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test } from 'vitest'
-import { EmblaCarousel } from '../EmblaCarousel'
+import { useEmblaCarousel } from '../useEmblaCarousel'
 import { defaultOptions } from '../Options'
 import { mockTestElements } from './mocks'
 import {
@@ -12,7 +12,7 @@ const FIRST_SNAP_INDEX = 0
 
 describe('➡️  SlidesToScroll - Вертикальный', () => {
   describe('"auto" корректно для слайдов БЕЗ ОТСТУПОВ и:', () => {
-    const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_SLIDES_TO_SCROLL_Y_1))
+    const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_SLIDES_TO_SCROLL_Y_1))
 
     beforeEach(() => {
       emblaApi.reInit({ ...defaultOptions, slidesToScroll: 'auto', axis: 'y' })
@@ -69,7 +69,7 @@ describe('➡️  SlidesToScroll - Вертикальный', () => {
   })
 
   describe('"auto" корректно для слайдов С ОТСТУПАМИ и:', () => {
-    const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_SLIDES_TO_SCROLL_Y_2))
+    const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_SLIDES_TO_SCROLL_Y_2))
 
     beforeEach(() => {
       emblaApi.reInit({ ...defaultOptions, slidesToScroll: 'auto', axis: 'y' })
@@ -126,7 +126,7 @@ describe('➡️  SlidesToScroll - Вертикальный', () => {
   })
 
   describe('"auto" корректно для крайних случаев, когда ширина слайда больше видимой области и:', () => {
-    const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_SLIDES_TO_SCROLL_Y_3))
+    const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_SLIDES_TO_SCROLL_Y_3))
 
     beforeEach(() => {
       emblaApi.reInit({
@@ -172,7 +172,7 @@ describe('➡️  SlidesToScroll - Вертикальный', () => {
   })
 
   describe('"Custom number 2" корректно для слайдов БЕЗ ОТСТУПОВ и:', () => {
-    const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_SLIDES_TO_SCROLL_Y_1))
+    const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_SLIDES_TO_SCROLL_Y_1))
 
     beforeEach(() => {
       emblaApi.reInit({ ...defaultOptions, slidesToScroll: 2, axis: 'y' })
@@ -232,7 +232,7 @@ describe('➡️  SlidesToScroll - Вертикальный', () => {
   })
 
   describe('"Custom number 2" корректно для слайдов С ОТСТУПАМИ и:', () => {
-    const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_SLIDES_TO_SCROLL_Y_2))
+    const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_SLIDES_TO_SCROLL_Y_2))
 
     beforeEach(() => {
       emblaApi.reInit({ ...defaultOptions, slidesToScroll: 2, axis: 'y' })

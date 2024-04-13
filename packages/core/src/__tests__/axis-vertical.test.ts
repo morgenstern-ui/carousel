@@ -1,12 +1,12 @@
 import { describe, expect, test } from 'vitest'
-import { EmblaCarousel } from '../EmblaCarousel'
+import { useEmblaCarousel } from '../useEmblaCarousel'
 import { mockTestElements } from './mocks'
 import { FIXTURE_AXIS_Y } from './fixtures/axis-vertical.fixture'
 
 describe('➡️  Axis - Vertical LTR', () => {
   describe('Корректное перемещение при следующих настройках:', () => {
     test('Вертикальное', () => {
-      const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_AXIS_Y), {
+      const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_AXIS_Y), {
         containScroll: false,
         axis: 'y'
       })
@@ -18,7 +18,7 @@ describe('➡️  Axis - Vertical LTR', () => {
 
 describe('➡️  Axis - Vertical RTL', () => {
   test('Корректное перемещение', () => {
-    const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_AXIS_Y), {
+    const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_AXIS_Y), {
       containScroll: false,
       direction: 'rtl',
       axis: 'y'

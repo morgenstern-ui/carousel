@@ -1,9 +1,9 @@
-import { useEngine, type EngineType } from './Engine.ts'
-import { useEventStore } from './EventStore.ts'
-import { useEventHandler, type EventHandlerType } from './EventHandler.ts'
+import { useEngine, type EngineType } from './useEngine.ts'
+import { useEventStore } from './useEventStore.ts'
+import { useEventHandler, type EventHandlerType } from './useEventHandler.ts'
 import { defaultOptions, type EmblaOptionsType, type OptionsType } from './Options.ts'
-import { useOptionsHandler } from './OptionsHandler.ts'
-import { usePluginsHandler } from './PluginsHandler.ts'
+import { useOptionsHandler } from './useOptionsHandler.ts'
+import { usePluginsHandler } from './usePluginsHandler.ts'
 import type { EmblaPluginsType, EmblaPluginType } from './Plugins.ts'
 import { isString, type WindowType } from './utils.ts'
 
@@ -31,7 +31,7 @@ export type EmblaCarouselType = {
   slidesNotInView: () => number[]
 }
 
-export function EmblaCarousel(
+export function useEmblaCarousel(
   root: HTMLElement,
   userOptions?: EmblaOptionsType,
   userPlugins?: EmblaPluginType[]
@@ -48,7 +48,7 @@ export function EmblaCarousel(
 
   let destroyed = false
   let engine: EngineType
-  let optionsBase = mergeOptions(defaultOptions, EmblaCarousel.globalOptions)
+  let optionsBase = mergeOptions(defaultOptions, useEmblaCarousel.globalOptions)
   let options = mergeOptions(optionsBase)
   let pluginList: EmblaPluginType[] = []
   let pluginApis: EmblaPluginsType
@@ -234,5 +234,5 @@ export function EmblaCarousel(
   return self
 }
 
-EmblaCarousel.globalOptions = <EmblaOptionsType | undefined>undefined
+useEmblaCarousel.globalOptions = <EmblaOptionsType | undefined>undefined
 

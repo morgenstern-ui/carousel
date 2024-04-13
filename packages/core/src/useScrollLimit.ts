@@ -1,4 +1,4 @@
-import { useLimit } from './Limit.ts'
+import { useLimit } from './useLimit.ts'
 import { arrayLast } from './utils.ts'
 
 export type ScrollLimitType = ReturnType<typeof useScrollLimit>

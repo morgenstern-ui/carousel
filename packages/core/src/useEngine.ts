@@ -1,72 +1,36 @@
-import { useSlideAlignment } from './Alignment.ts'
-import { useAnimations, type AnimationsType, type AnimationsUpdateType, type AnimationsRenderType } from './Animations.ts'
-import { useAxis, type AxisType } from './Axis.ts'
-import { useCounter, type CounterType } from './Counter.ts'
-import { useDragHandler, type DragHandlerType } from './DragHandler.ts'
-import { useDragTracker } from './DragTracker.ts'
-import type { EventHandlerType } from './EventHandler.ts'
-import { useEventStore, type EventStoreType } from './EventStore.ts'
-import type { LimitType } from './Limit.ts'
-import { useNodeRects, type NodeRectType } from './NodeRects.ts'
+import { useSlideAlignment } from './useSlideAlignment.ts'
+import { useAnimations, type AnimationsUpdateType, type AnimationsRenderType } from './useAnimations.ts'
+import { useAxis } from './useAxis.ts'
+import { useCounter } from './useCounter.ts'
+import { useDragHandler } from './useDragHandler.ts'
+import { useDragTracker } from './useDragTracker.ts'
+import type { EventHandlerType } from './useEventHandler.ts'
+import { useEventStore } from './useEventStore.ts'
+import { useNodeRects } from './useNodeRects.ts'
 import type { OptionsType } from './Options.ts'
-import { usePercentOfView, type PercentOfViewType } from './PercentOfView.ts'
-import { useResizeHandler, type ResizeHandlerType } from './ResizeHandler.ts'
-import { useScrollBody, type ScrollBodyType } from './ScrollBody.ts'
-import { useScrollBounds, type ScrollBoundsType } from './ScrollBounds.ts'
-import { useScrollContain } from './ScrollContain.ts'
-import { useScrollLimit } from './ScrollLimit.ts'
-import { useScrollLooper, type ScrollLooperType } from './ScrollLooper.ts'
-import { useScrollProgress, type ScrollProgressType } from './ScrollProgress.ts'
-import { useScrollSnaps } from './ScrollSnaps.ts'
-import { useSlideRegistry, type SlideRegistryType } from './SlideRegistry.ts'
-import { useScrollTarget, type ScrollTargetType } from './ScrollTarget.ts'
-import { useScrollTo, type ScrollToType } from './ScrollTo.ts'
-import { useSlideFocus, type SlideFocusType } from './SlideFocus.ts'
-import { useSlideLooper, type SlideLooperType } from './SlideLooper.ts'
-import { SlidesHandler, type SlidesHandlerType } from './SlidesHandler.ts'
-import { useSlidesInView, type SlidesInViewType } from './SlidesInView.ts'
-import { useSlideSizes } from './SlideSizes.ts'
-import { useSlidesToScroll, type SlidesToScrollType } from './SlidesToScroll.ts'
-import { useTranslate, type TranslateType } from './Translate.ts'
+import { usePercentOfView } from './usePercentOfView.ts'
+import { useResizeHandler } from './useResizeHandler.ts'
+import { useScrollBody } from './useScrollBody.ts'
+import { useScrollBounds } from './useScrollBounds.ts'
+import { useScrollContain } from './useScrollContain.ts'
+import { useScrollLimit } from './useScrollLimit.ts'
+import { useScrollLooper } from './useScrollLooper.ts'
+import { useScrollProgress } from './useScrollProgress.ts'
+import { useScrollSnaps } from './useScrollSnaps.ts'
+import { useSlideRegistry } from './useSlideRegistry.ts'
+import { useScrollTarget } from './useScrollTarget.ts'
+import { useScrollTo } from './useScrollTo.ts'
+import { useSlideFocus } from './useSlideFocus.ts'
+import { useSlideLooper } from './useSlideLooper.ts'
+import { useSlidesHandler } from './useSlidesHandler.ts'
+import { useSlidesInView } from './useSlidesInView.ts'
+import { useSlideSizes } from './useSlideSizes.ts'
+import { useSlidesToScroll } from './useSlidesToScroll.ts'
+import { useTranslate } from './useTranslate.ts'
 import { arrayKeys, arrayLast, arrayLastIndex, type WindowType } from './utils.ts'
-import { useVector1D, type Vector1DType } from './Vector1d.ts'
+import { useVector1D } from './Vector1d.ts'
 
-export type EngineType = {
-  ownerDocument: Document
-  ownerWindow: WindowType
-  eventHandler: EventHandlerType
-  axis: AxisType
-  animation: AnimationsType
-  scrollBounds: ScrollBoundsType
-  scrollLooper: ScrollLooperType
-  scrollProgress: ScrollProgressType
-  index: CounterType
-  indexPrevious: CounterType
-  limit: LimitType
-  location: Vector1DType
-  offsetLocation: Vector1DType
-  options: OptionsType
-  percentOfView: PercentOfViewType
-  scrollBody: ScrollBodyType
-  dragHandler: DragHandlerType
-  eventStore: EventStoreType
-  slideLooper: SlideLooperType
-  slidesInView: SlidesInViewType
-  slidesToScroll: SlidesToScrollType
-  target: Vector1DType
-  translate: TranslateType
-  resizeHandler: ResizeHandlerType
-  slidesHandler: SlidesHandlerType
-  scrollTo: ScrollToType
-  scrollTarget: ScrollTargetType
-  scrollSnapList: number[]
-  scrollSnaps: number[]
-  slideIndexes: number[]
-  slideFocus: SlideFocusType
-  slideRegistry: SlideRegistryType['slideRegistry']
-  containerRect: NodeRectType
-  slideRects: NodeRectType[]
-}
+export type EngineType = ReturnType<typeof useEngine>
 
 export function useEngine(
   root: HTMLElement,
@@ -76,7 +40,7 @@ export function useEngine(
   ownerWindow: WindowType,
   options: OptionsType,
   eventHandler: EventHandlerType
-): EngineType {
+) {
   // Options
   const {
     align,
@@ -212,7 +176,7 @@ export function useEngine(
   const slideFocus = useSlideFocus(root, slides, slideRegistry, scrollTo, scrollBody, eventStore)
 
   // Engine
-  const engine: EngineType = {
+  const engine = {
     ownerDocument,
     ownerWindow,
     eventHandler,
@@ -270,14 +234,14 @@ export function useEngine(
       slides
     ),
     slideFocus,
-    slidesHandler: SlidesHandler(container, eventHandler, watchSlides),
+    slidesHandler: useSlidesHandler(container, eventHandler, watchSlides),
     slidesInView,
     slideIndexes,
     slideRegistry,
     slidesToScroll,
     target,
     translate: useTranslate(axis, container)
-  }
+  } as const
 
   return engine
 }

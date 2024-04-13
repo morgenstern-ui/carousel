@@ -1,4 +1,4 @@
-import type { PointerEventType } from './DragTracker.ts'
+import type { PointerEventType } from './useDragTracker.ts'
 
 export type WindowType = Window & typeof globalThis
 

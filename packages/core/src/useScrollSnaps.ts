@@ -1,7 +1,7 @@
-import type { SlideAlignmentType } from './Alignment.ts'
-import type { AxisType } from './Axis.ts'
-import type { NodeRectType } from './NodeRects.ts'
-import type { SlidesToScrollType } from './SlidesToScroll.ts'
+import type { SlideAlignmentType } from './useSlideAlignment.ts'
+import type { AxisType } from './useAxis.ts'
+import type { NodeRectType } from './useNodeRects.ts'
+import type { SlidesToScrollType } from './useSlidesToScroll.ts'
 import { arrayLast, mathAbs } from './utils.ts'
 
 export type ScrollSnapsType = ReturnType<typeof useScrollSnaps>

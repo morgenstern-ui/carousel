@@ -1,7 +1,7 @@
-import type { LimitType } from './Limit.ts'
-import type { ScrollContainOptionType } from './ScrollContain.ts'
-import type { SlidesToScrollType } from './SlidesToScroll.ts'
-import { arrayFromNumber, arrayIsLastIndex, arrayLast, arrayLastIndex } from './utils'
+import type { LimitType } from './useLimit.ts'
+import type { ScrollContainOptionType } from './useScrollContain.ts'
+import type { SlidesToScrollType } from './useSlidesToScroll.ts'
+import { arrayFromNumber, arrayIsLastIndex, arrayLast, arrayLastIndex } from './utils.ts'
 
 export type SlideRegistryType = ReturnType<typeof useSlideRegistry>
 

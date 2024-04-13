@@ -1,11 +1,11 @@
 import { describe, expect, test } from 'vitest'
-import { EmblaCarousel } from '../EmblaCarousel'
+import { useEmblaCarousel } from '../useEmblaCarousel'
 import { mockTestElements } from './mocks'
 import { FIXTURE_AXIS_X_RTL } from './fixtures/axis-rtl.fixture'
 
 describe('➡️  Axis - Horizontal RTL', () => {
   test('Корректное преобразование', () => {
-    const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_AXIS_X_RTL), {
+    const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_AXIS_X_RTL), {
       containScroll: false,
       direction: 'rtl'
     })

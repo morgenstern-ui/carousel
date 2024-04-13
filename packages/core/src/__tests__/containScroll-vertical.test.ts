@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest'
-import { EmblaCarousel } from '../EmblaCarousel'
+import { useEmblaCarousel } from '../useEmblaCarousel'
 import { mockTestElements } from './mocks'
 import {
   FIXTURE_CONTAIN_SCROLL_Y_1,
@@ -15,7 +15,7 @@ const FIRST_SNAP_INDEX = 0
 
 describe('➡️  ContainScroll - Вертикальное', () => {
   describe('"trimSnaps" правильно работает для слайдов БЕЗ ОТСТУПОВ и ВЫРАВНИВАНИЯ:', () => {
-    const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_Y_1), {
+    const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_Y_1), {
       containScroll: 'trimSnaps',
       axis: 'y'
     })
@@ -70,7 +70,7 @@ describe('➡️  ContainScroll - Вертикальное', () => {
   })
 
   describe('"trimSnaps" правильно работает для слайдов С ОТСТУПАМИ и ВЫРАВНИВАНИЕМ:', () => {
-    const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_Y_2), {
+    const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_Y_2), {
       containScroll: 'trimSnaps',
       axis: 'y'
     })
@@ -124,7 +124,7 @@ describe('➡️  ContainScroll - Вертикальное', () => {
 
   describe('"trimSnaps" правильно работает для крайних случаев, когда:', () => {
     test('Размер контента на 2 пикселя больше видимой области', () => {
-      const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_Y_3), { axis: 'y' })
+      const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_Y_3), { axis: 'y' })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0]
@@ -135,7 +135,7 @@ describe('➡️  ContainScroll - Вертикальное', () => {
     })
 
     test('Размер контента на 3 пикселя больше видимой области', () => {
-      const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_Y_4), { axis: 'y' })
+      const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_Y_4), { axis: 'y' })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0, -3]
@@ -146,7 +146,7 @@ describe('➡️  ContainScroll - Вертикальное', () => {
     })
 
     test('Размер контента меньше видимой области', () => {
-      const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_Y_5), { axis: 'y' })
+      const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_Y_5), { axis: 'y' })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0]
@@ -157,7 +157,7 @@ describe('➡️  ContainScroll - Вертикальное', () => {
     })
 
     test('Снапы в начале с разницей меньше 1 пикселя', () => {
-      const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_Y_6), { axis: 'y' })
+      const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_Y_6), { axis: 'y' })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0, -80, -160, -240, -320, -400]
@@ -168,7 +168,7 @@ describe('➡️  ContainScroll - Вертикальное', () => {
     })
 
     test('Снапы в конце с разницей меньше 1 пикселя', () => {
-      const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_Y_7), { axis: 'y' })
+      const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_Y_7), { axis: 'y' })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0, -133.5, -266.5, -400]
@@ -180,7 +180,7 @@ describe('➡️  ContainScroll - Вертикальное', () => {
   })
 
   describe('"keepSnaps" правильно работает для слайдов БЕЗ ОТСТУПОВ и ВЫРАВНИВАНИЯ:', () => {
-    const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_Y_1), {
+    const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_Y_1), {
       containScroll: 'keepSnaps',
       axis: 'y'
     })
@@ -232,7 +232,7 @@ describe('➡️  ContainScroll - Вертикальное', () => {
   })
 
   describe('"keepSnaps" правильно работает для слайдов С ОТСТУПАМИ и ВЫРАВНИВАНИЕМ:', () => {
-    const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_Y_2), {
+    const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_Y_2), {
       containScroll: 'keepSnaps',
       axis: 'y'
     })
@@ -285,7 +285,7 @@ describe('➡️  ContainScroll - Вертикальное', () => {
 
   describe('"keepSnaps" правильно работает для крайних случаев, когда размер контента:', () => {
     test('на 2 пикселя больше видимой области', () => {
-      const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_Y_3), {
+      const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_Y_3), {
         containScroll: 'keepSnaps',
         axis: 'y'
       })
@@ -299,7 +299,7 @@ describe('➡️  ContainScroll - Вертикальное', () => {
     })
 
     test('на 3 пикселя больше видимой области', () => {
-      const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_Y_4), {
+      const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_Y_4), {
         containScroll: 'keepSnaps',
         axis: 'y'
       })
@@ -313,7 +313,7 @@ describe('➡️  ContainScroll - Вертикальное', () => {
     })
 
     test('меньше видимой области', () => {
-      const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_Y_5), {
+      const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_Y_5), {
         containScroll: 'keepSnaps',
         axis: 'y'
       })

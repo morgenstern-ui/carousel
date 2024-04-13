@@ -1,12 +1,12 @@
-import type { EmblaCarouselType } from './EmblaCarousel.ts'
-import type { EventHandlerType } from './EventHandler.ts'
+import type { EmblaCarouselType } from './useEmblaCarousel.ts'
+import type { EventHandlerType } from './useEventHandler.ts'
 import { isBoolean } from './utils.ts'
 
 type SlidesHandlerCallbackType = (emblaApi: EmblaCarouselType, mutations: MutationRecord[]) => boolean | void
 
 export type SlidesHandlerOptionType = boolean | SlidesHandlerCallbackType
 
-export type SlidesHandlerType = ReturnType<typeof SlidesHandler>
+export type SlidesHandlerType = ReturnType<typeof useSlidesHandler>
 
 /**
  * Создает экземпляр SlidesHandler.
@@ -16,7 +16,7 @@ export type SlidesHandlerType = ReturnType<typeof SlidesHandler>
  * @param watchSlides - Опция для отслеживания изменений слайдов.
  * @returns Объект с методами `init` и `destroy`.
  */
-export function SlidesHandler(
+export function useSlidesHandler(
   container: HTMLElement,
   eventHandler: EventHandlerType,
   watchSlides: SlidesHandlerOptionType

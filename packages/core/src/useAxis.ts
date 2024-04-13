@@ -1,4 +1,4 @@
-import type { NodeRectType } from './NodeRects.ts'
+import type { NodeRectType } from './useNodeRects.ts'
 
 /**
  * Опции оси.

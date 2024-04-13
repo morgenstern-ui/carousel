@@ -1,4 +1,4 @@
-import type { LimitType } from './Limit.ts'
+import type { LimitType } from './useLimit.ts'
 import type { Vector1DType } from './Vector1d.ts'
 import { arrayLast, mathAbs, mathSign } from './utils.ts'
 
@@ -13,31 +13,7 @@ export type TargetType = {
 /**
  * Представляет операции с целью прокрутки.
  */
-export type ScrollTargetType = {
-  /**
-   * Вычисляет цель прокрутки на основе целевого индекса и направления.
-   * @param target - Целевой индекс.
-   * @param direction - Направление прокрутки.
-   * @returns Цель прокрутки.
-   */
-  byIndex: (target: number, direction: number) => TargetType
-
-  /**
-   * Вычисляет цель прокрутки на основе расстояния и опции привязки.
-   * @param force - Расстояние для прокрутки.
-   * @param snap - Привязываться ли к ближайшей привязке прокрутки.
-   * @returns Цель прокрутки.
-   */
-  byDistance: (force: number, snap: boolean) => TargetType
-
-  /**
-   * Вычисляет цель прокрутки на основе целевого индекса и направления без привязки.
-   * @param target - Целевой индекс.
-   * @param direction - Направление прокрутки.
-   * @returns Цель прокрутки.
-   */
-  shortcut: (target: number, direction: number) => number
-}
+export type ScrollTargetType = ReturnType<typeof useScrollTarget>
 
 /**
  * Создает объект цели прокрутки.
@@ -54,7 +30,7 @@ export function useScrollTarget(
   contentSize: number,
   limit: LimitType,
   targetVector: Vector1DType
-): ScrollTargetType {
+) {
   const { reachedAny, removeOffset, constrain } = limit
 
   /**
@@ -82,10 +58,10 @@ export function useScrollTarget(
   }
 
   /**
-   * Вычисляет целевую привязку на основе целевой позиции и направления.
-   * @param target - Целевая позиция.
+   * Вычисляет цель прокрутки на основе целевого индекса и направления.
+   * @param target - Целевой индекс.
    * @param direction - Направление прокрутки.
-   * @returns Целевая привязка.
+   * @returns Цель прокрутки.
    */
   function shortcut(target: number, direction: number): number {
     const targets = [target, target + contentSize, target - contentSize]
@@ -129,7 +105,7 @@ export function useScrollTarget(
     return { index, distance: snapDistance }
   }
 
-  const self: ScrollTargetType = {
+  const self = {
     byDistance,
     byIndex,
     shortcut

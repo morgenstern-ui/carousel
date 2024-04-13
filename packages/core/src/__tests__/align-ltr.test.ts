@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest'
-import { EmblaCarousel } from '../EmblaCarousel'
+import { useEmblaCarousel } from '../useEmblaCarousel'
 import { mockTestElements } from './mocks'
 import { FIXTURE_ALIGN_LTR_1, FIXTURE_ALIGN_LTR_2 } from './fixtures/align-ltr.fixture'
 
@@ -7,7 +7,7 @@ const FIRST_SNAP_INDEX = 0
 
 describe('➡️  Align - Horizontal LTR', () => {
   describe('Корректно для слайдов БЕЗ ОТСТУПОВ и ВЫРАВНИВАНИЯ:', () => {
-    const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_ALIGN_LTR_1), {
+    const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_ALIGN_LTR_1), {
       containScroll: false
     })
 
@@ -53,7 +53,7 @@ describe('➡️  Align - Horizontal LTR', () => {
   })
 
   describe('Корректно для слайдов С ОТСТУПАМИ и ВЫРАВНИВАНИЕМ:', () => {
-    const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_ALIGN_LTR_2), {
+    const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_ALIGN_LTR_2), {
       containScroll: false
     })
 

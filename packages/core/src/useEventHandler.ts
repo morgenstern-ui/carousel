@@ -1,4 +1,4 @@
-import type { EmblaCarouselType } from './EmblaCarousel.ts'
+import type { EmblaCarouselType } from './useEmblaCarousel.ts'
 
 type CallbackType = (emblaApi: EmblaCarouselType, evt: EmblaEventType) => void
 type ListenersType = Partial<{ [key in EmblaEventType]: CallbackType[] }>
