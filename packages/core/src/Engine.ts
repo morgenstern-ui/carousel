@@ -1,13 +1,13 @@
 import { useSlideAlignment } from './Alignment.ts'
 import { Animations, type AnimationsType, type AnimationsUpdateType, type AnimationsRenderType } from './Animations.ts'
-import { Axis, type AxisType } from './Axis.ts'
+import { useAxis, type AxisType } from './Axis.ts'
 import { Counter, type CounterType } from './Counter.ts'
 import { DragHandler, type DragHandlerType } from './DragHandler.ts'
 import { DragTracker } from './DragTracker.ts'
 import type { EventHandlerType } from './EventHandler.ts'
 import { EventStore, type EventStoreType } from './EventStore.ts'
 import type { LimitType } from './Limit.ts'
-import { NodeRects, type NodeRectType } from './NodeRects.ts'
+import { useNodeRects, type NodeRectType } from './NodeRects.ts'
 import type { OptionsType } from './Options.ts'
 import { PercentOfView, type PercentOfViewType } from './PercentOfView.ts'
 import { ResizeHandler, type ResizeHandlerType } from './ResizeHandler.ts'
@@ -68,7 +68,7 @@ export type EngineType = {
   slideRects: NodeRectType[]
 }
 
-export function Engine(
+export function useEngine(
   root: HTMLElement,
   container: HTMLElement,
   slides: HTMLElement[],
@@ -98,10 +98,10 @@ export function Engine(
 
   // Measurements
   const pixelTolerance = 2
-  const nodeRects = NodeRects()
+  const nodeRects = useNodeRects()
   const containerRect = nodeRects.measure(container)
   const slideRects = slides.map(nodeRects.measure)
-  const axis = Axis(scrollAxis, direction)
+  const axis = useAxis(scrollAxis, direction)
   const viewSize = axis.measureSize(containerRect)
   const percentOfView = PercentOfView(viewSize)
   const alignment = useSlideAlignment(align, viewSize)

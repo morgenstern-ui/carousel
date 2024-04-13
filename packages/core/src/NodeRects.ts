@@ -7,13 +7,13 @@ export type NodeRectType = {
   height: number
 }
 
-export type NodeRectsType = ReturnType<typeof NodeRects>
+export type NodeRectsType = ReturnType<typeof useNodeRects>
 
 /**
  * Функция, которая возвращает объект с функцией измерения.
  * @returns {NodeRectsType} Объект с функцией измерения.
  */
-export function NodeRects() {
+export function useNodeRects() {
   /**
    * Функция, которая измеряет node и возвращает его размеры и позицию.
    * @param {HTMLElement} node - Node для измерения.

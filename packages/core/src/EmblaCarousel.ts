@@ -1,4 +1,4 @@
-import { Engine, type EngineType } from './Engine.ts'
+import { useEngine, type EngineType } from './Engine.ts'
 import { EventStore } from './EventStore.ts'
 import { EventHandler, type EventHandlerType } from './EventHandler.ts'
 import { defaultOptions, type EmblaOptionsType, type OptionsType } from './Options.ts'
@@ -67,7 +67,7 @@ export function EmblaCarousel(
   }
 
   function createEngine(options: OptionsType): EngineType {
-    const engine = Engine(root, container, slides, ownerDocument, ownerWindow, options, eventHandler)
+    const engine = useEngine(root, container, slides, ownerDocument, ownerWindow, options, eventHandler)
 
     if (options.loop && !engine.slideLooper.canLoop()) {
       const optionsWithoutLoop = Object.assign({}, options, { loop: false })

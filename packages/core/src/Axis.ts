@@ -4,7 +4,7 @@ export type AxisOptionType = 'x' | 'y'
 export type AxisDirectionOptionType = 'ltr' | 'rtl'
 type AxisEdgeType = 'top' | 'right' | 'bottom' | 'left'
 
-export type AxisType = ReturnType<typeof Axis>
+export type AxisType = ReturnType<typeof useAxis>
 
 /**
  * Функция для использования оси.
@@ -12,7 +12,7 @@ export type AxisType = ReturnType<typeof Axis>
  * @param {AxisDirectionOptionType} contentDirection - Направление содержимого, может быть 'ltr' или 'rtl'.
  * @returns {AxisType} Объект, представляющий ось.
  */
-export function Axis(axis: AxisOptionType, contentDirection: AxisDirectionOptionType) {
+export function useAxis(axis: AxisOptionType, contentDirection: AxisDirectionOptionType) {
   const isRightToLeft = contentDirection === 'rtl'
   const isVertical = axis === 'y'
   const scroll = isVertical ? 'y' : 'x'
