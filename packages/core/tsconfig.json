@@ -1,0 +1,5 @@
+{
+  "extends": "@teleskop150750/typescript-config/tsconfig.base.json",
+  "exclude": ["node_modules", "**/*.test.ts"],
+  "include": ["src"]
+}
