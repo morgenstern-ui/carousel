@@ -1,17 +1,17 @@
 import { describe, expect, test } from 'vitest'
 import { EmblaCarousel } from '../EmblaCarousel'
 import { mockTestElements } from './mocks'
-import { FIXTURE_ALIGN_LTR_1 } from './fixtures/align-ltr.fixture'
+import { FIXTURE_ALIGN_LTR_1, FIXTURE_ALIGN_LTR_2 } from './fixtures/align-ltr.fixture'
 
 const FIRST_SNAP_INDEX = 0
 
 describe('➡️  Align - Horizontal LTR', () => {
-  describe('Is correct for slides WITHOUT MARGINS and ALIGN is:', () => {
+  describe('Корректно для слайдов БЕЗ ОТСТУПОВ и ВЫРАВНИВАНИЯ:', () => {
     const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_ALIGN_LTR_1), {
       containScroll: false
     })
 
-    test('Start', () => {
+    test('Начало', () => {
       emblaApi.reInit({ align: 'start' })
 
       const engine = emblaApi.internalEngine()
@@ -21,7 +21,7 @@ describe('➡️  Align - Horizontal LTR', () => {
       expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
     })
 
-    test('Center', () => {
+    test('Центр', () => {
       emblaApi.reInit({ align: 'center' })
 
       const engine = emblaApi.internalEngine()
@@ -31,7 +31,7 @@ describe('➡️  Align - Horizontal LTR', () => {
       expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
     })
 
-    test('End', () => {
+    test('Конец', () => {
       emblaApi.reInit({ align: 'end' })
 
       const engine = emblaApi.internalEngine()
@@ -41,7 +41,7 @@ describe('➡️  Align - Horizontal LTR', () => {
       expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
     })
 
-    test('Custom', () => {
+    test('Пользовательское', () => {
       emblaApi.reInit({ align: (viewSize) => viewSize * 0.1 })
 
       const engine = emblaApi.internalEngine()
@@ -52,12 +52,12 @@ describe('➡️  Align - Horizontal LTR', () => {
     })
   })
 
-  describe('Is correct for slides WITH MARGINS and ALIGN is:', () => {
+  describe('Корректно для слайдов С ОТСТУПАМИ и ВЫРАВНИВАНИЕМ:', () => {
     const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_ALIGN_LTR_2), {
       containScroll: false
     })
 
-    test('Start', () => {
+    test('Начало', () => {
       emblaApi.reInit({ align: 'start' })
 
       const engine = emblaApi.internalEngine()
@@ -67,7 +67,7 @@ describe('➡️  Align - Horizontal LTR', () => {
       expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
     })
 
-    test('Center', () => {
+    test('Центр', () => {
       emblaApi.reInit({ align: 'center' })
 
       const engine = emblaApi.internalEngine()
@@ -77,7 +77,7 @@ describe('➡️  Align - Horizontal LTR', () => {
       expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
     })
 
-    test('End', () => {
+    test('Конец', () => {
       emblaApi.reInit({ align: 'end' })
 
       const engine = emblaApi.internalEngine()

@@ -4,19 +4,22 @@ import type { ScrollToType } from './ScrollTo.ts'
 import type { SlideRegistryType } from './SlideRegistry.ts'
 import { isNumber } from './utils.ts'
 
-export type SlideFocusType = ReturnType<typeof SlideFocus>
+/**
+ * Представляет тип хука `useSlideFocus`.
+ */
+export type SlideFocusType = ReturnType<typeof useSlideFocus>
 
 /**
- * Создает функцию для управления фокусом слайдов.
- * @param {HTMLElement} root - Корневой элемент.
- * @param {HTMLElement[]} slides - Массив слайдов.
- * @param {SlideRegistryType['slideRegistry']} slideRegistry - Реестр слайдов.
- * @param {ScrollToType} scrollTo - Функция прокрутки до определенного слайда.
- * @param {ScrollBodyType} scrollBody - Тело прокрутки.
- * @param {EventStoreType} eventStore - Хранилище событий.
- * @returns {SlideFocusType} Функция для управления фокусом слайдов.
+ * Хук, управляющий поведением фокуса слайдов в карусели.
+ * @param root - Корневой элемент карусели.
+ * @param slides - Массив элементов слайдов.
+ * @param slideRegistry - Объект реестра слайдов.
+ * @param scrollTo - Функция прокрутки к слайду.
+ * @param scrollBody - Объект тела прокрутки.
+ * @param eventStore - Объект хранилища событий.
+ * @returns Объект, содержащий функцию `init`.
  */
-export function SlideFocus(
+export function useSlideFocus(
   root: HTMLElement,
   slides: HTMLElement[],
   slideRegistry: SlideRegistryType['slideRegistry'],
@@ -27,7 +30,7 @@ export function SlideFocus(
   let lastTabPressTime = 0
 
   /**
-   * Инициализирует функцию управления фокусом слайдов.
+   * Инициализирует поведение фокуса слайдов.
    */
   function init(): void {
     eventStore.add(document, 'keydown', registerTabPress, false)
@@ -35,16 +38,16 @@ export function SlideFocus(
   }
 
   /**
-   * Регистрирует время нажатия клавиши Tab.
-   * @param {KeyboardEvent} event - Событие клавиатуры.
+   * Регистрирует событие нажатия клавиши Tab.
+   * @param event - Событие клавиатуры.
    */
   function registerTabPress(event: KeyboardEvent): void {
     if (event.code === 'Tab') lastTabPressTime = new Date().getTime()
   }
 
   /**
-   * Добавляет событие фокуса на слайд.
-   * @param {HTMLElement} slide - Слайд.
+   * Добавляет слушатель события фокуса к элементу слайда.
+   * @param slide - Элемент слайда.
    */
   function addSlideFocusEvent(slide: HTMLElement): void {
     const focus = (): void => {

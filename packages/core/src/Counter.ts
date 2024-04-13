@@ -1,41 +1,48 @@
-import { Limit } from './Limit.ts'
-import { mathAbs } from './utils.ts'
-
-export type CounterType = ReturnType<typeof Counter>
+import { useLimit } from "./Limit.ts"
+import { mathAbs } from "./utils.ts"
 
 /**
- * Экспортируемая функция Counter, которая создает объект для управления счетчиком.
- * @param {number} max - Максимальное значение счетчика.
- * @param {number} start - Начальное значение счетчика.
- * @param {boolean} loop - Флаг, указывающий, должен ли счетчик зацикливаться.
- * @returns {CounterType} Возвращает объект Counter.
+ * Тип счетчика.
  */
-export function Counter(max: number, start: number, loop: boolean) {
-  const { constrain } = Limit(0, max)
+export type CounterType = ReturnType<typeof useCounter>
+
+/**
+ * Создает и возвращает счетчик.
+ * 
+ * @param max - Максимальное значение счетчика.
+ * @param start - Начальное значение счетчика.
+ * @param loop - Флаг, указывающий, должен ли счетчик зацикливаться.
+ * @returns Возвращает объект счетчика.
+ */
+export function useCounter(max: number, start: number, loop: boolean) {
+  const { constrain } = useLimit(0, max)
   const loopEnd = max + 1
   let counter = withinLimit(start)
 
   /**
-   * Проверяет, находится ли значение в пределах допустимого диапазона.
-   * @param {number} n - Значение для проверки.
-   * @returns {number} Возвращает значение в пределах допустимого диапазона.
+   * Проверяет, что значение находится в пределах ограничений счетчика.
+   * 
+   * @param n - Значение для проверки.
+   * @returns Возвращает значение, ограниченное пределами счетчика.
    */
   function withinLimit(n: number): number {
     return !loop ? constrain(n) : mathAbs((loopEnd + n) % loopEnd)
   }
 
   /**
-   * Получает текущее значение счетчика.
-   * @returns {number} Возвращает текущее значение счетчика.
+   * Возвращает текущее значение счетчика.
+   * 
+   * @returns Возвращает текущее значение счетчика.
    */
   function get(): number {
     return counter
   }
 
   /**
-   * Устанавливает значение счетчика.
-   * @param {number} n - Значение для установки.
-   * @returns {CounterType} Возвращает объект Counter.
+   * Устанавливает новое значение счетчика.
+   * 
+   * @param n - Новое значение счетчика.
+   * @returns Возвращает объект счетчика.
    */
   function set(n: number): CounterType {
     counter = withinLimit(n)
@@ -43,20 +50,22 @@ export function Counter(max: number, start: number, loop: boolean) {
   }
 
   /**
-   * Добавляет значение к счетчику.
-   * @param {number} n - Значение для добавления.
-   * @returns {CounterType} Возвращает объект Counter.
+   * Увеличивает значение счетчика на указанное количество.
+   * 
+   * @param n - Количество, на которое нужно увеличить счетчик.
+   * @returns Возвращает объект счетчика.
    */
   function add(n: number): CounterType {
     return clone().set(get() + n)
   }
 
   /**
-   * Создает копию счетчика.
-   * @returns {CounterType} Возвращает копию объекта Counter.
+   * Создает и возвращает копию счетчика.
+   * 
+   * @returns Возвращает копию счетчика.
    */
   function clone(): CounterType {
-    return Counter(max, get(), loop)
+    return useCounter(max, get(), loop)
   }
 
   const self = {

@@ -4,8 +4,8 @@ import { mockTestElements } from './mocks'
 import { FIXTURE_SCROLL_PROGRESS_RTL_1, FIXTURE_SCROLL_PROGRESS_RTL_2 } from './fixtures/scrollProgress-rtl.fixture'
 
 describe('➡️  ScrollProgress - Horizontal RTL', () => {
-  describe('Is correct for each snap point when:', () => {
-    test('Slides are WITHOUT MARGINS', () => {
+  describe('Корректен для каждой точки привязки, когда:', () => {
+    test('Слайды БЕЗ ОТСТУПОВ', () => {
       const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_SCROLL_PROGRESS_RTL_1), { direction: 'rtl' })
 
       expect(emblaApi.scrollProgress()).toBe(-0)
@@ -23,7 +23,7 @@ describe('➡️  ScrollProgress - Horizontal RTL', () => {
       expect(emblaApi.scrollProgress()).toBe(1)
     })
 
-    test('Slides are WITH MARGINS', () => {
+    test('Слайды С ОТСТУПАМИ', () => {
       const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_SCROLL_PROGRESS_RTL_2), { direction: 'rtl' })
 
       expect(emblaApi.scrollProgress()).toBe(-0)

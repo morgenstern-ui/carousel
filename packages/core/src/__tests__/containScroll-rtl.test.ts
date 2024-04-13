@@ -14,13 +14,13 @@ import {
 const FIRST_SNAP_INDEX = 0
 
 describe('➡️  ContainScroll - Horizontal RTL', () => {
-  describe('"trimSnaps" is correct for slides WITHOUT MARGINS and ALIGN is:', () => {
+  describe('Правильность "trimSnaps" для слайдов БЕЗ ОТСТУПОВ и выравнивание:', () => {
     const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_RTL_1), {
       containScroll: 'trimSnaps',
       direction: 'rtl'
     })
 
-    test('Start', () => {
+    test('В начале', () => {
       emblaApi.reInit({ align: 'start' })
 
       const engine = emblaApi.internalEngine()
@@ -32,7 +32,7 @@ describe('➡️  ContainScroll - Horizontal RTL', () => {
       expect(engine.slideRegistry).toEqual([[0], [1], [2], [3], [4, 5, 6, 7, 8, 9]])
     })
 
-    test('Center', () => {
+    test('По центру', () => {
       emblaApi.reInit({ align: 'center' })
 
       const engine = emblaApi.internalEngine()
@@ -44,7 +44,7 @@ describe('➡️  ContainScroll - Horizontal RTL', () => {
       expect(engine.slideRegistry).toEqual([[0, 1, 2], [3], [4], [5], [6], [7, 8, 9]])
     })
 
-    test('End', () => {
+    test('В конце', () => {
       emblaApi.reInit({ align: 'end' })
 
       const engine = emblaApi.internalEngine()
@@ -56,7 +56,7 @@ describe('➡️  ContainScroll - Horizontal RTL', () => {
       expect(engine.slideRegistry).toEqual([[0, 1, 2, 3, 4, 5], [6], [7], [8], [9]])
     })
 
-    test('Custom', () => {
+    test('Пользовательское', () => {
       emblaApi.reInit({ align: (viewSize) => viewSize * 0.1 })
 
       const engine = emblaApi.internalEngine()
@@ -69,13 +69,13 @@ describe('➡️  ContainScroll - Horizontal RTL', () => {
     })
   })
 
-  describe('"trimSnaps" is correct for slides WITH MARGINS and ALIGN is:', () => {
+  describe('Правильность "trimSnaps" для слайдов С ОТСТУПАМИ и выравнивание:', () => {
     const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_RTL_2), {
       containScroll: 'trimSnaps',
       direction: 'rtl'
     })
 
-    test('Start', () => {
+    test('В начале', () => {
       emblaApi.reInit({ align: 'start' })
 
       const engine = emblaApi.internalEngine()
@@ -87,7 +87,7 @@ describe('➡️  ContainScroll - Horizontal RTL', () => {
       expect(engine.slideRegistry).toEqual([[0], [1], [2], [3], [4], [5, 6, 7, 8, 9]])
     })
 
-    test('Center', () => {
+    test('По центру', () => {
       emblaApi.reInit({ align: 'center' })
 
       const engine = emblaApi.internalEngine()
@@ -99,7 +99,7 @@ describe('➡️  ContainScroll - Horizontal RTL', () => {
       expect(engine.slideRegistry).toEqual([[0, 1, 2], [3], [4], [5], [6], [7], [8, 9]])
     })
 
-    test('End', () => {
+    test('В конце', () => {
       emblaApi.reInit({ align: 'end' })
 
       const engine = emblaApi.internalEngine()
@@ -111,7 +111,7 @@ describe('➡️  ContainScroll - Horizontal RTL', () => {
       expect(engine.slideRegistry).toEqual([[0, 1, 2, 3, 4], [5], [6], [7], [8], [9]])
     })
 
-    test('Custom', () => {
+    test('Пользовательское', () => {
       emblaApi.reInit({ align: (viewSize) => viewSize * 0.1 })
 
       const engine = emblaApi.internalEngine()
@@ -124,8 +124,8 @@ describe('➡️  ContainScroll - Horizontal RTL', () => {
     })
   })
 
-  describe('"trimSnaps" is correct for edge cases when:', () => {
-    test('Content size is 2 pixels wider than viewport', () => {
+  describe('Правильность "trimSnaps" для крайних случаев, когда:', () => {
+    test('Размер контента на 2 пикселя больше видимой области', () => {
       const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_RTL_3), { direction: 'rtl' })
 
       const engine = emblaApi.internalEngine()
@@ -136,7 +136,7 @@ describe('➡️  ContainScroll - Horizontal RTL', () => {
       expect(engine.slideRegistry).toEqual([[0, 1]])
     })
 
-    test('Content size is 3 pixels wider than viewport', () => {
+    test('Размер контента на 3 пикселя больше видимой области', () => {
       const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_RTL_4), { direction: 'rtl' })
 
       const engine = emblaApi.internalEngine()
@@ -147,7 +147,7 @@ describe('➡️  ContainScroll - Horizontal RTL', () => {
       expect(engine.slideRegistry).toEqual([[0], [1]])
     })
 
-    test('Content size is less than viewport', () => {
+    test('Размер контента меньше видимой области', () => {
       const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_RTL_5), { direction: 'rtl' })
 
       const engine = emblaApi.internalEngine()
@@ -158,7 +158,7 @@ describe('➡️  ContainScroll - Horizontal RTL', () => {
       expect(engine.slideRegistry).toEqual([[0, 1]])
     })
 
-    test('Snaps at the START diff less than 1 pixel', () => {
+    test('Снапы в начале с разницей меньше 1 пикселя', () => {
       const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_RTL_6), { direction: 'rtl' })
 
       const engine = emblaApi.internalEngine()
@@ -169,7 +169,7 @@ describe('➡️  ContainScroll - Horizontal RTL', () => {
       expect(engine.slideRegistry).toEqual([[0, 1, 2], [3], [4], [5], [6], [7, 8, 9]])
     })
 
-    test('Snaps at the END diff less than 1 pixel', () => {
+    test('Снапы в конце с разницей меньше 1 пикселя', () => {
       const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_RTL_7), { direction: 'rtl' })
 
       const engine = emblaApi.internalEngine()
@@ -181,13 +181,13 @@ describe('➡️  ContainScroll - Horizontal RTL', () => {
     })
   })
 
-  describe('"keepSnaps" is correct for slides WITHOUT MARGINS and ALIGN is:', () => {
+  describe('Правильность "keepSnaps" для слайдов БЕЗ ОТСТУПОВ и выравнивание:', () => {
     const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_RTL_1), {
       containScroll: 'keepSnaps',
       direction: 'rtl'
     })
 
-    test('Start', () => {
+    test('В начале', () => {
       emblaApi.reInit({ align: 'start' })
 
       const engine = emblaApi.internalEngine()
@@ -198,7 +198,7 @@ describe('➡️  ContainScroll - Horizontal RTL', () => {
       expect(engine.slideRegistry).toEqual([[0], [1], [2], [3], [4], [5], [6], [7], [8], [9]])
     })
 
-    test('Center', () => {
+    test('По центру', () => {
       emblaApi.reInit({ align: 'center' })
 
       const engine = emblaApi.internalEngine()
@@ -209,7 +209,7 @@ describe('➡️  ContainScroll - Horizontal RTL', () => {
       expect(engine.slideRegistry).toEqual([[0], [1], [2], [3], [4], [5], [6], [7], [8], [9]])
     })
 
-    test('End', () => {
+    test('В конце', () => {
       emblaApi.reInit({ align: 'end' })
 
       const engine = emblaApi.internalEngine()
@@ -221,7 +221,7 @@ describe('➡️  ContainScroll - Horizontal RTL', () => {
       expect(engine.slideRegistry).toEqual([[0], [1], [2], [3], [4], [5], [6], [7], [8], [9]])
     })
 
-    test('Custom', () => {
+    test('Пользовательское', () => {
       emblaApi.reInit({ align: (viewSize) => viewSize * 0.1 })
 
       const engine = emblaApi.internalEngine()
@@ -233,13 +233,13 @@ describe('➡️  ContainScroll - Horizontal RTL', () => {
     })
   })
 
-  describe('"keepSnaps" is correct for slides WITH MARGINS and ALIGN is:', () => {
+  describe('Правильность "keepSnaps" для слайдов С ОТСТУПАМИ и выравнивание:', () => {
     const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_RTL_2), {
       containScroll: 'keepSnaps',
       direction: 'rtl'
     })
 
-    test('Start', () => {
+    test('В начале', () => {
       emblaApi.reInit({ align: 'start' })
 
       const engine = emblaApi.internalEngine()
@@ -250,7 +250,7 @@ describe('➡️  ContainScroll - Horizontal RTL', () => {
       expect(engine.slideRegistry).toEqual([[0], [1], [2], [3], [4], [5], [6], [7], [8], [9]])
     })
 
-    test('Center', () => {
+    test('По центру', () => {
       emblaApi.reInit({ align: 'center' })
 
       const engine = emblaApi.internalEngine()
@@ -261,7 +261,7 @@ describe('➡️  ContainScroll - Horizontal RTL', () => {
       expect(engine.slideRegistry).toEqual([[0], [1], [2], [3], [4], [5], [6], [7], [8], [9]])
     })
 
-    test('End', () => {
+    test('В конце', () => {
       emblaApi.reInit({ align: 'end' })
 
       const engine = emblaApi.internalEngine()
@@ -273,7 +273,7 @@ describe('➡️  ContainScroll - Horizontal RTL', () => {
       expect(engine.slideRegistry).toEqual([[0], [1], [2], [3], [4], [5], [6], [7], [8], [9]])
     })
 
-    test('Custom', () => {
+    test('Пользовательское', () => {
       emblaApi.reInit({ align: (viewSize) => viewSize * 0.1 })
 
       const engine = emblaApi.internalEngine()
@@ -285,8 +285,8 @@ describe('➡️  ContainScroll - Horizontal RTL', () => {
     })
   })
 
-  describe('"keepSnaps" is correct for edge cases when content size is:', () => {
-    test('2 pixels wider than viewport', () => {
+  describe('Правильность "keepSnaps" для крайних случаев, когда размер контента:', () => {
+    test('На 2 пикселя больше видимой области', () => {
       const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_RTL_3), {
         containScroll: 'keepSnaps',
         direction: 'rtl'
@@ -300,7 +300,7 @@ describe('➡️  ContainScroll - Horizontal RTL', () => {
       expect(engine.slideRegistry).toEqual([[0, 1]])
     })
 
-    test('3 pixels wider than viewport', () => {
+    test('На 3 пикселя больше видимой области', () => {
       const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_RTL_4), {
         containScroll: 'keepSnaps',
         direction: 'rtl'
@@ -314,7 +314,7 @@ describe('➡️  ContainScroll - Horizontal RTL', () => {
       expect(engine.slideRegistry).toEqual([[0], [1]])
     })
 
-    test('Less than viewport', () => {
+    test('Меньше видимой области', () => {
       const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_RTL_5), {
         containScroll: 'keepSnaps',
         direction: 'rtl'

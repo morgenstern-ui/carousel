@@ -1,3 +1,6 @@
+/**
+ * Тип, представляющий прямоугольник узла.
+ */
 export type NodeRectType = {
   top: number
   right: number
@@ -7,17 +10,21 @@ export type NodeRectType = {
   height: number
 }
 
+/**
+ * Тип, представляющий прямоугольники узлов, возвращаемые функцией useNodeRects.
+ */
 export type NodeRectsType = ReturnType<typeof useNodeRects>
 
 /**
- * Функция, которая возвращает объект с функцией измерения.
- * @returns {NodeRectsType} Объект с функцией измерения.
+ * Функция, используемая для измерения прямоугольника узла.
+ * @param node - HTML-элемент, для которого нужно измерить прямоугольник.
+ * @returns Прямоугольник узла.
  */
 export function useNodeRects() {
   /**
-   * Функция, которая измеряет node и возвращает его размеры и позицию.
-   * @param {HTMLElement} node - Node для измерения.
-   * @returns {NodeRectType} Размеры и позиция узла.
+   * Измеряет прямоугольник узла.
+   * @param node - HTML-элемент, для которого нужно измерить прямоугольник.
+   * @returns Прямоугольник узла.
    */
   function measure(node: HTMLElement): NodeRectType {
     const { offsetTop, offsetLeft, offsetWidth, offsetHeight } = node

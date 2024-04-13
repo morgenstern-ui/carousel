@@ -1,18 +1,19 @@
-import { Limit } from './Limit.ts'
+import { useLimit } from './Limit.ts'
 import { arrayLast } from './utils.ts'
 
-export type ScrollLimitType = ReturnType<typeof ScrollLimit>
+export type ScrollLimitType = ReturnType<typeof useScrollLimit>
+
 /**
- * Функция для создания объекта ограничения прокрутки.
- * @param {number} contentSize - Размер содержимого.
- * @param {number[]} scrollSnaps - Массив снимков прокрутки.
- * @param {boolean} loop - Флаг цикличности.
- * @returns {ScrollLimitType} Возвращает объект ограничения прокрутки.
+ * Рассчитывает предел прокрутки на основе размера контента, позиций прокрутки и опции цикла.
+ * @param contentSize Размер контента.
+ * @param scrollSnaps Массив позиций прокрутки.
+ * @param loop Булево значение, указывающее, должен ли карусель циклически прокручиваться.
+ * @returns Объект, содержащий предел прокрутки.
  */
-export function ScrollLimit(contentSize: number, scrollSnaps: number[], loop: boolean) {
+export function useScrollLimit(contentSize: number, scrollSnaps: number[], loop: boolean) {
   const max = scrollSnaps[0]
   const min = loop ? max - contentSize : arrayLast(scrollSnaps)
-  const limit = Limit(min, max)
+  const limit = useLimit(min, max)
 
   const self = {
     limit

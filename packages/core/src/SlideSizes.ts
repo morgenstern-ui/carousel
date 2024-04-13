@@ -1,18 +1,22 @@
 import type { AxisType } from './Axis.ts'
 import type { NodeRectType } from './NodeRects.ts'
 import { arrayIsLastIndex, arrayLast, mathAbs, type WindowType } from './utils.ts'
-
+/**
+ * Возвращает тип размеров слайдов, возвращаемый функцией `useSlideSizes`.
+ */
 export type SlideSizesType = ReturnType<typeof useSlideSizes>
 
+
 /**
- * Функция для измерения размеров слайдов.
- * @param {AxisType} axis - Ось прокрутки.
- * @param {NodeRectType} containerRect - Прямоугольник контейнера.
- * @param {NodeRectType[]} slideRects - Массив прямоугольников слайдов.
- * @param {HTMLElement[]} slides - Массив элементов слайдов.
- * @param {boolean} readEdgeGap - Флаг, указывающий на необходимость чтения отступа от края.
- * @param {WindowType} ownerWindow - Окно, в котором находятся слайды.
- * @returns {SlideSizesType} Возвращает объект с измеренными размерами слайдов.
+ * Вычисляет размеры слайдов и промежутки между ними.
+ * 
+ * @param axis - Тип оси (горизонтальная или вертикальная).
+ * @param containerRect - Прямоугольник, представляющий контейнер.
+ * @param slideRects - Массив прямоугольников, представляющих каждый слайд.
+ * @param slides - Массив HTML-элементов, представляющих каждый слайд.
+ * @param readEdgeGap - Булево значение, указывающее, нужно ли считывать промежуток на краю.
+ * @param ownerWindow - Объект окна владельца.
+ * @returns Объект, содержащий размеры слайдов, размеры слайдов с промежутками, начальный промежуток и конечный промежуток.
  */
 export function useSlideSizes(
   axis: AxisType,
@@ -29,9 +33,11 @@ export function useSlideSizes(
   const slideSizes = slideRects.map(measureSize)
   const slideSizesWithGaps = measureWithGaps()
 
+
   /**
-   * Функция для измерения отступа от начала.
-   * @returns {number} Возвращает отступ от начала.
+   * Измеряет начальный промежуток между контейнером и первым слайдом.
+   * 
+   * @returns Начальный промежуток.
    */
   function measureStartGap(): number {
     if (!withEdgeGap) return 0
@@ -39,9 +45,11 @@ export function useSlideSizes(
     return mathAbs(containerRect[startEdge] - slideRect[startEdge])
   }
 
+
   /**
-   * Функция для измерения отступа от конца.
-   * @returns {number} Возвращает отступ от конца.
+   * Измеряет конечный промежуток между последним слайдом и контейнером.
+   * 
+   * @returns Конечный промежуток.
    */
   function measureEndGap(): number {
     if (!withEdgeGap) return 0
@@ -49,9 +57,11 @@ export function useSlideSizes(
     return parseFloat(style.getPropertyValue(`margin-${endEdge}`))
   }
 
+
   /**
-   * Функция для измерения размеров слайдов с учетом отступов.
-   * @returns {number[]} Возвращает массив размеров слайдов с учетом отступов.
+   * Измеряет размеры слайдов с промежутками между ними.
+   * 
+   * @returns Массив размеров слайдов с промежутками.
    */
   function measureWithGaps(): number[] {
     return slideRects
@@ -66,26 +76,6 @@ export function useSlideSizes(
       .map(mathAbs)
   }
 
-  // function measureWithGapsFoo(): number[] {
-  //   const len = slideRects.length
-  //   const result = new Array(len)
-
-  //   for (let index = 0; index < len; index++) {
-  //     const rect = slideRects[index]
-  //     const isFirst = !index
-  //     const isLast = arrayIsLastIndex(slideRects, index)
-
-  //     if (isFirst) {
-  //       result[index] = slideSizes[index] + startGap
-  //     } else if (isLast) {
-  //       result[index] = slideSizes[index] + endGap
-  //     } else {
-  //       result[index] = mathAbs(slideRects[index + 1][startEdge] - rect[startEdge])
-  //     }
-  //   }
-
-  //   return result
-  // }
 
   const self = {
     slideSizes,
@@ -93,6 +83,7 @@ export function useSlideSizes(
     startGap,
     endGap
   } as const
+
 
   return self
 }

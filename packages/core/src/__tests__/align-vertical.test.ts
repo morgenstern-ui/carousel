@@ -6,13 +6,13 @@ import { FIXTURE_ALIGN_Y_1, FIXTURE_ALIGN_Y_2 } from './fixtures/align-vertical.
 const FIRST_SNAP_INDEX = 0
 
 describe('➡️  Align - Vertical', () => {
-  describe('Is correct for slides WITHOUT MARGINS and ALIGN is:', () => {
+  describe('Корректно для слайдов БЕЗ ОТСТУПОВ и ВЫРАВНИВАНИЯ:', () => {
     const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_ALIGN_Y_1), {
       containScroll: false,
       axis: 'y'
     })
 
-    test('Start', () => {
+    test('Начало', () => {
       emblaApi.reInit({ align: 'start' })
 
       const engine = emblaApi.internalEngine()
@@ -22,7 +22,7 @@ describe('➡️  Align - Vertical', () => {
       expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
     })
 
-    test('Center', () => {
+    test('Центр', () => {
       emblaApi.reInit({ align: 'center' })
 
       const engine = emblaApi.internalEngine()
@@ -32,7 +32,7 @@ describe('➡️  Align - Vertical', () => {
       expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
     })
 
-    test('End', () => {
+    test('Конец', () => {
       emblaApi.reInit({ align: 'end' })
 
       const engine = emblaApi.internalEngine()
@@ -42,7 +42,7 @@ describe('➡️  Align - Vertical', () => {
       expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
     })
 
-    test('Custom', () => {
+    test('Пользовательское', () => {
       emblaApi.reInit({ align: (viewSize) => viewSize * 0.1 })
 
       const engine = emblaApi.internalEngine()
@@ -53,13 +53,13 @@ describe('➡️  Align - Vertical', () => {
     })
   })
 
-  describe('Is correct for slides WITH MARGINS and ALIGN is:', () => {
+  describe('Корректно для слайдов С ОТСТУПАМИ и ВЫРАВНИВАНИЕМ:', () => {
     const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_ALIGN_Y_2), {
       containScroll: false,
       axis: 'y'
     })
 
-    test('Start', () => {
+    test('Начало', () => {
       emblaApi.reInit({ align: 'start' })
 
       const engine = emblaApi.internalEngine()
@@ -69,7 +69,7 @@ describe('➡️  Align - Vertical', () => {
       expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
     })
 
-    test('Center', () => {
+    test('Центр', () => {
       emblaApi.reInit({ align: 'center' })
 
       const engine = emblaApi.internalEngine()
@@ -79,7 +79,7 @@ describe('➡️  Align - Vertical', () => {
       expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
     })
 
-    test('End', () => {
+    test('Конец', () => {
       emblaApi.reInit({ align: 'end' })
 
       const engine = emblaApi.internalEngine()
@@ -89,7 +89,7 @@ describe('➡️  Align - Vertical', () => {
       expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
     })
 
-    test('Custom', () => {
+    test('Пользовательское', () => {
       emblaApi.reInit({ align: (viewSize) => viewSize * 0.1 })
 
       const engine = emblaApi.internalEngine()

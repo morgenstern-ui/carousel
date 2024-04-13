@@ -10,10 +10,9 @@ import {
 
 const FIRST_SNAP_INDEX = 0
 
-describe('➡️  SlidesToScroll - Horizontal RTL', () => {
-  describe('"auto" is correct for slides WITHOUT MARGINS and:', () => {
+describe('➡️  Слайды для прокрутки - Горизонтальная RTL', () => {
+  describe('"auto" правильно для слайдов БЕЗ ОТСТУПОВ и:', () => {
     const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_SLIDES_TO_SCROLL_RTL_1))
-
     beforeEach(() => {
       emblaApi.reInit({
         ...defaultOptions,
@@ -21,14 +20,11 @@ describe('➡️  SlidesToScroll - Horizontal RTL', () => {
         direction: 'rtl'
       })
     })
-
     test('LOOP:FALSE', () => {
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0, -1000, -2000, -3001]
-
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
       expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
-
       expect(engine.slideRegistry).toEqual([
         [0, 1],
         [2, 3, 4, 5],
@@ -36,16 +32,12 @@ describe('➡️  SlidesToScroll - Horizontal RTL', () => {
         [8, 9]
       ])
     })
-
-    test('LOOP:FALSE and CONTAINSCROLL:FALSE', () => {
+    test('LOOP:FALSE и CONTAINSCROLL:FALSE', () => {
       emblaApi.reInit({ containScroll: false })
-
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0, -1000, -2000, -3000.5]
-
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
       expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
-
       expect(engine.slideRegistry).toEqual([
         [0, 1],
         [2, 3, 4, 5],
@@ -53,16 +45,12 @@ describe('➡️  SlidesToScroll - Horizontal RTL', () => {
         [8, 9]
       ])
     })
-
     test('LOOP:TRUE', () => {
       emblaApi.reInit({ loop: true })
-
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0, -1000, -2000, -3000.5]
-
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
       expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
-
       expect(engine.slideRegistry).toEqual([
         [0, 1],
         [2, 3, 4, 5],
@@ -71,10 +59,8 @@ describe('➡️  SlidesToScroll - Horizontal RTL', () => {
       ])
     })
   })
-
-  describe('"auto" is correct for slides WITH MARGINS and:', () => {
+  describe('"auto" правильно для слайдов С ОТСТУПАМИ и:', () => {
     const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_SLIDES_TO_SCROLL_RTL_2))
-
     beforeEach(() => {
       emblaApi.reInit({
         ...defaultOptions,
@@ -82,14 +68,11 @@ describe('➡️  SlidesToScroll - Horizontal RTL', () => {
         direction: 'rtl'
       })
     })
-
     test('LOOP:FALSE', () => {
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0, -1020, -2030, -3041]
-
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
       expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
-
       expect(engine.slideRegistry).toEqual([
         [0, 1],
         [2, 3, 4, 5],
@@ -97,16 +80,12 @@ describe('➡️  SlidesToScroll - Horizontal RTL', () => {
         [8, 9]
       ])
     })
-
-    test('LOOP:FALSE and CONTAINSCROLL:FALSE', () => {
+    test('LOOP:FALSE и CONTAINSCROLL:FALSE', () => {
       emblaApi.reInit({ containScroll: false })
-
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [-10, -1020, -2030, -3030.5]
-
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
       expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
-
       expect(engine.slideRegistry).toEqual([
         [0, 1],
         [2, 3, 4, 5],
@@ -114,16 +93,12 @@ describe('➡️  SlidesToScroll - Horizontal RTL', () => {
         [8, 9]
       ])
     })
-
     test('LOOP:TRUE', () => {
       emblaApi.reInit({ loop: true })
-
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [-10, -1020, -2030, -3030.5]
-
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
       expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
-
       expect(engine.slideRegistry).toEqual([
         [0, 1],
         [2, 3, 4, 5],
@@ -132,10 +107,8 @@ describe('➡️  SlidesToScroll - Horizontal RTL', () => {
       ])
     })
   })
-
-  describe('"auto" is correct for edge cases when slide width is greater than viewport and:', () => {
+  describe('"auto" правильно для крайних случаев, когда ширина слайда больше видимой области и:', () => {
     const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_SLIDES_TO_SCROLL_RTL_3))
-
     beforeEach(() => {
       emblaApi.reInit({
         ...defaultOptions,
@@ -143,45 +116,32 @@ describe('➡️  SlidesToScroll - Horizontal RTL', () => {
         direction: 'rtl'
       })
     })
-
     test('LOOP:FALSE', () => {
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0, -624, -1200, -1776, -2352, -2976]
-
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
       expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
-
       expect(engine.slideRegistry).toEqual([[0], [1], [2], [3], [4], [5]])
     })
-
-    test('LOOP:FALSE and CONTAINSCROLL:FALSE', () => {
+    test('LOOP:FALSE и CONTAINSCROLL:FALSE', () => {
       emblaApi.reInit({ containScroll: false })
-
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [-48, -624, -1200, -1776, -2352, -2928]
-
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
       expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
-
       expect(engine.slideRegistry).toEqual([[0], [1], [2], [3], [4], [5]])
     })
-
     test('LOOP:TRUE', () => {
       emblaApi.reInit({ loop: true })
-
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [-48, -624, -1200, -1776, -2352, -2928]
-
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
       expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
-
       expect(engine.slideRegistry).toEqual([[0], [1], [2], [3], [4], [5]])
     })
   })
-
-  describe('"Custom number 2" is correct for slides WITHOUT MARGINS and:', () => {
+  describe('"Пользовательское число 2" правильно для слайдов БЕЗ ОТСТУПОВ и:', () => {
     const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_SLIDES_TO_SCROLL_RTL_1))
-
     beforeEach(() => {
       emblaApi.reInit({
         ...defaultOptions,
@@ -189,14 +149,11 @@ describe('➡️  SlidesToScroll - Horizontal RTL', () => {
         direction: 'rtl'
       })
     })
-
     test('LOOP:FALSE', () => {
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0, -750, -1250, -2000, -3001]
-
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
       expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
-
       expect(engine.slideRegistry).toEqual([
         [0, 1],
         [2, 3],
@@ -205,16 +162,12 @@ describe('➡️  SlidesToScroll - Horizontal RTL', () => {
         [8, 9]
       ])
     })
-
-    test('LOOP:FALSE and CONTAINSCROLL:FALSE', () => {
+    test('LOOP:FALSE и CONTAINSCROLL:FALSE', () => {
       emblaApi.reInit({ containScroll: false })
-
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0, -750, -1250, -2000, -3000.5]
-
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
       expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
-
       expect(engine.slideRegistry).toEqual([
         [0, 1],
         [2, 3],
@@ -223,16 +176,12 @@ describe('➡️  SlidesToScroll - Horizontal RTL', () => {
         [8, 9]
       ])
     })
-
     test('LOOP:TRUE', () => {
       emblaApi.reInit({ loop: true })
-
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0, -750, -1250, -2000, -3000.5]
-
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
       expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
-
       expect(engine.slideRegistry).toEqual([
         [0, 1],
         [2, 3],
@@ -242,10 +191,8 @@ describe('➡️  SlidesToScroll - Horizontal RTL', () => {
       ])
     })
   })
-
-  describe('"Custom number 2" is correct for slides WITH MARGINS and:', () => {
+  describe('"Пользовательское число 2" правильно для слайдов С ОТСТУПАМИ и:', () => {
     const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_SLIDES_TO_SCROLL_RTL_2))
-
     beforeEach(() => {
       emblaApi.reInit({
         ...defaultOptions,
@@ -253,14 +200,11 @@ describe('➡️  SlidesToScroll - Horizontal RTL', () => {
         direction: 'rtl'
       })
     })
-
     test('LOOP:FALSE', () => {
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0, -765, -1275, -2030, -3041]
-
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
       expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
-
       expect(engine.slideRegistry).toEqual([
         [0, 1],
         [2, 3],
@@ -269,16 +213,12 @@ describe('➡️  SlidesToScroll - Horizontal RTL', () => {
         [8, 9]
       ])
     })
-
-    test('LOOP:FALSE and CONTAINSCROLL:FALSE', () => {
+    test('LOOP:FALSE и CONTAINSCROLL:FALSE', () => {
       emblaApi.reInit({ containScroll: false })
-
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [-10, -765, -1275, -2030, -3030.5]
-
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
       expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
-
       expect(engine.slideRegistry).toEqual([
         [0, 1],
         [2, 3],
@@ -287,16 +227,12 @@ describe('➡️  SlidesToScroll - Horizontal RTL', () => {
         [8, 9]
       ])
     })
-
     test('LOOP:TRUE', () => {
       emblaApi.reInit({ loop: true })
-
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [-10, -765, -1275, -2030, -3030.5]
-
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
       expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
-
       expect(engine.slideRegistry).toEqual([
         [0, 1],
         [2, 3],

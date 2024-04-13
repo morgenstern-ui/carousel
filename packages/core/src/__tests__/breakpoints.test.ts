@@ -24,7 +24,7 @@ describe('➡️  Breakpoints', () => {
     resetMatchingMediaQuery()
   })
 
-  test('Applies options at the root level when no media query match', () => {
+  test('Применяет опции на уровне корневого элемента, когда нет совпадения с медиа-запросом', () => {
     emblaApi.reInit()
 
     const engine = emblaApi.internalEngine()
@@ -33,7 +33,7 @@ describe('➡️  Breakpoints', () => {
     expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
   })
 
-  test('Applies options for a matching media query', () => {
+  test('Применяет опции для совпадающего медиа-запроса', () => {
     setMatchingMediaQuery(MEDIA_QUERY_EXTRA_LARGE)
     emblaApi.reInit()
 
@@ -43,7 +43,7 @@ describe('➡️  Breakpoints', () => {
     expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
   })
 
-  test('Applies options for the last matching query if multiple queries match and options are in conflict', () => {
+  test('Применяет опции для последнего совпадающего запроса, если несколько запросов совпадают и опции конфликтуют', () => {
     setMatchingMediaQuery([MEDIA_QUERY_EXTRA_LARGE, MEDIA_QUERY_EXTRA_SMALL])
     emblaApi.reInit()
 
@@ -53,7 +53,7 @@ describe('➡️  Breakpoints', () => {
     expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
   })
 
-  test('Merges options when multiple queries match and options are not in conflict', () => {
+  test('Объединяет опции, когда несколько запросов совпадают и опции не конфликтуют', () => {
     setMatchingMediaQuery([MEDIA_QUERY_EXTRA_LARGE, MEDIA_QUERY_EXTRA_SMALL])
     emblaApi.reInit()
 

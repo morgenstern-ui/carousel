@@ -8,20 +8,21 @@ type ResizeHandlerCallbackType = (emblaApi: EmblaCarouselType, entries: ResizeOb
 
 export type ResizeHandlerOptionType = boolean | ResizeHandlerCallbackType
 
-export type ResizeHandlerType = ReturnType<typeof ResizeHandler>
+export type ResizeHandlerType = ReturnType<typeof useResizeHandler>
 
 /**
- * Создает обработчик изменения размера.
- * @param {HTMLElement} container - Контейнер.
- * @param {EventHandlerType} eventHandler - Обработчик событий.
- * @param {WindowType} ownerWindow - Объект окна.
- * @param {HTMLElement[]} slides - Слайды.
- * @param {AxisType} axis - Ось.
- * @param {ResizeHandlerOptionType} watchResize - Опция отслеживания изменения размера.
- * @param {NodeRectsType} nodeRects - Прямоугольники узлов.
- * @returns {ResizeHandlerType} Обработчик изменения размера.
+ * Создает обработчик изменения размера для контейнера карусели.
+ *
+ * @param container - HTML-элемент, представляющий контейнер карусели.
+ * @param eventHandler - Обработчик событий для карусели.
+ * @param ownerWindow - Объект окна карусели.
+ * @param slides - Массив HTML-элементов, представляющих слайды карусели.
+ * @param axis - Тип оси карусели (горизонтальная или вертикальная).
+ * @param watchResize - Опция для отслеживания событий изменения размера.
+ * @param nodeRects - Объект, содержащий методы для измерения размера узла.
+ * @returns Объект с методами для инициализации и уничтожения обработчика изменения размера.
  */
-export function ResizeHandler(
+export function useResizeHandler(
   container: HTMLElement,
   eventHandler: EventHandlerType,
   ownerWindow: WindowType,
@@ -35,18 +36,14 @@ export function ResizeHandler(
   let slideSizes: number[] = []
   let destroyed = false
 
-  /**
-   * Читает размер узла.
-   * @param {HTMLElement} node - Узел.
-   * @returns {number} Размер узла.
-   */
   function readSize(node: HTMLElement): number {
     return axis.measureSize(nodeRects.measure(node))
   }
 
   /**
    * Инициализирует обработчик изменения размера.
-   * @param {EmblaCarouselType} emblaApi - API карусели Embla.
+   *
+   * @param emblaApi - Экземпляр EmblaCarousel.
    */
   function init(emblaApi: EmblaCarouselType): void {
     if (!watchResize) return

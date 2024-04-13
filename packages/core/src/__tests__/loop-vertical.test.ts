@@ -7,11 +7,11 @@ import { FIXTURE_LOOP_Y_1, FIXTURE_LOOP_Y_2 } from './fixtures/loop-vertical.fix
 describe('➡️  Loop - Vertical', () => {
   const WRAP_AROUND_JOINT_SAFETY = 0.1
 
-  describe('Carousel with slides WITHOUT MARGINS has correct:', () => {
+  describe('Карусель со слайдами БЕЗ ОТСТУПОВ имеет правильное:', () => {
     const FIRST_SNAP_START = 0
     const LOOP_POINTS_START = [-660.5, -760.5, -960.5, -1110.5, -1360.5, -1490.5, -1590.5]
 
-    describe('Position when align is START and the carousel is scrolled:', () => {
+    describe('Положение при выравнивании в начало и прокрутке карусели:', () => {
       const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_LOOP_Y_1), {
         loop: true,
         align: 'start',
@@ -19,20 +19,20 @@ describe('➡️  Loop - Vertical', () => {
       })
       const engine = emblaApi.internalEngine()
 
-      test('Ahead of wrap around location:', () => {
+      test('Перед точкой оборачивания:', () => {
         scrollToLocationInstant(engine, FIRST_SNAP_START + WRAP_AROUND_JOINT_SAFETY + 0.01)
 
         expect(emblaApi.containerNode().style.transform).toBe('translate3d(0px,-1659.89px,0px)')
       })
 
-      test('Just before wrap around location:', () => {
+      test('Прямо перед точкой оборачивания:', () => {
         scrollToLocationInstant(engine, FIRST_SNAP_START + WRAP_AROUND_JOINT_SAFETY - 0.01)
 
         expect(emblaApi.containerNode().style.transform).toBe('translate3d(0px,0.09000000000000001px,0px)')
       })
     })
 
-    describe('Slide positions when align is START and the carousel is scrolled:', () => {
+    describe('Позиции слайдов при выравнивании в начало и прокрутке карусели:', () => {
       const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_LOOP_Y_1), {
         loop: true,
         align: 'start',
@@ -41,7 +41,7 @@ describe('➡️  Loop - Vertical', () => {
       const engine = emblaApi.internalEngine()
       const slides = emblaApi.slideNodes()
 
-      describe('To loop point location:', () => {
+      describe('До точки оборачивания:', () => {
         test('0', () => {
           scrollToLocationInstant(engine, LOOP_POINTS_START[0])
 
@@ -133,7 +133,7 @@ describe('➡️  Loop - Vertical', () => {
         })
       })
 
-      describe('Just before loop point location (0.01px):', () => {
+      describe('Прямо перед точкой оборачивания (0.01px):', () => {
         test('0', () => {
           scrollToLocationInstant(engine, LOOP_POINTS_START[0])
           scrollToLocationInstant(engine, LOOP_POINTS_START[0] + 0.01)
@@ -236,7 +236,7 @@ describe('➡️  Loop - Vertical', () => {
     const FIRST_SNAP_CENTER = 450
     const LOOP_POINTS_CENTER = [380.5, 130.5, 0.5, -660.5, -760.5, -960.5, -1110.5]
 
-    describe('Position when align is CENTER and the carousel is scrolled:', () => {
+    describe('Положение при выравнивании в центр и прокрутке карусели:', () => {
       const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_LOOP_Y_1), {
         loop: true,
         align: 'center',
@@ -244,20 +244,20 @@ describe('➡️  Loop - Vertical', () => {
       })
       const engine = emblaApi.internalEngine()
 
-      test('Ahead of wrap around location:', () => {
+      test('Перед точкой оборачивания:', () => {
         scrollToLocationInstant(engine, FIRST_SNAP_CENTER + WRAP_AROUND_JOINT_SAFETY + 0.01)
 
         expect(emblaApi.containerNode().style.transform).toBe('translate3d(0px,-1209.8899999999999px,0px)')
       })
 
-      test('Just before wrap around location:', () => {
+      test('Прямо перед точкой оборачивания:', () => {
         scrollToLocationInstant(engine, FIRST_SNAP_CENTER + WRAP_AROUND_JOINT_SAFETY - 0.01)
 
         expect(emblaApi.containerNode().style.transform).toBe('translate3d(0px,450.09000000000003px,0px)')
       })
     })
 
-    describe('Slide positions when align is CENTER and the carousel is scrolled:', () => {
+    describe('Позиции слайдов при выравнивании в центр и прокрутке карусели:', () => {
       const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_LOOP_Y_1), {
         loop: true,
         align: 'center',
@@ -266,7 +266,7 @@ describe('➡️  Loop - Vertical', () => {
       const engine = emblaApi.internalEngine()
       const slides = emblaApi.slideNodes()
 
-      describe('To loop point location:', () => {
+      describe('До точки оборачивания:', () => {
         test('0', () => {
           scrollToLocationInstant(engine, LOOP_POINTS_CENTER[0])
 
@@ -358,7 +358,7 @@ describe('➡️  Loop - Vertical', () => {
         })
       })
 
-      describe('Just before loop point location (0.01px):', () => {
+      describe('Прямо перед точкой оборачивания (0.01px):', () => {
         test('0', () => {
           scrollToLocationInstant(engine, LOOP_POINTS_CENTER[0])
           scrollToLocationInstant(engine, LOOP_POINTS_CENTER[0] + 0.01)
@@ -461,7 +461,7 @@ describe('➡️  Loop - Vertical', () => {
     const FIRST_SNAP_END = 900
     const LOOP_POINTS_END = [830.5, 730.5, 530.5, 380.5, 130.5, 0.5, -660.5]
 
-    describe('Position when align is END and the carousel is scrolled:', () => {
+    describe('Положение при выравнивании в конец и прокрутке карусели:', () => {
       const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_LOOP_Y_1), {
         loop: true,
         align: 'end',
@@ -469,20 +469,20 @@ describe('➡️  Loop - Vertical', () => {
       })
       const engine = emblaApi.internalEngine()
 
-      test('Ahead of wrap around location:', () => {
+      test('Перед точкой оборачивания:', () => {
         scrollToLocationInstant(engine, FIRST_SNAP_END + WRAP_AROUND_JOINT_SAFETY + 0.01)
 
         expect(emblaApi.containerNode().style.transform).toBe('translate3d(0px,-759.89px,0px)')
       })
 
-      test('Just before wrap around location:', () => {
+      test('Прямо перед точкой оборачивания:', () => {
         scrollToLocationInstant(engine, FIRST_SNAP_END + WRAP_AROUND_JOINT_SAFETY - 0.01)
 
         expect(emblaApi.containerNode().style.transform).toBe('translate3d(0px,900.09px,0px)')
       })
     })
 
-    describe('Slide positions when align is END and the carousel is scrolled:', () => {
+    describe('Позиции слайдов при выравнивании в конец и прокрутке карусели:', () => {
       const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_LOOP_Y_1), {
         loop: true,
         align: 'end',
@@ -491,7 +491,7 @@ describe('➡️  Loop - Vertical', () => {
       const engine = emblaApi.internalEngine()
       const slides = emblaApi.slideNodes()
 
-      describe('To loop point location:', () => {
+      describe('До точки оборачивания:', () => {
         test('0', () => {
           scrollToLocationInstant(engine, LOOP_POINTS_END[0])
 
@@ -583,7 +583,7 @@ describe('➡️  Loop - Vertical', () => {
         })
       })
 
-      describe('Just before loop point location (0.01px):', () => {
+      describe('Прямо перед точкой оборачивания (0.01px):', () => {
         test('0', () => {
           scrollToLocationInstant(engine, LOOP_POINTS_END[0])
           scrollToLocationInstant(engine, LOOP_POINTS_END[0] + 0.01)
@@ -684,11 +684,11 @@ describe('➡️  Loop - Vertical', () => {
     })
   })
 
-  describe('Carousel with slides WITH MARGINS has correct:', () => {
+  describe('Карусель со слайдами С ОТСТУПАМИ имеет правильное:', () => {
     const FIRST_SNAP_START = -10
     const LOOP_POINTS_START = [-870.5, -990.5, -1210.5, -1380.5, -1650.5, -1800.5]
 
-    describe('Position when align is START and the carousel is scrolled:', () => {
+    describe('Положение при выравнивании в начало и прокрутке карусели:', () => {
       const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_LOOP_Y_2), {
         loop: true,
         align: 'start',
@@ -696,20 +696,20 @@ describe('➡️  Loop - Vertical', () => {
       })
       const engine = emblaApi.internalEngine()
 
-      test('Ahead of wrap around location:', () => {
+      test('Перед точкой оборачивания:', () => {
         scrollToLocationInstant(engine, FIRST_SNAP_START + WRAP_AROUND_JOINT_SAFETY + 0.01)
 
         expect(emblaApi.containerNode().style.transform).toBe('translate3d(0px,-1869.89px,0px)')
       })
 
-      test('Just before wrap around location:', () => {
+      test('Прямо перед точкой оборачивания:', () => {
         scrollToLocationInstant(engine, FIRST_SNAP_START + WRAP_AROUND_JOINT_SAFETY - 0.01)
 
         expect(emblaApi.containerNode().style.transform).toBe('translate3d(0px,-9.91px,0px)')
       })
     })
 
-    describe('Slide positions when align is START and the carousel is scrolled:', () => {
+    describe('Позиции слайдов при выравнивании в начало и прокрутке карусели:', () => {
       const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_LOOP_Y_2), {
         loop: true,
         align: 'start',
@@ -718,7 +718,7 @@ describe('➡️  Loop - Vertical', () => {
       const engine = emblaApi.internalEngine()
       const slides = emblaApi.slideNodes()
 
-      describe('To loop point location:', () => {
+      describe('До точки оборачивания:', () => {
         test('0', () => {
           scrollToLocationInstant(engine, LOOP_POINTS_START[0])
 
@@ -791,7 +791,7 @@ describe('➡️  Loop - Vertical', () => {
         })
       })
 
-      describe('Just before loop point location (0.01px):', () => {
+      describe('Прямо перед точкой оборачивания (0.01px):', () => {
         test('0', () => {
           scrollToLocationInstant(engine, LOOP_POINTS_START[0])
           scrollToLocationInstant(engine, LOOP_POINTS_START[0] + 0.01)
@@ -874,7 +874,7 @@ describe('➡️  Loop - Vertical', () => {
     const FIRST_SNAP_CENTER = 440
     const LOOP_POINTS_CENTER = [430.5, 160.5, 10.5, -870.5, -990.5, -1210.5, -1380.5]
 
-    describe('Position when align is CENTER and the carousel is scrolled:', () => {
+    describe('Положение при выравнивании в центр и прокрутке карусели:', () => {
       const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_LOOP_Y_2), {
         loop: true,
         align: 'center',
@@ -882,20 +882,20 @@ describe('➡️  Loop - Vertical', () => {
       })
       const engine = emblaApi.internalEngine()
 
-      test('Ahead of wrap around location:', () => {
+      test('Перед точкой оборачивания:', () => {
         scrollToLocationInstant(engine, FIRST_SNAP_CENTER + WRAP_AROUND_JOINT_SAFETY + 0.01)
 
         expect(emblaApi.containerNode().style.transform).toBe('translate3d(0px,-1419.8899999999999px,0px)')
       })
 
-      test('Just before wrap around location:', () => {
+      test('Прямо перед точкой оборачивания:', () => {
         scrollToLocationInstant(engine, FIRST_SNAP_CENTER + WRAP_AROUND_JOINT_SAFETY - 0.01)
 
         expect(emblaApi.containerNode().style.transform).toBe('translate3d(0px,440.09000000000003px,0px)')
       })
     })
 
-    describe('Slide positions when align is CENTER and the carousel is scrolled:', () => {
+    describe('Позиции слайдов при выравнивании в центр и прокрутке карусели:', () => {
       const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_LOOP_Y_2), {
         loop: true,
         align: 'center',
@@ -904,7 +904,7 @@ describe('➡️  Loop - Vertical', () => {
       const engine = emblaApi.internalEngine()
       const slides = emblaApi.slideNodes()
 
-      describe('To loop point location:', () => {
+      describe('До точки оборачивания:', () => {
         test('0', () => {
           scrollToLocationInstant(engine, LOOP_POINTS_CENTER[0])
 
@@ -996,7 +996,7 @@ describe('➡️  Loop - Vertical', () => {
         })
       })
 
-      describe('Just before loop point location (0.01px):', () => {
+      describe('Прямо перед точкой оборачивания (0.01px):', () => {
         test('0', () => {
           scrollToLocationInstant(engine, LOOP_POINTS_CENTER[0])
           scrollToLocationInstant(engine, LOOP_POINTS_CENTER[0] + 0.01)
@@ -1099,7 +1099,7 @@ describe('➡️  Loop - Vertical', () => {
     const FIRST_SNAP_END = 890
     const LOOP_POINTS_END = [820.5, 600.5, 430.5, 160.5, 10.5, -870.5]
 
-    describe('Position when align is END and the carousel is scrolled:', () => {
+    describe('Положение при выравнивании в конец и прокрутке карусели:', () => {
       const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_LOOP_Y_2), {
         loop: true,
         align: 'end',
@@ -1107,20 +1107,20 @@ describe('➡️  Loop - Vertical', () => {
       })
       const engine = emblaApi.internalEngine()
 
-      test('Ahead of wrap around location:', () => {
+      test('Перед точкой оборачивания:', () => {
         scrollToLocationInstant(engine, FIRST_SNAP_END + WRAP_AROUND_JOINT_SAFETY + 0.01)
 
         expect(emblaApi.containerNode().style.transform).toBe('translate3d(0px,-969.89px,0px)')
       })
 
-      test('Just before wrap around location:', () => {
+      test('Прямо перед точкой оборачивания:', () => {
         scrollToLocationInstant(engine, FIRST_SNAP_END + WRAP_AROUND_JOINT_SAFETY - 0.01)
 
         expect(emblaApi.containerNode().style.transform).toBe('translate3d(0px,890.09px,0px)')
       })
     })
 
-    describe('Slide positions when align is END and the carousel is scrolled:', () => {
+    describe('Позиции слайдов при выравнивании в конец и прокрутке карусели:', () => {
       const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_LOOP_Y_2), {
         loop: true,
         align: 'end',
@@ -1129,7 +1129,7 @@ describe('➡️  Loop - Vertical', () => {
       const engine = emblaApi.internalEngine()
       const slides = emblaApi.slideNodes()
 
-      describe('To loop point location:', () => {
+      describe('До точки оборачивания:', () => {
         test('0', () => {
           scrollToLocationInstant(engine, LOOP_POINTS_END[0])
 
@@ -1202,7 +1202,7 @@ describe('➡️  Loop - Vertical', () => {
         })
       })
 
-      describe('Just before loop point location (0.01px):', () => {
+      describe('Прямо перед точкой оборачивания (0.01px):', () => {
         test('0', () => {
           scrollToLocationInstant(engine, LOOP_POINTS_END[0])
           scrollToLocationInstant(engine, LOOP_POINTS_END[0] + 0.01)

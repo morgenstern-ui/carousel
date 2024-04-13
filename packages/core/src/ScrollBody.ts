@@ -1,18 +1,19 @@
 import { mathSign, mathAbs } from './utils.ts'
 import type { Vector1DType } from './Vector1d.ts'
 
-export type ScrollBodyType = ReturnType<typeof ScrollBody>
+export type ScrollBodyType = ReturnType<typeof useScrollBody>
 
 /**
- * Функция для создания объекта прокрутки.
- * @param {Vector1DType} location - Текущее положение.
- * @param {Vector1DType} offsetLocation - Смещение положения.
- * @param {Vector1DType} target - Целевое положение.
- * @param {number} baseDuration - Базовая продолжительность прокрутки.
- * @param {number} baseFriction - Базовое трение прокрутки.
- * @returns {ScrollBodyType} Возвращает объект прокрутки.
+ * Хук, который обеспечивает поведение прокрутки для прокручиваемого тела.
+ *
+ * @param location - Текущее положение прокручиваемого тела.
+ * @param offsetLocation - Смещенное положение прокручиваемого тела.
+ * @param target - Целевое положение прокручиваемого тела.
+ * @param baseDuration - Базовая продолжительность анимации прокрутки.
+ * @param baseFriction - Базовое трение анимации прокрутки.
+ * @returns Объект, содержащий функции и свойства, связанные с поведением прокрутки.
  */
-export function ScrollBody(
+export function useScrollBody(
   location: Vector1DType,
   offsetLocation: Vector1DType,
   target: Vector1DType,
@@ -27,8 +28,9 @@ export function ScrollBody(
   let rawLocationPrevious = 0
 
   /**
-   * Функция для поиска целевого положения.
-   * @returns {ScrollBodyType} Возвращает объект прокрутки.
+   * Перемещает прокручиваемое тело к целевому положению.
+   *
+   * @returns Текущий экземпляр прокручиваемого тела.
    */
   function seek(): ScrollBodyType {
     const diff = target.get() - location.get()
@@ -56,8 +58,9 @@ export function ScrollBody(
   }
 
   /**
-   * Функция для проверки, достигнуто ли целевое положение.
-   * @returns {boolean} Возвращает true, если целевое положение достигнуто, иначе false.
+   * Проверяет, установилось ли прокручиваемое тело в целевом положении.
+   *
+   * @returns Булево значение, указывающее, установилось ли прокручиваемое тело.
    */
   function settled(): boolean {
     const diff = target.get() - offsetLocation.get()
@@ -66,49 +69,55 @@ export function ScrollBody(
   }
 
   /**
-   * Функция для получения продолжительности прокрутки.
-   * @returns {number} Возвращает продолжительность прокрутки.
+   * Возвращает текущую продолжительность анимации прокрутки.
+   *
+   * @returns Текущая продолжительность анимации прокрутки.
    */
   function duration(): number {
     return scrollDuration
   }
 
   /**
-   * Функция для получения направления прокрутки.
-   * @returns {number} Возвращает направление прокрутки.
+   * Возвращает текущее направление прокручиваемого тела.
+   *
+   * @returns Текущее направление прокручиваемого тела.
    */
   function direction(): number {
     return scrollDirection
   }
 
   /**
-   * Функция для получения скорости прокрутки.
-   * @returns {number} Возвращает скорость прокрутки.
+   * Возвращает текущую скорость прокручиваемого тела.
+   *
+   * @returns Текущая скорость прокручиваемого тела.
    */
   function velocity(): number {
     return bodyVelocity
   }
 
   /**
-   * Функция для использования базовой продолжительности прокрутки.
-   * @returns {ScrollBodyType} Возвращает объект прокрутки.
+   * Устанавливает базовую продолжительность анимации прокрутки.
+   *
+   * @returns Текущий экземпляр прокручиваемого тела.
    */
   function useBaseDuration(): ScrollBodyType {
     return useDuration(baseDuration)
   }
 
   /**
-   * Функция для использования базового трения прокрутки.
-   * @returns {ScrollBodyType} Возвращает объект прокрутки.
+   * Устанавливает базовое трение анимации прокрутки.
+   *
+   * @returns Текущий экземпляр прокручиваемого тела.
    */
   function useBaseFriction(): ScrollBodyType {
     return useFriction(baseFriction)
   }
 
   /**
-   * Функция для установки продолжительности прокрутки.
-   * @param {number} n - Новая продолжительность прокрутки.
-   * @returns {ScrollBodyType} Возвращает объект прокрутки.
+   * Устанавливает продолжительность анимации прокрутки.
+   *
+   * @param n - Продолжительность анимации прокрутки.
+   * @returns Текущий экземпляр прокручиваемого тела.
    */
   function useDuration(n: number): ScrollBodyType {
     scrollDuration = n
@@ -117,9 +126,10 @@ export function ScrollBody(
   }
 
   /**
-   * Функция для установки трения прокрутки.
-   * @param {number} n - Новое трение прокрутки.
-   * @returns {ScrollBodyType} Возвращает объект прокрутки.
+   * Устанавливает трение анимации прокрутки.
+   *
+   * @param n - Трение анимации прокрутки.
+   * @returns Текущий экземпляр прокручиваемого тела.
    */
   function useFriction(n: number): ScrollBodyType {
     scrollFriction = n

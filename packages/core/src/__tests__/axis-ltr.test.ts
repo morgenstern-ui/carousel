@@ -4,7 +4,7 @@ import { mockTestElements } from './mocks'
 import { FIXTURE_AXIS_X_LTR } from './fixtures/axis-ltr.fixture'
 
 describe('➡️  Axis - Horizontal LTR', () => {
-  test('Translates correctly', () => {
+  test('Корректное перемещение', () => {
     const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_AXIS_X_LTR), {
       containScroll: false
     })

@@ -10,8 +10,8 @@ import {
 
 const FIRST_SNAP_INDEX = 0
 
-describe('➡️  SlidesToScroll - Vertical', () => {
-  describe('"auto" is correct for slides WITHOUT MARGINS and:', () => {
+describe('➡️  SlidesToScroll - Вертикальный', () => {
+  describe('"auto" корректно для слайдов БЕЗ ОТСТУПОВ и:', () => {
     const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_SLIDES_TO_SCROLL_Y_1))
 
     beforeEach(() => {
@@ -33,7 +33,7 @@ describe('➡️  SlidesToScroll - Vertical', () => {
       ])
     })
 
-    test('LOOP:FALSE and CONTAINSCROLL:FALSE', () => {
+    test('LOOP:FALSE и CONTAINSCROLL:FALSE', () => {
       emblaApi.reInit({ containScroll: false })
 
       const engine = emblaApi.internalEngine()
@@ -68,7 +68,7 @@ describe('➡️  SlidesToScroll - Vertical', () => {
     })
   })
 
-  describe('"auto" is correct for slides WITH MARGINS and:', () => {
+  describe('"auto" корректно для слайдов С ОТСТУПАМИ и:', () => {
     const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_SLIDES_TO_SCROLL_Y_2))
 
     beforeEach(() => {
@@ -90,7 +90,7 @@ describe('➡️  SlidesToScroll - Vertical', () => {
       ])
     })
 
-    test('LOOP:FALSE and CONTAINSCROLL:FALSE', () => {
+    test('LOOP:FALSE и CONTAINSCROLL:FALSE', () => {
       emblaApi.reInit({ containScroll: false })
 
       const engine = emblaApi.internalEngine()
@@ -125,7 +125,7 @@ describe('➡️  SlidesToScroll - Vertical', () => {
     })
   })
 
-  describe('"auto" is correct for edge cases when slide width is greater than viewport and:', () => {
+  describe('"auto" корректно для крайних случаев, когда ширина слайда больше видимой области и:', () => {
     const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_SLIDES_TO_SCROLL_Y_3))
 
     beforeEach(() => {
@@ -146,7 +146,7 @@ describe('➡️  SlidesToScroll - Vertical', () => {
       expect(engine.slideRegistry).toEqual([[0], [1], [2], [3], [4], [5]])
     })
 
-    test('LOOP:FALSE and CONTAINSCROLL:FALSE', () => {
+    test('LOOP:FALSE и CONTAINSCROLL:FALSE', () => {
       emblaApi.reInit({ containScroll: false })
 
       const engine = emblaApi.internalEngine()
@@ -171,7 +171,7 @@ describe('➡️  SlidesToScroll - Vertical', () => {
     })
   })
 
-  describe('"Custom number 2" is correct for slides WITHOUT MARGINS and:', () => {
+  describe('"Custom number 2" корректно для слайдов БЕЗ ОТСТУПОВ и:', () => {
     const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_SLIDES_TO_SCROLL_Y_1))
 
     beforeEach(() => {
@@ -194,7 +194,7 @@ describe('➡️  SlidesToScroll - Vertical', () => {
       ])
     })
 
-    test('LOOP:FALSE and CONTAINSCROLL:FALSE', () => {
+    test('LOOP:FALSE и CONTAINSCROLL:FALSE', () => {
       emblaApi.reInit({ containScroll: false })
 
       const engine = emblaApi.internalEngine()
@@ -231,7 +231,7 @@ describe('➡️  SlidesToScroll - Vertical', () => {
     })
   })
 
-  describe('"Custom number 2" is correct for slides WITH MARGINS and:', () => {
+  describe('"Custom number 2" корректно для слайдов С ОТСТУПАМИ и:', () => {
     const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_SLIDES_TO_SCROLL_Y_2))
 
     beforeEach(() => {
@@ -254,7 +254,7 @@ describe('➡️  SlidesToScroll - Vertical', () => {
       ])
     })
 
-    test('LOOP:FALSE and CONTAINSCROLL:FALSE', () => {
+    test('LOOP:FALSE и CONTAINSCROLL:FALSE', () => {
       emblaApi.reInit({ containScroll: false })
 
       const engine = emblaApi.internalEngine()

@@ -1,4 +1,4 @@
-import { Limit } from './Limit'
+import { useLimit } from './Limit'
 
-const limit = Limit(0, 10)
+const limit = useLimit(0, 10)
 console.log('Hello, world!', limit.removeOffset(15))

@@ -4,46 +4,54 @@ import type { CounterType } from './Counter.ts'
 import type { DragTrackerType, PointerEventType } from './DragTracker.ts'
 import type { EventHandlerType } from './EventHandler.ts'
 import type { AxisType } from './Axis.ts'
-import { EventStore } from './EventStore.ts'
+import { useEventStore } from './EventStore.ts'
 import type { ScrollBodyType } from './ScrollBody.ts'
 import type { ScrollTargetType } from './ScrollTarget.ts'
 import type { ScrollToType } from './ScrollTo.ts'
 import type { Vector1DType } from './Vector1d.ts'
 import type { PercentOfViewType } from './PercentOfView.ts'
-import { Limit } from './Limit.ts'
+import { useLimit } from './Limit.ts'
 import { deltaAbs, factorAbs, isBoolean, isMouseEvent, mathAbs, mathSign, type WindowType } from './utils.ts'
 
+/**
+ * Тип обратного вызова для обработчика перетаскивания.
+ */
 type DragHandlerCallbackType = (emblaApi: EmblaCarouselType, evt: PointerEventType) => boolean | void
 
+/**
+ * Тип опции для обработчика перетаскивания.
+ */
 export type DragHandlerOptionType = boolean | DragHandlerCallbackType
 
-export type DragHandlerType = ReturnType<typeof DragHandler>
+/**
+ * Определение типа для обработчика перетаскивания.
+ */
+export type DragHandlerType = ReturnType<typeof useDragHandler>
 
 /**
- * Создает обработчик перетаскивания.
- *
- * @param {AxisType} axis - Тип оси.
- * @param {HTMLElement} rootNode - Корневой элемент.
- * @param {Document} ownerDocument - Документ-владелец.
- * @param {WindowType} ownerWindow - Окно-владелец.
- * @param {Vector1DType} target - Целевой вектор.
- * @param {DragTrackerType} dragTracker - Трекер перетаскивания.
- * @param {Vector1DType} location - Местоположение.
- * @param {AnimationsType} animation - Анимация.
- * @param {ScrollToType} scrollTo - Функция прокрутки до.
- * @param {ScrollBodyType} scrollBody - Тело прокрутки.
- * @param {ScrollTargetType} scrollTarget - Цель прокрутки.
- * @param {CounterType} index - Индекс.
- * @param {EventHandlerType} eventHandler - Обработчик событий.
- * @param {PercentOfViewType} percentOfView - Процент отображения.
- * @param {boolean} dragFree - Свободное перетаскивание.
- * @param {number} dragThreshold - Порог перетаскивания.
- * @param {boolean} skipSnaps - Пропустить снимки.
- * @param {number} baseFriction - Базовое трение.
- * @param {DragHandlerOptionType} watchDrag - Опция наблюдения за перетаскиванием.
- * @returns {DragHandlerType} - Возвращает тип обработчика перетаскивания.
+ * Функция для обработки поведения перетаскивания.
+ * @param axis Конфигурация оси.
+ * @param rootNode Корневой элемент карусели.
+ * @param ownerDocument Документ-владелец.
+ * @param ownerWindow Окно-владелец.
+ * @param target Целевой вектор.
+ * @param dragTracker Трекер перетаскивания.
+ * @param location Вектор местоположения.
+ * @param animation Конфигурация анимации.
+ * @param scrollTo Конфигурация прокрутки.
+ * @param scrollBody Конфигурация тела прокрутки.
+ * @param scrollTarget Конфигурация цели прокрутки.
+ * @param index Счетчик текущего индекса.
+ * @param eventHandler Обработчик событий.
+ * @param percentOfView Конфигурация процента видимости.
+ * @param dragFree Флаг, указывающий, является ли перетаскивание свободным.
+ * @param dragThreshold Порог перетаскивания.
+ * @param skipSnaps Флаг, указывающий, пропускать ли снимки.
+ * @param baseFriction Базовое значение трения.
+ * @param watchDrag Опция обработчика перетаскивания.
+ * @returns Объект обработчика перетаскивания.
  */
-export function DragHandler(
+export function useDragHandler(
   axis: AxisType,
   rootNode: HTMLElement,
   ownerDocument: Document,
@@ -67,9 +75,9 @@ export function DragHandler(
   const { cross: crossAxis, direction } = axis
   const focusNodes = ['INPUT', 'SELECT', 'TEXTAREA']
   const nonPassiveEvent = { passive: false }
-  const initEvents = EventStore()
-  const dragEvents = EventStore()
-  const goToNextThreshold = Limit(50, 225).constrain(percentOfView.measure(20))
+  const initEvents = useEventStore()
+  const dragEvents = useEventStore()
+  const goToNextThreshold = useLimit(50, 225).constrain(percentOfView.measure(20))
   const snapForceBoost = { mouse: 300, touch: 400 }
   const freeForceBoost = { mouse: 500, touch: 600 }
   const baseSpeed = dragFree ? 43 : 25
@@ -84,11 +92,15 @@ export function DragHandler(
 
   /**
    * Инициализирует обработчик перетаскивания.
-   * @param {EmblaCarouselType} emblaApi - API карусели Embla.
+   * @param emblaApi API карусели Embla.
    */
   function init(emblaApi: EmblaCarouselType): void {
     if (!watchDrag) return
 
+    /**
+     * Обрабатывает событие нажатия указателя, если разрешено.
+     * @param evt Событие указателя.
+     */
     function downIfAllowed(evt: PointerEventType): void {
       if (isBoolean(watchDrag) || watchDrag(emblaApi, evt)) down(evt)
     }
@@ -126,9 +138,9 @@ export function DragHandler(
   }
 
   /**
-   * Проверяет, является ли узел узлом фокуса.
-   * @param {Element} node - Узел для проверки.
-   * @returns {boolean} Возвращает true, если узел является узлом фокуса, иначе false.
+   * Проверяет, является ли узел фокусируемым.
+   * @param node Проверяемый узел.
+   * @returns True, если узел является фокусируемым, иначе false.
    */
   function isFocusNode(node: Element): boolean {
     const nodeName = node.nodeName || ''
@@ -136,8 +148,8 @@ export function DragHandler(
   }
 
   /**
-   * Вычисляет усиление силы.
-   * @returns {number} Возвращает усиление силы.
+   * Вычисляет значение усиления силы.
+   * @returns Значение усиления силы.
    */
   function forceBoost(): number {
     const boost = dragFree ? freeForceBoost : snapForceBoost
@@ -146,10 +158,10 @@ export function DragHandler(
   }
 
   /**
-   * Вычисляет разрешенную силу.
-   * @param {number} force - Исходная сила.
-   * @param {boolean} targetChanged - Флаг, указывающий, изменилась ли цель.
-   * @returns {number} Возвращает разрешенную силу.
+   * Вычисляет разрешенное значение силы.
+   * @param force Сырое значение силы.
+   * @param targetChanged Флаг, указывающий, изменилась ли цель.
+   * @returns Разрешенное значение силы.
    */
   function allowedForce(force: number, targetChanged: boolean): number {
     const next = index.add(mathSign(force) * -1)
@@ -162,8 +174,8 @@ export function DragHandler(
   }
 
   /**
-   * Обрабатывает событие "вниз".
-   * @param {PointerEventType} evt - Событие указателя.
+   * Обрабатывает событие нажатия указателя.
+   * @param evt Событие указателя.
    */
   function down(evt: PointerEventType): void {
     const isMouseEvt = isMouseEvent(evt, ownerWindow)
@@ -185,8 +197,8 @@ export function DragHandler(
   }
 
   /**
-   * Обрабатывает событие "движение".
-   * @param {PointerEventType} evt - Событие указателя.
+   * Обрабатывает событие перемещения указателя.
+   * @param evt Событие указателя.
    */
   function move(evt: PointerEventType): void {
     const lastScroll = dragTracker.readPoint(evt)
@@ -209,8 +221,8 @@ export function DragHandler(
   }
 
   /**
-   * Обрабатывает событие "вверх".
-   * @param {PointerEventType} evt - Событие указателя.
+   * Обрабатывает событие отпускания указателя.
+   * @param evt Событие указателя.
    */
   function up(evt: PointerEventType): void {
     const currentLocation = scrollTarget.byDistance(0, false)
@@ -231,8 +243,8 @@ export function DragHandler(
   }
 
   /**
-   * Обрабатывает событие "клик".
-   * @param {MouseEvent} evt - Событие мыши.
+   * Обрабатывает событие клика.
+   * @param evt Событие клика.
    */
   function click(evt: MouseEvent): void {
     if (preventClick) {
@@ -243,8 +255,8 @@ export function DragHandler(
   }
 
   /**
-   * Проверяет, происходит ли в данный момент нажатие указателя.
-   * @returns {boolean} Возвращает true, если происходит нажатие указателя, иначе false.
+   * Проверяет, нажат ли указатель.
+   * @returns True, если указатель нажат, иначе false.
    */
   function pointerDown(): boolean {
     return pointerIsDown
@@ -258,3 +270,4 @@ export function DragHandler(
 
   return self
 }
+

@@ -7,17 +7,17 @@ type IntersectionEntryMapType = {
 
 export type SlidesInViewOptionsType = IntersectionObserverInit['threshold']
 
-export type SlidesInViewType = ReturnType<typeof SlidesInView>
+export type SlidesInViewType = ReturnType<typeof useSlidesInView>
 
 /**
- * Создает функцию для отслеживания видимых слайдов.
- * @param {HTMLElement} container - Контейнер слайдов.
- * @param {HTMLElement[]} slides - Массив слайдов.
- * @param {EventHandlerType} eventHandler - Обработчик событий.
- * @param {SlidesInViewOptionsType} threshold - Порог для определения видимости слайдов.
- * @returns {SlidesInViewType} Функция для отслеживания видимых слайдов.
+ * Создает пользовательский хук, который отслеживает, какие слайды находятся в видимости внутри контейнера.
+ * @param container - Элемент контейнера, содержащий слайды.
+ * @param slides - Массив элементов слайдов.
+ * @param eventHandler - Объект обработчика событий.
+ * @param threshold - Параметры порога для IntersectionObserver.
+ * @returns Объект с методами для инициализации, уничтожения и получения слайдов в видимости.
  */
-export function SlidesInView(
+export function useSlidesInView(
   container: HTMLElement,
   slides: HTMLElement[],
   eventHandler: EventHandlerType,
@@ -30,7 +30,7 @@ export function SlidesInView(
   let destroyed = false
 
   /**
-   * Инициализирует функцию для отслеживания видимых слайдов.
+   * Инициализирует IntersectionObserver и начинает отслеживать слайды в видимости.
    */
   function init(): void {
     intersectionObserver = new IntersectionObserver(
@@ -56,7 +56,7 @@ export function SlidesInView(
   }
 
   /**
-   * Уничтожает функцию для отслеживания видимых слайдов.
+   * Отключает IntersectionObserver и прекращает отслеживать слайды в видимости.
    */
   function destroy(): void {
     if (intersectionObserver) intersectionObserver.disconnect()
@@ -64,9 +64,9 @@ export function SlidesInView(
   }
 
   /**
-   * Создает список индексов слайдов в зависимости от их видимости.
-   * @param {boolean} inView - Флаг видимости слайдов.
-   * @returns {number[]} Список индексов слайдов.
+   * Создает список индексов слайдов, которые находятся в видимости или не находятся в видимости.
+   * @param inView - Определяет, создавать список слайдов в видимости или не в видимости.
+   * @returns Массив индексов слайдов.
    */
   function createInViewList(inView: boolean): number[] {
     return objectKeys(intersectionEntryMap).reduce((list: number[], slideIndex) => {
@@ -81,9 +81,9 @@ export function SlidesInView(
   }
 
   /**
-   * Возвращает список индексов слайдов в зависимости от их видимости.
-   * @param {boolean} inView - Флаг видимости слайдов.
-   * @returns {number[]} Список индексов слайдов.
+   * Получает индексы слайдов, которые находятся в видимости или не находятся в видимости.
+   * @param inView - Определяет, получать слайды в видимости или не в видимости.
+   * @returns Массив индексов слайдов.
    */
   function get(inView: boolean = true): number[] {
     if (inView && inViewCache) return inViewCache

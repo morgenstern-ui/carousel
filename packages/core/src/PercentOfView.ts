@@ -1,15 +1,16 @@
 export type PercentOfViewType = ReturnType<typeof usePercentOfView>
 
 /**
- * Функция для создания объекта процентного соотношения вида.
- * @param {number} viewSize - Размер вида.
- * @returns {PercentOfViewType} Возвращает объект процентного соотношения вида.
+ * Вычисляет значение измерения на основе процента от размера представления.
+ * @param viewSize Размер представления.
+ * @returns Объект с функцией `measure`, которая вычисляет значение измерения.
  */
 export function usePercentOfView(viewSize: number) {
+
   /**
-   * Функция для измерения процентного соотношения вида.
-   * @param {number} percent - Процентное значение.
-   * @returns {number} Возвращает измеренное значение.
+   * Вычисляет значение измерения на основе процента.
+   * @param percent Значение процента.
+   * @returns Вычисленное значение измерения.
    */
   function measure(percent: number): number {
     return viewSize * (percent / 100)

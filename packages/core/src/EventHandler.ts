@@ -19,37 +19,43 @@ export interface EmblaEventListType {
   resize: 'resize'
 }
 
-export type EventHandlerType = ReturnType<typeof EventHandler>
+export type EventHandlerType = ReturnType<typeof useEventHandler>
 
 /**
- * Создает обработчик событий.
- * @returns {EventHandlerType} Обработчик событий.
+ * Представляет обработчик событий для Embla Carousel.
  */
-export function EventHandler() {
+export function useEventHandler() {
+  /**
+   * Определение типа для объекта слушателей.
+   */
   const listeners: ListenersType = {}
+
+  /**
+   * Экземпляр API Embla Carousel.
+   */
   let api: EmblaCarouselType
 
   /**
-   * Инициализирует обработчик событий.
-   * @param {EmblaCarouselType} emblaApi - API карусели Embla.
+   * Инициализирует обработчик событий с экземпляром API Embla Carousel.
+   * @param emblaApi - Экземпляр API Embla Carousel.
    */
   function init(emblaApi: EmblaCarouselType): void {
     api = emblaApi
   }
 
   /**
-   * Получает слушателей для указанного события.
-   * @param {EmblaEventType} evt - Тип события.
-   * @returns {CallbackType[]} Массив слушателей.
+   * Получает слушателей для определенного события.
+   * @param evt - Тип события.
+   * @returns Массив функций обратного вызова.
    */
   function getListeners(evt: EmblaEventType): CallbackType[] {
     return listeners[evt] || []
   }
 
   /**
-   * Генерирует событие.
-   * @param {EmblaEventType} evt - Тип события.
-   * @returns {EventHandlerType} Обработчик событий.
+   * Генерирует событие для всех зарегистрированных слушателей.
+   * @param evt - Тип события.
+   * @returns Экземпляр обработчика событий.
    */
   function emit(evt: EmblaEventType): EventHandlerType {
     getListeners(evt).forEach((e) => e(api, evt))
@@ -57,10 +63,10 @@ export function EventHandler() {
   }
 
   /**
-   * Добавляет слушателя для указанного события.
-   * @param {EmblaEventType} evt - Тип события.
-   * @param {CallbackType} cb - Функция обратного вызова.
-   * @returns {EventHandlerType} Обработчик событий.
+   * Регистрирует функцию обратного вызова для определенного события.
+   * @param evt - Тип события.
+   * @param cb - Функция обратного вызова.
+   * @returns Экземпляр обработчика событий.
    */
   function on(evt: EmblaEventType, cb: CallbackType): EventHandlerType {
     listeners[evt] = getListeners(evt).concat([cb])
@@ -68,16 +74,17 @@ export function EventHandler() {
   }
 
   /**
-   * Удаляет слушателя для указанного события.
-   * @param {EmblaEventType} evt - Тип события.
-   * @param {CallbackType} cb - Функция обратного вызова.
-   * @returns {EventHandlerType} Обработчик событий.
+   * Отменяет регистрацию функции обратного вызова для определенного события.
+   * @param evt - Тип события.
+   * @param cb - Функция обратного вызова.
+   * @returns Экземпляр обработчика событий.
    */
   function off(evt: EmblaEventType, cb: CallbackType): EventHandlerType {
     listeners[evt] = getListeners(evt).filter((e) => e !== cb)
     return self
   }
 
+  // Экземпляр обработчика событий
   const self = {
     init,
     emit,

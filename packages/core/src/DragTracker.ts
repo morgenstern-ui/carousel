@@ -4,34 +4,37 @@ import { isMouseEvent, mathAbs, type WindowType } from './utils.ts'
 type PointerCoordType = keyof Touch | keyof MouseEvent
 export type PointerEventType = TouchEvent | MouseEvent
 
-export type DragTrackerType = ReturnType<typeof DragTracker>
+export type DragTrackerType = ReturnType<typeof useDragTracker>
 
 /**
- * Функция для создания трекера перетаскивания.
- * @param {AxisType} axis - Ось прокрутки.
- * @param {WindowType} ownerWindow - Окно, в котором происходит перетаскивание.
- * @returns {DragTrackerType} Возвращает объект трекера перетаскивания.
+ * Создает отслеживатель перетаскивания для определенной оси.
+ *
+ * @param axis - Тип оси ('x' или 'y').
+ * @param ownerWindow - Объект окна.
+ * @returns Объект с методами для отслеживания событий указателя и расчета силы перетаскивания.
  */
-export function DragTracker(axis: AxisType, ownerWindow: WindowType) {
+export function useDragTracker(axis: AxisType, ownerWindow: WindowType) {
   const logInterval = 170
 
   let startEvent: PointerEventType
   let lastEvent: PointerEventType
 
   /**
-   * Функция для создания трекера перетаскивания.
-   * @param {AxisType} axis - Ось прокрутки.
-   * @param {WindowType} ownerWindow - Окно, в котором происходит перетаскивание.
-   * @returns {DragTrackerType} Возвращает объект трекера перетаскивания.
+   * Считывает время из события указателя.
+   *
+   * @param evt - Событие указателя.
+   * @returns Временная метка события.
    */
   function readTime(evt: PointerEventType): number {
     return evt.timeStamp
   }
+
   /**
-   * Функция для чтения координаты указателя.
-   * @param {PointerEventType} evt - Событие указателя.
-   * @param {AxisOptionType} [evtAxis] - Ось события.
-   * @returns {number} Возвращает координату указателя.
+   * Считывает значение координаты из события указателя.
+   *
+   * @param evt - Событие указателя.
+   * @param evtAxis - Тип опции оси.
+   * @returns Значение координаты.
    */
   function readPoint(evt: PointerEventType, evtAxis?: AxisOptionType): number {
     const property = evtAxis || axis.scroll
@@ -41,9 +44,10 @@ export function DragTracker(axis: AxisType, ownerWindow: WindowType) {
   }
 
   /**
-   * Функция для обработки начала перетаскивания.
-   * @param {PointerEventType} evt - Событие указателя.
-   * @returns {number} Возвращает координату указателя.
+   * Обрабатывает событие нажатия указателя.
+   *
+   * @param evt - Событие указателя.
+   * @returns Разница в значениях координат.
    */
   function pointerDown(evt: PointerEventType): number {
     startEvent = evt
@@ -53,9 +57,10 @@ export function DragTracker(axis: AxisType, ownerWindow: WindowType) {
   }
 
   /**
-   * Функция для обработки перемещения при перетаскивании.
-   * @param {PointerEventType} evt - Событие указателя.
-   * @returns {number} Возвращает разницу между текущей и последней координатой указателя.
+   * Обрабатывает событие перемещения указателя.
+   *
+   * @param evt - Событие указателя.
+   * @returns Разница в значениях координат.
    */
   function pointerMove(evt: PointerEventType): number {
     const diff = readPoint(evt) - readPoint(lastEvent)
@@ -68,9 +73,10 @@ export function DragTracker(axis: AxisType, ownerWindow: WindowType) {
   }
 
   /**
-   * Функция для обработки окончания перетаскивания.
-   * @param {PointerEventType} evt - Событие указателя.
-   * @returns {number} Возвращает силу, с которой было произведено перетаскивание, или 0, если перетаскивание не было произведено.
+   * Обрабатывает событие отпускания указателя.
+   *
+   * @param evt - Событие указателя.
+   * @returns Рассчитанная сила перетаскивания.
    */
   function pointerUp(evt: PointerEventType): number {
     if (!startEvent || !lastEvent) return 0

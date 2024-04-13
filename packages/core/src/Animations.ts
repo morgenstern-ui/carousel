@@ -1,26 +1,27 @@
 import type { EngineType } from './Engine.ts'
-import { EventStore } from './EventStore.ts'
+import { useEventStore } from './EventStore.ts'
 import { mathAbs, type WindowType } from './utils.ts'
 
 export type AnimationsUpdateType = (engine: EngineType) => void
 export type AnimationsRenderType = (engine: EngineType, lagOffset: number) => void
 
-export type AnimationsType = ReturnType<typeof Animations>
+export type AnimationsType = ReturnType<typeof useAnimations>
 /**
  * Экспортируемая функция Animations, которая создает объект для управления анимациями.
- * @param {Document} ownerDocument - Документ, владеющий анимацией.
- * @param {WindowType} ownerWindow - Окно, владеющее анимацией.
- * @param {AnimationsType['update']} update - Функция обновления анимации.
- * @param {AnimationsType['render']} render - Функция рендеринга анимации.
- * @returns {AnimationsType} Возвращает объект Animations.
+ *
+ * @param ownerDocument - Документ, владеющий анимацией.
+ * @param ownerWindow - Окно, владеющее анимацией.
+ * @param update - Функция обновления анимации.
+ * @param render - Функция рендеринга анимации.
+ * @returns  Возвращает объект Animations.
  */
-export function Animations(
+export function useAnimations(
   ownerDocument: Document,
   ownerWindow: WindowType,
   update: () => void,
   render: (lagOffset: number) => void
 ) {
-  const documentVisibleHandler = EventStore()
+  const documentVisibleHandler = useEventStore()
   const timeStep = 1000 / 60
   let lastTimeStamp: number | null = null
   let lag = 0
@@ -45,7 +46,8 @@ export function Animations(
 
   /**
    * Выполняет анимацию.
-   * @param {DOMHighResTimeStamp} timeStamp - Временная метка анимации.
+   *
+   * @param timeStamp - Временная метка анимации.
    */
   function animate(timeStamp: DOMHighResTimeStamp): void {
     if (!animationFrame) return

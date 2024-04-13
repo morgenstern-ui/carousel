@@ -5,14 +5,16 @@ import type { SlidesToScrollType } from './SlidesToScroll.ts'
 import { arrayLast, mathAbs } from './utils.ts'
 
 export type ScrollSnapsType = ReturnType<typeof useScrollSnaps>
+
 /**
- * Экспортируемая функция ScrollSnaps, которая создает объект для управления снимками прокрутки.
- * @param {AxisType} axis - Ось, по которой происходит прокрутка.
- * @param {SlideAlignmentType} alignment - Выравнивание.
- * @param {NodeRectType} containerRect - Объект, описывающий прямоугольник контейнера.
- * @param {NodeRectType[]} slideRects - Массив объектов, описывающих прямоугольники слайдов.
- * @param {SlidesToScrollType} slidesToScroll - Объект для управления группами слайдов.
- * @returns {ScrollSnapsType} Возвращает объект ScrollSnaps.
+ * Рассчитывает точки прокрутки для карусели на основе предоставленных параметров.
+ *
+ * @param axis - Тип оси карусели (горизонтальная или вертикальная).
+ * @param alignment - Тип выравнивания слайдов карусели.
+ * @param containerRect - Ограничивающий прямоугольник контейнера карусели.
+ * @param slideRects - Ограничивающие прямоугольники слайдов карусели.
+ * @param slidesToScroll - Количество слайдов для прокрутки за раз.
+ * @returns Объект, содержащий рассчитанные точки прокрутки и выровненные точки прокрутки.
  */
 export function useScrollSnaps(
   axis: AxisType,
@@ -28,8 +30,9 @@ export function useScrollSnaps(
   const snapsAligned = measureAligned()
 
   /**
-   * Измеряет размеры.
-   * @returns {number[]} Возвращает массив размеров.
+   * Измеряет размеры групп слайдов.
+   *
+   * @returns Массив чисел, представляющих размеры групп слайдов.
    */
   function measureSizes(): number[] {
     return groupSlides(slideRects)
@@ -38,16 +41,18 @@ export function useScrollSnaps(
   }
 
   /**
-   * Измеряет не выровненные снимки.
-   * @returns {number[]} Возвращает массив снимков.
+   * Измеряет несогласованные точки прокрутки.
+   *
+   * @returns Массив чисел, представляющих несогласованные точки прокрутки.
    */
   function measureUnaligned(): number[] {
     return slideRects.map((rect) => containerRect[startEdge] - rect[startEdge]).map((snap) => -mathAbs(snap))
   }
 
   /**
-   * Измеряет выровненные снимки.
-   * @returns {number[]} Возвращает массив выровненных снимков.
+   * Измеряет выровненные точки прокрутки.
+   *
+   * @returns Массив чисел, представляющих выровненные точки прокрутки.
    */
   function measureAligned(): number[] {
     return groupSlides(snaps)

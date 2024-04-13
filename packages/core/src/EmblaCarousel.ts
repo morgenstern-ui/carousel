@@ -1,9 +1,9 @@
 import { useEngine, type EngineType } from './Engine.ts'
-import { EventStore } from './EventStore.ts'
-import { EventHandler, type EventHandlerType } from './EventHandler.ts'
+import { useEventStore } from './EventStore.ts'
+import { useEventHandler, type EventHandlerType } from './EventHandler.ts'
 import { defaultOptions, type EmblaOptionsType, type OptionsType } from './Options.ts'
-import { OptionsHandler } from './OptionsHandler.ts'
-import { PluginsHandler } from './PluginsHandler.ts'
+import { useOptionsHandler } from './OptionsHandler.ts'
+import { usePluginsHandler } from './PluginsHandler.ts'
 import type { EmblaPluginsType, EmblaPluginType } from './Plugins.ts'
 import { isString, type WindowType } from './utils.ts'
 
@@ -38,10 +38,10 @@ export function EmblaCarousel(
 ): EmblaCarouselType {
   const ownerDocument = root.ownerDocument
   const ownerWindow = <WindowType>ownerDocument.defaultView
-  const optionsHandler = OptionsHandler(ownerWindow)
-  const pluginsHandler = PluginsHandler(optionsHandler)
-  const mediaHandlers = EventStore()
-  const eventHandler = EventHandler()
+  const optionsHandler = useOptionsHandler(ownerWindow)
+  const pluginsHandler = usePluginsHandler(optionsHandler)
+  const mediaHandlers = useEventStore()
+  const eventHandler = useEventHandler()
   const { mergeOptions, optionsAtMedia, optionsMediaQueries } = optionsHandler
   const { on, off, emit } = eventHandler
   const reInit = reActivate

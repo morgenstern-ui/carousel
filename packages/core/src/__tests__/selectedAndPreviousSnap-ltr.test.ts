@@ -4,7 +4,7 @@ import { mockTestElements } from './mocks'
 import { FIXTURE_SELECTED_PREVIOUS_SNAP_LTR } from './fixtures/selectedAndPreviousSnap-ltr.fixture'
 
 describe('➡️  SelectedScrollSnap & PreviousScrollSnap - Horizontal LTR', () => {
-  describe('Is correct when LOOP:FALSE when:', () => {
+  describe('Корректно, когда LOOP:FALSE, когда:', () => {
     const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_SELECTED_PREVIOUS_SNAP_LTR))
     const lastIndex = FIXTURE_SELECTED_PREVIOUS_SNAP_LTR.slideOffsets.length - 1
     const firstIndex = 0
@@ -13,19 +13,19 @@ describe('➡️  SelectedScrollSnap & PreviousScrollSnap - Horizontal LTR', () 
       emblaApi.reInit({ startIndex: firstIndex })
     })
 
-    test('startIndex is NOT set', () => {
+    test('startIndex не установлен', () => {
       expect(emblaApi.selectedScrollSnap()).toBe(firstIndex)
       expect(emblaApi.previousScrollSnap()).toBe(firstIndex)
     })
 
-    test('startIndex is set', () => {
+    test('startIndex установлен', () => {
       emblaApi.reInit({ startIndex: 2 })
 
       expect(emblaApi.selectedScrollSnap()).toBe(2)
       expect(emblaApi.previousScrollSnap()).toBe(2)
     })
 
-    test('User tries to scrollNext() past the last slide', () => {
+    test('Пользователь пытается прокрутить вперед за последним слайдом', () => {
       emblaApi.reInit({ startIndex: lastIndex })
       emblaApi.scrollNext()
 
@@ -33,28 +33,28 @@ describe('➡️  SelectedScrollSnap & PreviousScrollSnap - Horizontal LTR', () 
       expect(emblaApi.previousScrollSnap()).toBe(lastIndex)
     })
 
-    test('User tries to scrollPrev before the first slide', () => {
+    test('Пользователь пытается прокрутить назад перед первым слайдом', () => {
       emblaApi.scrollPrev()
 
       expect(emblaApi.selectedScrollSnap()).toBe(firstIndex)
       expect(emblaApi.previousScrollSnap()).toBe(firstIndex)
     })
 
-    test('User tries to scrollTo() an index more than last index', () => {
+    test('Пользователь пытается прокрутить к индексу, превышающему последний индекс', () => {
       emblaApi.scrollTo(lastIndex + 1)
 
       expect(emblaApi.selectedScrollSnap()).toBe(lastIndex)
       expect(emblaApi.previousScrollSnap()).toBe(firstIndex)
     })
 
-    test('User tries to scrollTo() an index less than first index', () => {
+    test('Пользователь пытается прокрутить к индексу, меньшему первого индекса', () => {
       emblaApi.scrollTo(firstIndex - 1)
 
       expect(emblaApi.selectedScrollSnap()).toBe(firstIndex)
       expect(emblaApi.previousScrollSnap()).toBe(firstIndex)
     })
 
-    test('Stepping forward one snap at a time from the beginning', () => {
+    test('Шаг вперед по одному снэпу от начала', () => {
       let i = firstIndex
 
       while (i !== lastIndex) {
@@ -65,7 +65,7 @@ describe('➡️  SelectedScrollSnap & PreviousScrollSnap - Horizontal LTR', () 
       }
     })
 
-    test('Stepping backward one snap at a time from the end', () => {
+    test('Шаг назад по одному снэпу от конца', () => {
       emblaApi.reInit({ startIndex: lastIndex })
       let i = lastIndex
 
@@ -78,7 +78,7 @@ describe('➡️  SelectedScrollSnap & PreviousScrollSnap - Horizontal LTR', () 
     })
   })
 
-  describe('Is correct when LOOP:TRUE when:', () => {
+  describe('Корректно, когда LOOP:TRUE, когда:', () => {
     const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_SELECTED_PREVIOUS_SNAP_LTR), { loop: true })
     const lastIndex = FIXTURE_SELECTED_PREVIOUS_SNAP_LTR.slideOffsets.length - 1
     const firstIndex = 0
@@ -87,19 +87,19 @@ describe('➡️  SelectedScrollSnap & PreviousScrollSnap - Horizontal LTR', () 
       emblaApi.reInit({ startIndex: firstIndex })
     })
 
-    test('startIndex is NOT set', () => {
+    test('startIndex не установлен', () => {
       expect(emblaApi.selectedScrollSnap()).toBe(firstIndex)
       expect(emblaApi.previousScrollSnap()).toBe(firstIndex)
     })
 
-    test('startIndex is set', () => {
+    test('startIndex установлен', () => {
       emblaApi.reInit({ startIndex: 2 })
 
       expect(emblaApi.selectedScrollSnap()).toBe(2)
       expect(emblaApi.previousScrollSnap()).toBe(2)
     })
 
-    test('User tries to scrollNext() past the last slide', () => {
+    test('Пользователь пытается прокрутить вперед за последним слайдом', () => {
       emblaApi.reInit({ startIndex: lastIndex })
       emblaApi.scrollNext()
 
@@ -107,28 +107,28 @@ describe('➡️  SelectedScrollSnap & PreviousScrollSnap - Horizontal LTR', () 
       expect(emblaApi.previousScrollSnap()).toBe(lastIndex)
     })
 
-    test('User tries to scrollPrev before the first slide', () => {
+    test('Пользователь пытается прокрутить назад перед первым слайдом', () => {
       emblaApi.scrollPrev()
 
       expect(emblaApi.selectedScrollSnap()).toBe(lastIndex)
       expect(emblaApi.previousScrollSnap()).toBe(firstIndex)
     })
 
-    test('User tries to scrollTo() an index more than last index', () => {
+    test('Пользователь пытается прокрутить к индексу, превышающему последний индекс', () => {
       emblaApi.scrollTo(lastIndex + 1)
 
       expect(emblaApi.selectedScrollSnap()).toBe(firstIndex)
       expect(emblaApi.previousScrollSnap()).toBe(firstIndex)
     })
 
-    test('User tries to scrollTo() an index less than first index', () => {
+    test('Пользователь пытается прокрутить к индексу, меньшему первого индекса', () => {
       emblaApi.scrollTo(firstIndex - 1)
 
       expect(emblaApi.selectedScrollSnap()).toBe(lastIndex)
       expect(emblaApi.previousScrollSnap()).toBe(firstIndex)
     })
 
-    test('Stepping forward one snap at a time from the beginning', () => {
+    test('Шаг вперед по одному снэпу от начала', () => {
       let i = firstIndex
 
       while (i !== lastIndex) {
@@ -139,7 +139,7 @@ describe('➡️  SelectedScrollSnap & PreviousScrollSnap - Horizontal LTR', () 
       }
     })
 
-    test('Stepping backward one snap at a time from the end', () => {
+    test('Шаг назад по одному снэпу от конца', () => {
       emblaApi.reInit({ startIndex: lastIndex })
       let i = lastIndex
 

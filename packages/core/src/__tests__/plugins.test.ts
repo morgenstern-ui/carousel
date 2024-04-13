@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest'
-import {EmblaCarousel, type EmblaCarouselType } from '../EmblaCarousel'
+import { EmblaCarousel, type EmblaCarouselType } from '../EmblaCarousel'
 import { mockTestElements } from './mocks'
 import { FIXTURE_PLUGINS } from './fixtures/plugins.fixture'
 import { EmblaPluginType } from '../Plugins'
@@ -23,18 +23,15 @@ describe('➡️  Plugins', () => {
 
   beforeEach(() => {
     vi.clearAllMocks()
-    emblaApi = EmblaCarousel(mockTestElements(FIXTURE_PLUGINS), {}, [
-      PLUGIN_ONE,
-      PLUGIN_TWO
-    ])
+    emblaApi = EmblaCarousel(mockTestElements(FIXTURE_PLUGINS), {}, [PLUGIN_ONE, PLUGIN_TWO])
   })
 
-  test('Are initialized when the carousel is initialized with the constructor', () => {
+  test('Инициализируются при инициализации карусели с помощью конструктора', () => {
     expect(PLUGIN_ONE.init).toHaveBeenCalledTimes(1)
     expect(PLUGIN_TWO.init).toHaveBeenCalledTimes(1)
   })
 
-  test('Are destroyed and initalized again when the carousel reInit() method is called', () => {
+  test('Уничтожаются и инициализируются заново при вызове метода reInit() карусели', () => {
     emblaApi.reInit()
     expect(PLUGIN_ONE.destroy).toHaveBeenCalledTimes(1)
     expect(PLUGIN_TWO.destroy).toHaveBeenCalledTimes(1)
@@ -42,13 +39,13 @@ describe('➡️  Plugins', () => {
     expect(PLUGIN_TWO.init).toHaveBeenCalledTimes(2)
   })
 
-  test('Are destroyed when the carousel is destroyed', () => {
+  test('Уничтожаются при уничтожении карусели', () => {
     emblaApi.destroy()
     expect(PLUGIN_ONE.destroy).toHaveBeenCalledTimes(1)
     expect(PLUGIN_TWO.destroy).toHaveBeenCalledTimes(1)
   })
 
-  test('API:s are exposed when the plugins() method is called', () => {
+  test('API-интерфейсы доступны при вызове метода plugins()', () => {
     expect(emblaApi.plugins()[PLUGIN_ONE.name]).toEqual(PLUGIN_ONE)
     expect(emblaApi.plugins()[PLUGIN_TWO.name]).toEqual(PLUGIN_TWO)
   })

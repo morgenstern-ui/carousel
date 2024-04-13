@@ -1,16 +1,30 @@
 import type { NodeRectType } from './NodeRects.ts'
 
+/**
+ * Опции оси.
+ */
 export type AxisOptionType = 'x' | 'y'
+
+/**
+ * Опции направления оси.
+ */
 export type AxisDirectionOptionType = 'ltr' | 'rtl'
+
+/**
+ * Тип границы оси.
+ */
 type AxisEdgeType = 'top' | 'right' | 'bottom' | 'left'
 
+/**
+ * Тип оси.
+ */
 export type AxisType = ReturnType<typeof useAxis>
 
 /**
- * Функция для использования оси.
- * @param {AxisOptionType} axis - Опция оси, может быть 'x' или 'y'.
- * @param {AxisDirectionOptionType} contentDirection - Направление содержимого, может быть 'ltr' или 'rtl'.
- * @returns {AxisType} Объект, представляющий ось.
+ * Создает объект оси.
+ * @param axis - Опция оси, может быть 'x' или 'y'.
+ * @param contentDirection - Направление содержимого, может быть 'ltr' или 'rtl'.
+ * @returns Объект оси.
  */
 export function useAxis(axis: AxisOptionType, contentDirection: AxisDirectionOptionType) {
   const isRightToLeft = contentDirection === 'rtl'
@@ -22,9 +36,9 @@ export function useAxis(axis: AxisOptionType, contentDirection: AxisDirectionOpt
   const endEdge = getEndEdge()
 
   /**
-   * Функция для измерения размера узла.
-   * @param {NodeRectType} nodeRect - Объект, представляющий размеры и позицию узла.
-   * @returns {number} Возвращает высоту, если ось вертикальна, иначе возвращает ширину.
+   * Измеряет размер элемента.
+   * @param nodeRect - Размеры элемента.
+   * @returns Размер элемента.
    */
   function measureSize(nodeRect: NodeRectType): number {
     const { height, width } = nodeRect
@@ -32,8 +46,8 @@ export function useAxis(axis: AxisOptionType, contentDirection: AxisDirectionOpt
   }
 
   /**
-   * Функция для получения начального ребра оси.
-   * @returns {AxisEdgeType} Возвращает 'top', если ось вертикальна, иначе возвращает 'right' для правого режима чтения и 'left' для левого.
+   * Возвращает границу начала оси.
+   * @returns Граница начала оси.
    */
   function getStartEdge(): AxisEdgeType {
     if (isVertical) return 'top'
@@ -41,8 +55,8 @@ export function useAxis(axis: AxisOptionType, contentDirection: AxisDirectionOpt
   }
 
   /**
-   * Функция для получения конечного ребра оси.
-   * @returns {AxisEdgeType} Возвращает 'bottom', если ось вертикальна, иначе возвращает 'left' для правого режима чтения и 'right' для левого.
+   * Возвращает границу конца оси.
+   * @returns Граница конца оси.
    */
   function getEndEdge(): AxisEdgeType {
     if (isVertical) return 'bottom'
@@ -50,9 +64,9 @@ export function useAxis(axis: AxisOptionType, contentDirection: AxisDirectionOpt
   }
 
   /**
-   * Функция для определения направления оси.
-   * @param {number} n - Число, которое нужно умножить на знак.
-   * @returns {number} Возвращает результат умножения числа на знак.
+   * Возвращает направление с учетом знака.
+   * @param n - Число.
+   * @returns Направление.
    */
   function direction(n: number): number {
     return n * sign

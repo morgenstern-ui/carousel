@@ -5,20 +5,21 @@ import type { ScrollBodyType } from './ScrollBody.ts'
 import type { ScrollTargetType, TargetType } from './ScrollTarget.ts'
 import type { Vector1DType } from './Vector1d.ts'
 
-export type ScrollToType = ReturnType<typeof ScrollTo>
+export type ScrollToType = ReturnType<typeof useScrollTo>
 
 /**
- * Создает функцию для прокрутки до определенной позиции.
- * @param {AnimationsType} animation - Объект анимации.
- * @param {CounterType} indexCurrent - Текущий индекс.
- * @param {CounterType} indexPrevious - Предыдущий индекс.
- * @param {ScrollBodyType} scrollBody - Тело прокрутки.
- * @param {ScrollTargetType} scrollTarget - Цель прокрутки.
- * @param {Vector1DType} targetVector - Вектор цели.
- * @param {EventHandlerType} eventHandler - Обработчик событий.
- * @returns {ScrollToType} Функция прокрутки.
+ * Хук, который предоставляет функцию для прокрутки к определенной цели.
+ *
+ * @param animation - Объект анимации.
+ * @param indexCurrent - Текущий счетчик индекса.
+ * @param indexPrevious - Предыдущий счетчик индекса.
+ * @param scrollBody - Тип прокрутки тела.
+ * @param scrollTarget - Тип цели прокрутки.
+ * @param targetVector - Тип вектора цели.
+ * @param eventHandler - Тип обработчика событий.
+ * @returns Объект, содержащий функции distance и index для прокрутки.
  */
-export function ScrollTo(
+export function useScrollTo(
   animation: AnimationsType,
   indexCurrent: CounterType,
   indexPrevious: CounterType,
@@ -29,7 +30,8 @@ export function ScrollTo(
 ) {
   /**
    * Прокручивает до указанной цели.
-   * @param {TargetType} target - Цель прокрутки.
+   *
+   * @param target - Цель для прокрутки.
    */
   function scrollTo(target: TargetType): void {
     const distanceDiff = target.distance
@@ -56,8 +58,9 @@ export function ScrollTo(
 
   /**
    * Прокручивает на указанное расстояние.
-   * @param {number} n - Расстояние для прокрутки.
-   * @param {boolean} snap - Флаг для привязки к ближайшему элементу.
+   *
+   * @param n - Расстояние для прокрутки.
+   * @param snap - Привязываться ли к ближайшей цели.
    */
   function distance(n: number, snap: boolean): void {
     const target = scrollTarget.byDistance(n, snap)
@@ -66,8 +69,9 @@ export function ScrollTo(
 
   /**
    * Прокручивает до указанного индекса.
-   * @param {number} n - Индекс для прокрутки.
-   * @param {number} direction - Направление прокрутки.
+   *
+   * @param n - Индекс для прокрутки.
+   * @param direction - Направление прокрутки.
    */
   function index(n: number, direction: number): void {
     const targetIndex = indexCurrent.clone().set(n)

@@ -3,19 +3,20 @@ import type { ScrollContainOptionType } from './ScrollContain.ts'
 import type { SlidesToScrollType } from './SlidesToScroll.ts'
 import { arrayFromNumber, arrayIsLastIndex, arrayLast, arrayLastIndex } from './utils'
 
-export type SlideRegistryType = ReturnType<typeof SlideRegistry>
+export type SlideRegistryType = ReturnType<typeof useSlideRegistry>
 
 /**
- * Экспортируемая функция SlideRegistry, которая создает объект для управления реестром слайдов.
- * @param {boolean} containSnaps - Флаг, указывающий на необходимость содержания снимков.
- * @param {ScrollContainOptionType} containScroll - Опция, определяющая содержание прокрутки.
- * @param {number[]} scrollSnaps - Массив снимков прокрутки.
- * @param {LimitType} scrollContainLimit - Ограничение содержания прокрутки.
- * @param {SlidesToScrollType} slidesToScroll - Объект для управления группами слайдов.
- * @param {number[]} slideIndexes - Массив индексов слайдов.
- * @returns {SlideRegistryType} Возвращает объект SlideRegistry.
+ * Создает реестр слайдов на основе предоставленных параметров.
+ *
+ * @param containSnaps - Булево значение, указывающее, должны ли слайды находиться внутри контейнера прокрутки.
+ * @param containScroll - Тип опции контейнера прокрутки.
+ * @param scrollSnaps - Массив позиций прокрутки.
+ * @param scrollContainLimit - Тип ограничения контейнера прокрутки.
+ * @param slidesToScroll - Тип количества прокручиваемых слайдов.
+ * @param slideIndexes - Массив индексов слайдов.
+ * @returns Объект, содержащий реестр слайдов.
  */
-export function SlideRegistry(
+export function useSlideRegistry(
   containSnaps: boolean,
   containScroll: ScrollContainOptionType,
   scrollSnaps: number[],
@@ -28,8 +29,9 @@ export function SlideRegistry(
   const slideRegistry = createSlideRegistry()
 
   /**
-   * Создает реестр слайдов.
-   * @returns {number[][]} Возвращает массив групп индексов слайдов.
+   * Создает реестр слайдов на основе предоставленных параметров.
+   *
+   * @returns Массив индексов слайдов, сгруппированных в соответствии с указанными условиями.
    */
   function createSlideRegistry(): number[][] {
     const groupedSlideIndexes = groupSlides(slideIndexes)

@@ -2,27 +2,53 @@ import type { LimitType } from './Limit.ts'
 import type { Vector1DType } from './Vector1d.ts'
 import { arrayLast, mathAbs, mathSign } from './utils.ts'
 
+/**
+ * Представляет цель прокрутки.
+ */
 export type TargetType = {
   distance: number
   index: number
 }
 
+/**
+ * Представляет операции с целью прокрутки.
+ */
 export type ScrollTargetType = {
+  /**
+   * Вычисляет цель прокрутки на основе целевого индекса и направления.
+   * @param target - Целевой индекс.
+   * @param direction - Направление прокрутки.
+   * @returns Цель прокрутки.
+   */
   byIndex: (target: number, direction: number) => TargetType
+
+  /**
+   * Вычисляет цель прокрутки на основе расстояния и опции привязки.
+   * @param force - Расстояние для прокрутки.
+   * @param snap - Привязываться ли к ближайшей привязке прокрутки.
+   * @returns Цель прокрутки.
+   */
   byDistance: (force: number, snap: boolean) => TargetType
+
+  /**
+   * Вычисляет цель прокрутки на основе целевого индекса и направления без привязки.
+   * @param target - Целевой индекс.
+   * @param direction - Направление прокрутки.
+   * @returns Цель прокрутки.
+   */
   shortcut: (target: number, direction: number) => number
 }
 
 /**
- * Функция для создания объекта цели прокрутки.
- * @param {boolean} loop - Флаг цикличности.
- * @param {number[]} scrollSnaps - Массив снимков прокрутки.
- * @param {number} contentSize - Размер содержимого.
- * @param {LimitType} limit - Объект ограничения.
- * @param {Vector1DType} targetVector - Объект вектора цели.
- * @returns {ScrollTargetType} Возвращает объект цели прокрутки.
+ * Создает объект цели прокрутки.
+ * @param loop - Прокрутка зациклена или нет.
+ * @param scrollSnaps - Позиции привязки прокрутки.
+ * @param contentSize - Размер содержимого прокрутки.
+ * @param limit - Ограничение прокрутки.
+ * @param targetVector - Вектор цели.
+ * @returns Объект цели прокрутки.
  */
-export function ScrollTarget(
+export function useScrollTarget(
   loop: boolean,
   scrollSnaps: number[],
   contentSize: number,
@@ -32,17 +58,18 @@ export function ScrollTarget(
   const { reachedAny, removeOffset, constrain } = limit
 
   /**
-   * Функция для нахождения минимального расстояния.
-   * @param {number[]} distances - Массив расстояний.
-   * @returns {number} Возвращает минимальное расстояние.
+   * Вычисляет минимальное расстояние из массива расстояний.
+   * @param distances - Массив расстояний.
+   * @returns Минимальное расстояние.
    */
   function minDistance(distances: number[]): number {
     return distances.concat().sort((a, b) => mathAbs(a) - mathAbs(b))[0]
   }
+
   /**
-   * Функция для нахождения целевого снимка.
-   * @param {number} target - Целевое значение.
-   * @returns {TargetType} Возвращает объект цели.
+   * Находит целевую привязку на основе целевой позиции.
+   * @param target - Целевая позиция.
+   * @returns Целевая привязка.
    */
   function findTargetSnap(target: number): TargetType {
     const distance = loop ? removeOffset(target) : constrain(target)
@@ -55,10 +82,10 @@ export function ScrollTarget(
   }
 
   /**
-   * Функция для определения кратчайшего пути до цели.
-   * @param {number} target - Целевое значение.
-   * @param {number} direction - Направление.
-   * @returns {number} Возвращает кратчайшее расстояние до цели.
+   * Вычисляет целевую привязку на основе целевой позиции и направления.
+   * @param target - Целевая позиция.
+   * @param direction - Направление прокрутки.
+   * @returns Целевая привязка.
    */
   function shortcut(target: number, direction: number): number {
     const targets = [target, target + contentSize, target - contentSize]
@@ -72,10 +99,10 @@ export function ScrollTarget(
   }
 
   /**
-   * Функция для определения цели по индексу.
-   * @param {number} index - Индекс.
-   * @param {number} direction - Направление.
-   * @returns {TargetType} Возвращает объект цели.
+   * Вычисляет цель прокрутки на основе целевого индекса и направления.
+   * @param index - Целевой индекс.
+   * @param direction - Направление прокрутки.
+   * @returns Цель прокрутки.
    */
   function byIndex(index: number, direction: number): TargetType {
     const diffToSnap = scrollSnaps[index] - targetVector.get()
@@ -84,10 +111,10 @@ export function ScrollTarget(
   }
 
   /**
-   * Функция для определения цели по расстоянию.
-   * @param {number} distance - Расстояние.
-   * @param {boolean} snap - Флаг снимка.
-   * @returns {TargetType} Возвращает объект цели.
+   * Вычисляет цель прокрутки на основе расстояния и опции привязки.
+   * @param distance - Расстояние для прокрутки.
+   * @param snap - Привязываться ли к ближайшей привязке прокрутки.
+   * @returns Цель прокрутки.
    */
   function byDistance(distance: number, snap: boolean): TargetType {
     const target = targetVector.get() + distance
@@ -110,3 +137,4 @@ export function ScrollTarget(
 
   return self
 }
+

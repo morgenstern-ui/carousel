@@ -4,22 +4,22 @@ import { mockTestElements } from './mocks'
 import { FIXTURE_CONSTRUCTOR_1, FIXTURE_CONSTRUCTOR_2 } from './fixtures/constructor.fixture'
 
 describe('➡️  EmblaCarousel', () => {
-  describe('Does NOT TRHOW when initialized and', () => {
-    test('All necessary nodes are provided', () => {
+  describe('Не выбрасывает ошибку при инициализации и', () => {
+    test('Все необходимые узлы предоставлены', () => {
       expect(() => EmblaCarousel(mockTestElements(FIXTURE_CONSTRUCTOR_1))).not.toThrow()
     })
 
-    test('The slide nodes are omitted', () => {
+    test('Узлы слайдов опущены', () => {
       expect(() => EmblaCarousel(mockTestElements(FIXTURE_CONSTRUCTOR_2))).not.toThrow()
     })
   })
 
-  describe('Does TRHOW when initialized and', () => {
-    test('The root node parameter is omitted', () => {
+  describe('Выбрасывает ошибку при инициализации и', () => {
+    test('Параметр корневого узла опущен', () => {
       expect(() => EmblaCarousel(undefined as any)).toThrow()
     })
 
-    test('The container node is omitted', () => {
+    test('Узел контейнера опущен', () => {
       expect(() =>
         EmblaCarousel(
           mockTestElements({

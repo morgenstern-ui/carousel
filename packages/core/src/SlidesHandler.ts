@@ -9,11 +9,12 @@ export type SlidesHandlerOptionType = boolean | SlidesHandlerCallbackType
 export type SlidesHandlerType = ReturnType<typeof SlidesHandler>
 
 /**
- * Создает обработчик слайдов.
- * @param {HTMLElement} container - Контейнер слайдов.
- * @param {EventHandlerType} eventHandler - Обработчик событий.
- * @param {SlidesHandlerOptionType} watchSlides - Опция для отслеживания изменений слайдов.
- * @returns {SlidesHandlerType} Обработчик слайдов.
+ * Создает экземпляр SlidesHandler.
+ * 
+ * @param container - HTML-элемент, содержащий слайды.
+ * @param eventHandler - Обработчик событий для карусели.
+ * @param watchSlides - Опция для отслеживания изменений слайдов.
+ * @returns Объект с методами `init` и `destroy`.
  */
 export function SlidesHandler(
   container: HTMLElement,
@@ -23,44 +24,41 @@ export function SlidesHandler(
   let mutationObserver: MutationObserver
   let destroyed = false
 
-  /**
-   * Инициализирует обработчик слайдов.
-   * @param {EmblaCarouselType} emblaApi - API карусели.
-   */
-  function init(emblaApi: EmblaCarouselType): void {
-    if (!watchSlides) return
-
     /**
-     * Обратный вызов по умолчанию для обработки мутаций.
-     * @param {MutationRecord[]} mutations - Массив мутаций.
+     * Инициализирует обработчик слайдов.
+     * @param emblaApi - Объект типа EmblaCarouselType.
      */
-    function defaultCallback(mutations: MutationRecord[]): void {
-      for (const mutation of mutations) {
-        if (mutation.type === 'childList') {
-          emblaApi.reInit()
-          eventHandler.emit('slidesChanged')
-          break
+    function init(emblaApi: EmblaCarouselType): void {
+      if (!watchSlides) return
+
+      function defaultCallback(mutations: MutationRecord[]): void {
+        for (const mutation of mutations) {
+          if (mutation.type === 'childList') {
+            emblaApi.reInit()
+            eventHandler.emit('slidesChanged')
+            break
+          }
         }
       }
+
+      mutationObserver = new MutationObserver((mutations) => {
+        if (destroyed) return
+        if (isBoolean(watchSlides) || watchSlides(emblaApi, mutations)) {
+          defaultCallback(mutations)
+        }
+      })
+
+      mutationObserver.observe(container, { childList: true })
     }
 
-    mutationObserver = new MutationObserver((mutations) => {
-      if (destroyed) return
-      if (isBoolean(watchSlides) || watchSlides(emblaApi, mutations)) {
-        defaultCallback(mutations)
-      }
-    })
-
-    mutationObserver.observe(container, { childList: true })
-  }
-
-  /**
-   * Уничтожает обработчик слайдов.
-   */
-  function destroy(): void {
-    if (mutationObserver) mutationObserver.disconnect()
-    destroyed = true
-  }
+    /**
+     * Уничтожает экземпляр SlidesHandler.
+     * Эта функция отключает наблюдение за мутациями и устанавливает флаг `destroyed` в true.
+     */
+    function destroy(): void {
+      if (mutationObserver) mutationObserver.disconnect()
+      destroyed = true
+    }
 
   const self = {
     init,

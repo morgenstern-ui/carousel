@@ -1,39 +1,39 @@
 import type { AxisType } from './Axis'
 
-export type TranslateType = ReturnType<typeof Translate>
+export type TranslateType = ReturnType<typeof useTranslate>
 
 /**
- * Функция для создания объекта перевода (смещения) элемента.
- * @param {AxisType} axis - Ось прокрутки.
- * @param {HTMLElement} container - Элемент контейнера.
- * @returns {TranslateType} Возвращает объект перевода.
+ * Создает утилиту для трансляции заданной оси и контейнера.
+ * @param axis - Тип оси ('x' или 'y').
+ * @param container - Элемент контейнера, к которому применяется трансляция.
+ * @returns Объект с утилитами для трансляции элемента контейнера.
  */
-export function Translate(axis: AxisType, container: HTMLElement) {
+export function useTranslate(axis: AxisType, container: HTMLElement) {
   const translate = axis.scroll === 'x' ? x : y
   const containerStyle = container.style
   let disabled = false
 
   /**
-   * Функция для создания строки перевода по оси X.
-   * @param {number} n - Значение смещения.
-   * @returns {string} Возвращает строку перевода.
+   * Транслирует элемент контейнера по оси x на указанное значение.
+   * @param n - Значение для трансляции.
+   * @returns Значение CSS transform для трансляции.
    */
   function x(n: number): string {
     return `translate3d(${n}px,0px,0px)`
   }
 
   /**
-   * Функция для создания строки перевода по оси Y.
-   * @param {number} n - Значение смещения.
-   * @returns {string} Возвращает строку перевода.
+   * Транслирует элемент контейнера по оси y на указанное значение.
+   * @param n - Значение для трансляции.
+   * @returns Значение CSS transform для трансляции.
    */
   function y(n: number): string {
     return `translate3d(0px,${n}px,0px)`
   }
 
   /**
-   * Функция для применения перевода к элементу контейнера.
-   * @param {number} target - Целевое значение смещения.
+   * Транслирует элемент контейнера к указанной целевой позиции.
+   * @param target - Целевая позиция для трансляции.
    */
   function to(target: number): void {
     if (disabled) return
@@ -41,15 +41,15 @@ export function Translate(axis: AxisType, container: HTMLElement) {
   }
 
   /**
-   * Функция для переключения активности перевода.
-   * @param {boolean} active - Флаг активности.
+   * Переключает активное состояние утилиты трансляции.
+   * @param active - Определяет, должна ли утилита трансляции быть активной или нет.
    */
   function toggleActive(active: boolean): void {
     disabled = !active
   }
 
   /**
-   * Функция для очистки перевода элемента контейнера.
+   * Очищает трансляцию, примененную к элементу контейнера.
    */
   function clear(): void {
     if (disabled) return

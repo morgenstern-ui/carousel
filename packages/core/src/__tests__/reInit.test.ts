@@ -6,7 +6,7 @@ import { FIXTURE_REINIT_1, FIXTURE_REINIT_2 } from './fixtures/reInit.fixture'
 const FIRST_SNAP_INDEX = 0
 
 describe('➡️  ReInit', () => {
-  test('Picks up changes in element dimensions', () => {
+  test('Учитывает изменения размеров элемента', () => {
     const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_REINIT_1))
 
     const engine = emblaApi.internalEngine()
@@ -23,7 +23,7 @@ describe('➡️  ReInit', () => {
     expect(newEngine.location.get()).toBe(newExpectedScrollSnaps[FIRST_SNAP_INDEX])
   })
 
-  test('Picks up changes in slide count changes', () => {
+  test('Учитывает изменения количества слайдов', () => {
     const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_REINIT_1))
 
     const engine = emblaApi.internalEngine()

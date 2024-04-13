@@ -6,8 +6,8 @@ import { FIXTURE_EVENTS } from './fixtures/events.fixture'
 describe('➡️  Events', () => {
   const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_EVENTS))
 
-  describe('Events added with on():', () => {
-    test('Calls the provided callback when its associated event are emitted', () => {
+  describe('События, добавленные с помощью on():', () => {
+    test('Вызывает указанный обратный вызов при возникновении связанного события', () => {
       const callback = vi.fn()
 
       emblaApi.on('select', callback)
@@ -19,7 +19,7 @@ describe('➡️  Events', () => {
       expect(callback).toHaveBeenCalledTimes(2)
     })
 
-    test('Calls all callbacks associated with a specific event', () => {
+    test('Вызывает все обратные вызовы, связанные с определенным событием', () => {
       const callback1 = vi.fn()
       const callback2 = vi.fn()
 
@@ -30,7 +30,7 @@ describe('➡️  Events', () => {
       expect(callback2).toHaveBeenCalledTimes(1)
     })
 
-    test('Will NOT fire a callback when a different event is emitted', () => {
+    test('Не вызывает обратный вызов, когда возникает другое событие', () => {
       const callback = vi.fn()
 
       emblaApi.on('reInit', callback)
@@ -38,7 +38,7 @@ describe('➡️  Events', () => {
       expect(callback).toHaveBeenCalledTimes(0)
     })
 
-    test('Will NOT fire a callback anymore when it has been removed with off()', () => {
+    test('Больше не вызывает обратный вызов, когда он был удален с помощью off()', () => {
       const callback = vi.fn()
 
       emblaApi.on('select', callback)
@@ -50,7 +50,7 @@ describe('➡️  Events', () => {
       expect(callback).toHaveBeenCalledTimes(1)
     })
 
-    test('Calls the provided callback when emit() is triggered by the user', () => {
+    test('Вызывает указанный обратный вызов при вызове emit() пользователем', () => {
       const callback = vi.fn()
 
       emblaApi.on('select', callback)

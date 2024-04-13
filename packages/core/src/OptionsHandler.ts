@@ -3,19 +3,19 @@ import { objectKeys, objectsMergeDeep, type WindowType } from './utils.ts'
 
 type OptionsType = Partial<CreateOptionsType<LooseOptionsType>>
 
-export type OptionsHandlerType = ReturnType<typeof OptionsHandler>
+export type OptionsHandlerType = ReturnType<typeof useOptionsHandler>
 
 /**
- * Создает обработчик опций.
- * @param {WindowType} ownerWindow - Объект окна.
- * @returns {OptionsHandlerType} Обработчик опций.
+ * Пользовательский хук, который предоставляет функции для обработки параметров в компоненте карусели.
+ * @param ownerWindow - Объект окна владельца компонента.
+ * @returns Объект, содержащий функции для объединения параметров, получения параметров для конкретных медиа-точек и получения списков медиа-запросов для параметров.
  */
-export function OptionsHandler(ownerWindow: WindowType) {
+export function useOptionsHandler(ownerWindow: WindowType) {
   /**
-   * Объединяет два набора опций в один.
-   * @param {TypeA} optionsA - Первый набор опций.
-   * @param {TypeB} optionsB - Второй набор опций.
-   * @returns {TypeA} Объединенный набор опций.
+   * Глубоко объединяет два объекта параметров.
+   * @param optionsA - Первый объект параметров.
+   * @param optionsB - Второй объект параметров.
+   * @returns Объединенный объект параметров.
    */
   function mergeOptions<TypeA extends OptionsType, TypeB extends OptionsType>(
     optionsA: TypeA,
@@ -25,9 +25,9 @@ export function OptionsHandler(ownerWindow: WindowType) {
   }
 
   /**
-   * Получает опции, соответствующие текущим медиа-запросам.
-   * @param {Type} options - Набор опций.
-   * @returns {Type} Опции, соответствующие текущим медиа-запросам.
+   * Получает параметры для текущих медиа-точек.
+   * @param options - Базовый объект параметров.
+   * @returns Объект параметров с объединенными параметрами для соответствующих медиа-точек.
    */
   function optionsAtMedia<Type extends OptionsType>(options: Type): Type {
     const optionsAtMedia = options.breakpoints || {}
@@ -40,9 +40,9 @@ export function OptionsHandler(ownerWindow: WindowType) {
   }
 
   /**
-   * Получает медиа-запросы из списка опций.
-   * @param {OptionsType[]} optionsList - Список опций.
-   * @returns {MediaQueryList[]} Список медиа-запросов.
+   * Получает списки медиа-запросов для заданного списка параметров.
+   * @param optionsList - Список объектов параметров.
+   * @returns Массив списков медиа-запросов, соответствующих медиа-точкам в объектах параметров.
    */
   function optionsMediaQueries(optionsList: OptionsType[]): MediaQueryList[] {
     return optionsList

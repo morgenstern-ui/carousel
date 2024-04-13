@@ -1,7 +1,7 @@
 import type { AxisType } from './Axis.ts'
 import { arrayKeys } from './utils.ts'
-import { Vector1D, type Vector1DType } from './Vector1d.ts'
-import { Translate, type TranslateType } from './Translate.ts'
+import { useVector1D, type Vector1DType } from './Vector1d.ts'
+import { useTranslate, type TranslateType } from './Translate.ts'
 
 type SlideBoundType = {
   start: number
@@ -16,22 +16,23 @@ type LoopPointType = {
   target: () => number
 }
 
-export type SlideLooperType = ReturnType<typeof SlideLooper>
+export type SlideLooperType = ReturnType<typeof useSlideLooper>
 
 /**
- * Экспортируемая функция SlideLooper, которая создает объект для управления циклическими слайдами.
- * @param {AxisType} axis - Ось, по которой происходит прокрутка.
- * @param {number} viewSize - Размер видимой области.
- * @param {number} contentSize - Общий размер контента.
- * @param {number[]} slideSizes - Массив размеров слайдов.
- * @param {number[]} slideSizesWithGaps - Массив размеров слайдов с учетом промежутков.
- * @param {number[]} snaps - Массив точек привязки.
- * @param {number[]} scrollSnaps - Массив точек привязки прокрутки.
- * @param {Vector1DType} offsetLocation - Вектор смещения.
- * @param {HTMLElement[]} slides - Массив элементов слайдов.
- * @returns {SlideLooperType} Возвращает объект SlideLooper.
+ * Пользовательский хук, который обрабатывает циклическое поведение слайдов в карусели.
+ *
+ * @param axis - Тип оси карусели (горизонтальная или вертикальная).
+ * @param viewSize - Размер видимой области карусели.
+ * @param contentSize - Общий размер содержимого карусели.
+ * @param slideSizes - Массив размеров для каждого слайда.
+ * @param slideSizesWithGaps - Массив размеров для каждого слайда с учетом промежутков.
+ * @param snaps - Массив точек привязки для каждого слайда.
+ * @param scrollSnaps - Массив точек прокрутки для каждого слайда.
+ * @param offsetLocation - Текущее смещение карусели.
+ * @param slides - Массив элементов слайдов.
+ * @returns Объект, содержащий функции и данные, связанные с циклическим поведением слайдов.
  */
-export function SlideLooper(
+export function useSlideLooper(
   axis: AxisType,
   viewSize: number,
   contentSize: number,
@@ -48,10 +49,11 @@ export function SlideLooper(
   const loopPoints = startPoints().concat(endPoints())
 
   /**
-   * Удаляет размеры слайдов из заданного числа.
-   * @param {number[]} indexes - Индексы слайдов.
-   * @param {number} from - Число, из которого удаляются размеры слайдов.
-   * @returns {number} Возвращает результат.
+   * Удаляет размеры слайдов с заданными индексами из общего размера.
+   *
+   * @param indexes - Массив индексов слайдов.
+   * @param from - Общий размер, из которого нужно вычесть.
+   * @returns Обновленный общий размер после удаления размеров слайдов.
    */
   function removeSlideSizes(indexes: number[], from: number): number {
     return indexes.reduce((a: number, i) => {
@@ -60,10 +62,11 @@ export function SlideLooper(
   }
 
   /**
-   * Определяет слайды в заданном промежутке.
-   * @param {number[]} indexes - Индексы слайдов.
-   * @param {number} gap - Промежуток.
-   * @returns {number[]} Возвращает массив индексов слайдов.
+   * Возвращает массив индексов слайдов, которые помещаются в заданный размер промежутка.
+   *
+   * @param indexes - Массив индексов слайдов.
+   * @param gap - Доступный размер промежутка.
+   * @returns Массив индексов слайдов, которые помещаются в промежуток.
    */
   function slidesInGap(indexes: number[], gap: number): number[] {
     return indexes.reduce((a: number[], i) => {
@@ -73,9 +76,10 @@ export function SlideLooper(
   }
 
   /**
-   * Находит границы слайдов.
-   * @param {number} offset - Смещение.
-   * @returns {SlideBoundType[]} Возвращает массив объектов границ слайдов.
+   * Находит начальные и конечные границы каждого слайда на основе текущего смещения.
+   *
+   * @param offset - Текущее смещение.
+   * @returns Массив границ слайдов.
    */
   function findSlideBounds(offset: number): SlideBoundType[] {
     return snaps.map((snap, index) => ({
@@ -85,11 +89,12 @@ export function SlideLooper(
   }
 
   /**
-   * Находит точки цикла.
-   * @param {number[]} indexes - Индексы слайдов.
-   * @param {number} offset - Смещение.
-   * @param {boolean} isEndEdge - Флаг, указывающий на конечную границу.
-   * @returns {LoopPointType[]} Возвращает массив объектов точек цикла.
+   * Находит точки цикла для заданных индексов слайдов и смещения.
+   *
+   * @param indexes - Массив индексов слайдов.
+   * @param offset - Текущее смещение.
+   * @param isEndEdge - Указывает, являются ли точки цикла для конечного края.
+   * @returns Массив точек цикла.
    */
   function findLoopPoints(indexes: number[], offset: number, isEndEdge: boolean): LoopPointType[] {
     const slideBounds = findSlideBounds(offset)
@@ -103,16 +108,17 @@ export function SlideLooper(
       return {
         index,
         loopPoint,
-        slideLocation: Vector1D(-1),
-        translate: Translate(axis, slides[index]),
+        slideLocation: useVector1D(-1),
+        translate: useTranslate(axis, slides[index]),
         target: () => (offsetLocation.get() > loopPoint ? initial : altered)
       }
     })
   }
 
   /**
-   * Находит начальные точки цикла.
-   * @returns {LoopPointType[]} Возвращает массив объектов начальных точек цикла.
+   * Находит точки цикла для начального края карусели.
+   *
+   * @returns Массив точек цикла для начального края.
    */
   function startPoints(): LoopPointType[] {
     const gap = scrollSnaps[0]
@@ -121,8 +127,9 @@ export function SlideLooper(
   }
 
   /**
-   * Находит конечные точки цикла.
-   * @returns {LoopPointType[]} Возвращает массив объектов конечных точек цикла.
+   * Находит точки цикла для конечного края карусели.
+   *
+   * @returns Массив точек цикла для конечного края.
    */
   function endPoints(): LoopPointType[] {
     const gap = viewSize - scrollSnaps[0] - 1
@@ -131,8 +138,9 @@ export function SlideLooper(
   }
 
   /**
-   * Проверяет, возможен ли цикл.
-   * @returns {boolean} Возвращает true, если цикл возможен, иначе false.
+   * Проверяет, может ли карусель циклически перемещаться.
+   *
+   * @returns True, если карусель может циклически перемещаться, в противном случае - false.
    */
   function canLoop(): boolean {
     return loopPoints.every(({ index }) => {
@@ -142,7 +150,7 @@ export function SlideLooper(
   }
 
   /**
-   * Выполняет цикл.
+   * Циклически перемещает слайды в карусели.
    */
   function loop(): void {
     loopPoints.forEach((loopPoint) => {
@@ -155,7 +163,7 @@ export function SlideLooper(
   }
 
   /**
-   * Очищает цикл.
+   * Очищает переводы точек цикла.
    */
   function clear(): void {
     loopPoints.forEach((loopPoint) => loopPoint.translate.clear())
@@ -170,3 +178,4 @@ export function SlideLooper(
 
   return self
 }
+

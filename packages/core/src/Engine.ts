@@ -1,35 +1,35 @@
 import { useSlideAlignment } from './Alignment.ts'
-import { Animations, type AnimationsType, type AnimationsUpdateType, type AnimationsRenderType } from './Animations.ts'
+import { useAnimations, type AnimationsType, type AnimationsUpdateType, type AnimationsRenderType } from './Animations.ts'
 import { useAxis, type AxisType } from './Axis.ts'
-import { Counter, type CounterType } from './Counter.ts'
-import { DragHandler, type DragHandlerType } from './DragHandler.ts'
-import { DragTracker } from './DragTracker.ts'
+import { useCounter, type CounterType } from './Counter.ts'
+import { useDragHandler, type DragHandlerType } from './DragHandler.ts'
+import { useDragTracker } from './DragTracker.ts'
 import type { EventHandlerType } from './EventHandler.ts'
-import { EventStore, type EventStoreType } from './EventStore.ts'
+import { useEventStore, type EventStoreType } from './EventStore.ts'
 import type { LimitType } from './Limit.ts'
 import { useNodeRects, type NodeRectType } from './NodeRects.ts'
 import type { OptionsType } from './Options.ts'
 import { usePercentOfView, type PercentOfViewType } from './PercentOfView.ts'
-import { ResizeHandler, type ResizeHandlerType } from './ResizeHandler.ts'
-import { ScrollBody, type ScrollBodyType } from './ScrollBody.ts'
-import { ScrollBounds, type ScrollBoundsType } from './ScrollBounds.ts'
-import { ScrollContain } from './ScrollContain.ts'
-import { ScrollLimit } from './ScrollLimit.ts'
-import { ScrollLooper, type ScrollLooperType } from './ScrollLooper.ts'
-import { ScrollProgress, type ScrollProgressType } from './ScrollProgress.ts'
+import { useResizeHandler, type ResizeHandlerType } from './ResizeHandler.ts'
+import { useScrollBody, type ScrollBodyType } from './ScrollBody.ts'
+import { useScrollBounds, type ScrollBoundsType } from './ScrollBounds.ts'
+import { useScrollContain } from './ScrollContain.ts'
+import { useScrollLimit } from './ScrollLimit.ts'
+import { useScrollLooper, type ScrollLooperType } from './ScrollLooper.ts'
+import { useScrollProgress, type ScrollProgressType } from './ScrollProgress.ts'
 import { useScrollSnaps } from './ScrollSnaps.ts'
-import { SlideRegistry, type SlideRegistryType } from './SlideRegistry.ts'
-import { ScrollTarget, type ScrollTargetType } from './ScrollTarget.ts'
-import { ScrollTo, type ScrollToType } from './ScrollTo.ts'
-import { SlideFocus, type SlideFocusType } from './SlideFocus.ts'
-import { SlideLooper, type SlideLooperType } from './SlideLooper.ts'
+import { useSlideRegistry, type SlideRegistryType } from './SlideRegistry.ts'
+import { useScrollTarget, type ScrollTargetType } from './ScrollTarget.ts'
+import { useScrollTo, type ScrollToType } from './ScrollTo.ts'
+import { useSlideFocus, type SlideFocusType } from './SlideFocus.ts'
+import { useSlideLooper, type SlideLooperType } from './SlideLooper.ts'
 import { SlidesHandler, type SlidesHandlerType } from './SlidesHandler.ts'
-import { SlidesInView, type SlidesInViewType } from './SlidesInView.ts'
+import { useSlidesInView, type SlidesInViewType } from './SlidesInView.ts'
 import { useSlideSizes } from './SlideSizes.ts'
 import { useSlidesToScroll, type SlidesToScrollType } from './SlidesToScroll.ts'
-import { Translate, type TranslateType } from './Translate.ts'
+import { useTranslate, type TranslateType } from './Translate.ts'
 import { arrayKeys, arrayLast, arrayLastIndex, type WindowType } from './utils.ts'
-import { Vector1D, type Vector1DType } from './Vector1d.ts'
+import { useVector1D, type Vector1DType } from './Vector1d.ts'
 
 export type EngineType = {
   ownerDocument: Document
@@ -128,7 +128,7 @@ export function useEngine(
   )
   const { snaps, snapsAligned } = useScrollSnaps(axis, alignment, containerRect, slideRects, slidesToScroll)
   const contentSize = -arrayLast(snaps) + arrayLast(slideSizesWithGaps)
-  const { snapsContained, scrollContainLimit } = ScrollContain(
+  const { snapsContained, scrollContainLimit } = useScrollContain(
     viewSize,
     contentSize,
     snapsAligned,
@@ -136,10 +136,10 @@ export function useEngine(
     pixelTolerance
   )
   const scrollSnaps = containSnaps ? snapsContained : snapsAligned
-  const { limit } = ScrollLimit(contentSize, scrollSnaps, loop)
+  const { limit } = useScrollLimit(contentSize, scrollSnaps, loop)
 
   // Indexes
-  const index = Counter(arrayLastIndex(scrollSnaps), startIndex, loop)
+  const index = useCounter(arrayLastIndex(scrollSnaps), startIndex, loop)
   const indexPrevious = index.clone()
   const slideIndexes = arrayKeys(slides)
 
@@ -182,7 +182,7 @@ export function useEngine(
 
     translate.to(offsetLocation.get())
   }
-  const animation = Animations(
+  const animation = useAnimations(
     ownerDocument,
     ownerWindow,
     () => update(engine),
@@ -192,16 +192,16 @@ export function useEngine(
   // Shared
   const friction = 0.68
   const startLocation = scrollSnaps[index.get()]
-  const location = Vector1D(startLocation)
-  const offsetLocation = Vector1D(startLocation)
-  const target = Vector1D(startLocation)
-  const scrollBody = ScrollBody(location, offsetLocation, target, duration, friction)
-  const scrollTarget = ScrollTarget(loop, scrollSnaps, contentSize, limit, target)
-  const scrollTo = ScrollTo(animation, index, indexPrevious, scrollBody, scrollTarget, target, eventHandler)
-  const scrollProgress = ScrollProgress(limit)
-  const eventStore = EventStore()
-  const slidesInView = SlidesInView(container, slides, eventHandler, inViewThreshold)
-  const { slideRegistry } = SlideRegistry(
+  const location = useVector1D(startLocation)
+  const offsetLocation = useVector1D(startLocation)
+  const target = useVector1D(startLocation)
+  const scrollBody = useScrollBody(location, offsetLocation, target, duration, friction)
+  const scrollTarget = useScrollTarget(loop, scrollSnaps, contentSize, limit, target)
+  const scrollTo = useScrollTo(animation, index, indexPrevious, scrollBody, scrollTarget, target, eventHandler)
+  const scrollProgress = useScrollProgress(limit)
+  const eventStore = useEventStore()
+  const slidesInView = useSlidesInView(container, slides, eventHandler, inViewThreshold)
+  const { slideRegistry } = useSlideRegistry(
     containSnaps,
     containScroll,
     scrollSnaps,
@@ -209,7 +209,7 @@ export function useEngine(
     slidesToScroll,
     slideIndexes
   )
-  const slideFocus = SlideFocus(root, slides, slideRegistry, scrollTo, scrollBody, eventStore)
+  const slideFocus = useSlideFocus(root, slides, slideRegistry, scrollTo, scrollBody, eventStore)
 
   // Engine
   const engine: EngineType = {
@@ -220,13 +220,13 @@ export function useEngine(
     slideRects,
     animation,
     axis,
-    dragHandler: DragHandler(
+    dragHandler: useDragHandler(
       axis,
       root,
       ownerDocument,
       ownerWindow,
       target,
-      DragTracker(axis, ownerWindow),
+      useDragTracker(axis, ownerWindow),
       location,
       animation,
       scrollTo,
@@ -249,16 +249,16 @@ export function useEngine(
     location,
     offsetLocation,
     options,
-    resizeHandler: ResizeHandler(container, eventHandler, ownerWindow, slides, axis, watchResize, nodeRects),
+    resizeHandler: useResizeHandler(container, eventHandler, ownerWindow, slides, axis, watchResize, nodeRects),
     scrollBody,
-    scrollBounds: ScrollBounds(limit, offsetLocation, target, scrollBody, percentOfView),
-    scrollLooper: ScrollLooper(contentSize, limit, offsetLocation, [location, offsetLocation, target]),
+    scrollBounds: useScrollBounds(limit, offsetLocation, target, scrollBody, percentOfView),
+    scrollLooper: useScrollLooper(contentSize, limit, offsetLocation, [location, offsetLocation, target]),
     scrollProgress,
     scrollSnapList: scrollSnaps.map(scrollProgress.get),
     scrollSnaps,
     scrollTarget,
     scrollTo,
-    slideLooper: SlideLooper(
+    slideLooper: useSlideLooper(
       axis,
       viewSize,
       contentSize,
@@ -276,7 +276,7 @@ export function useEngine(
     slideRegistry,
     slidesToScroll,
     target,
-    translate: Translate(axis, container)
+    translate: useTranslate(axis, container)
   }
 
   return engine

@@ -1,17 +1,18 @@
-import { Limit, type LimitType } from './Limit.ts'
+import { useLimit, type LimitType } from './Limit.ts'
 import type { Vector1DType } from './Vector1d'
 
-export type ScrollLooperType = ReturnType<typeof ScrollLooper>
+export type ScrollLooperType = ReturnType<typeof useScrollLooper>
 
 /**
- * Функция для создания объекта циклической прокрутки.
- * @param {number} contentSize - Размер содержимого.
- * @param {LimitType} limit - Объект ограничения.
- * @param {Vector1DType} offsetLocation - Объект вектора смещения.
- * @param {Vector1DType[]} vectors - Массив векторов.
- * @returns {ScrollLooperType} Возвращает объект циклической прокрутки.
+ * Пользовательский хук, который предоставляет функциональность циклической прокрутки.
+ *
+ * @param contentSize - Размер контента, который нужно прокрутить.
+ * @param limit - Ограничения прокрутки.
+ * @param offsetLocation - Текущее положение смещения.
+ * @param vectors - Векторы, представляющие позицию прокрутки.
+ * @returns Объект с функцией `loop` для циклической прокрутки.
  */
-export function ScrollLooper(
+export function useScrollLooper(
   contentSize: number,
   limit: LimitType,
   offsetLocation: Vector1DType,
@@ -20,12 +21,13 @@ export function ScrollLooper(
   const jointSafety = 0.1
   const min = limit.min + jointSafety
   const max = limit.max + jointSafety
-  const { reachedMin, reachedMax } = Limit(min, max)
+  const { reachedMin, reachedMax } = useLimit(min, max)
 
   /**
-   * Функция для определения необходимости циклической прокрутки.
-   * @param {number} direction - Направление.
-   * @returns {boolean} Возвращает true, если необходима циклическая прокрутка, иначе false.
+   * Проверяет, должна ли происходить циклическая прокрутка в заданном направлении.
+   *
+   * @param direction - Направление прокрутки (1 для вперед, -1 для назад).
+   * @returns Булево значение, указывающее, должна ли происходить циклическая прокрутка в заданном направлении.
    */
   function shouldLoop(direction: number): boolean {
     if (direction === 1) return reachedMax(offsetLocation.get())
@@ -34,8 +36,9 @@ export function ScrollLooper(
   }
 
   /**
-   * Функция для выполнения циклической прокрутки.
-   * @param {number} direction - Направление.
+   * Циклически изменяет позицию прокрутки в заданном направлении.
+   *
+   * @param direction - Направление прокрутки (1 для вперед, -1 для назад).
    */
   function loop(direction: number): void {
     if (!shouldLoop(direction)) return

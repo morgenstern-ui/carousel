@@ -1,51 +1,51 @@
 import { isNumber } from './utils'
 
-export type Vector1DType = ReturnType<typeof Vector1D>
+export type Vector1DType = ReturnType<typeof useVector1D>
 
 /**
- * Функция для создания вектора в одномерном пространстве.
- * @param {number} initialValue - Начальное значение вектора.
- * @returns {Vector1DType} Возвращает объект вектора.
+ * Создает вектор с одним измерением.
+ * @param initialValue - Начальное значение вектора.
+ * @returns Объект с методами для манипуляции вектором.
  */
-export function Vector1D(initialValue: number) {
+export function useVector1D(initialValue: number) {
   let value = initialValue
 
   /**
-   * Функция для получения текущего значения вектора.
-   * @returns {number} Возвращает текущее значение вектора.
+   * Возвращает текущее значение вектора.
+   * @returns Текущее значение вектора.
    */
   function get(): number {
     return value
   }
 
   /**
-   * Функция для установки нового значения вектора.
-   * @param {Vector1DType | number} n - Новое значение вектора.
+   * Устанавливает значение вектора.
+   * @param n - Новое значение вектора.
    */
   function set(n: Vector1DType | number): void {
     value = normalizeInput(n)
   }
 
   /**
-   * Функция для добавления значения к текущему значению вектора.
-   * @param {Vector1DType | number} n - Значение, которое нужно добавить к текущему значению вектора.
+   * Добавляет значение к вектору.
+   * @param n - Значение, которое нужно добавить к вектору.
    */
   function add(n: Vector1DType | number): void {
     value += normalizeInput(n)
   }
 
   /**
-   * Функция для вычитания значения из текущего значения вектора.
-   * @param {Vector1DType | number} n - Значение, которое нужно вычесть из текущего значения вектора.
+   * Вычитает значение из вектора.
+   * @param n - Значение, которое нужно вычесть из вектора.
    */
   function subtract(n: Vector1DType | number): void {
     value -= normalizeInput(n)
   }
 
   /**
-   * Функция для нормализации входного значения.
-   * @param {Vector1DType | number} n - Входное значение.
-   * @returns {number} Возвращает нормализованное значение.
+   * Нормализует входное значение до числа.
+   * @param n - Входное значение для нормализации.
+   * @returns Нормализованное значение в виде числа.
    */
   function normalizeInput(n: Vector1DType | number): number {
     return isNumber(n) ? n : n.get()

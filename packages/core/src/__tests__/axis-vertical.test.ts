@@ -4,8 +4,8 @@ import { mockTestElements } from './mocks'
 import { FIXTURE_AXIS_Y } from './fixtures/axis-vertical.fixture'
 
 describe('➡️  Axis - Vertical LTR', () => {
-  describe('Translates correctly when direction is:', () => {
-    test('Vertical', () => {
+  describe('Корректное перемещение при следующих настройках:', () => {
+    test('Вертикальное', () => {
       const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_AXIS_Y), {
         containScroll: false,
         axis: 'y'
@@ -17,7 +17,7 @@ describe('➡️  Axis - Vertical LTR', () => {
 })
 
 describe('➡️  Axis - Vertical RTL', () => {
-  test('Translates correctly', () => {
+  test('Корректное перемещение', () => {
     const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_AXIS_Y), {
       containScroll: false,
       direction: 'rtl',

@@ -10,8 +10,8 @@ import {
 
 const FIRST_SNAP_INDEX = 0
 
-describe('➡️  SlidesToScroll - Horizontal LTR', () => {
-  describe('"auto" is correct for slides WITHOUT MARGINS and:', () => {
+describe('➡️  Скролл слайдов - Горизонтальный LTR', () => {
+  describe('"auto" корректно для слайдов БЕЗ ОТСТУПОВ и:', () => {
     const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_SLIDES_TO_SCROLL_LTR_1))
 
     beforeEach(() => {
@@ -32,7 +32,7 @@ describe('➡️  SlidesToScroll - Horizontal LTR', () => {
       ])
     })
 
-    test('LOOP:FALSE and CONTAINSCROLL:FALSE', () => {
+    test('LOOP:FALSE и CONTAINSCROLL:FALSE', () => {
       emblaApi.reInit({ containScroll: false })
 
       const engine = emblaApi.internalEngine()
@@ -67,7 +67,7 @@ describe('➡️  SlidesToScroll - Horizontal LTR', () => {
     })
   })
 
-  describe('"auto" is correct for slides WITH MARGINS and:', () => {
+  describe('"auto" корректно для слайдов С ОТСТУПАМИ и:', () => {
     const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_SLIDES_TO_SCROLL_LTR_2))
 
     beforeEach(() => {
@@ -89,7 +89,7 @@ describe('➡️  SlidesToScroll - Horizontal LTR', () => {
       ])
     })
 
-    test('LOOP:FALSE and CONTAINSCROLL:FALSE', () => {
+    test('LOOP:FALSE и CONTAINSCROLL:FALSE', () => {
       emblaApi.reInit({ containScroll: false })
 
       const engine = emblaApi.internalEngine()
@@ -124,7 +124,7 @@ describe('➡️  SlidesToScroll - Horizontal LTR', () => {
     })
   })
 
-  describe('"auto" is correct for edge cases when slide width is greater than viewport and:', () => {
+  describe('"auto" корректно для крайних случаев, когда ширина слайда больше видимой области и:', () => {
     const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_SLIDES_TO_SCROLL_LTR_3))
 
     beforeEach(() => {
@@ -141,7 +141,7 @@ describe('➡️  SlidesToScroll - Horizontal LTR', () => {
       expect(engine.slideRegistry).toEqual([[0], [1], [2], [3], [4], [5]])
     })
 
-    test('LOOP:FALSE and CONTAINSCROLL:FALSE', () => {
+    test('LOOP:FALSE и CONTAINSCROLL:FALSE', () => {
       emblaApi.reInit({ containScroll: false })
 
       const engine = emblaApi.internalEngine()
@@ -166,7 +166,7 @@ describe('➡️  SlidesToScroll - Horizontal LTR', () => {
     })
   })
 
-  describe('"Custom number 2" is correct for slides WITHOUT MARGINS and:', () => {
+  describe('"Custom number 2" корректно для слайдов БЕЗ ОТСТУПОВ и:', () => {
     const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_SLIDES_TO_SCROLL_LTR_1))
 
     beforeEach(() => {
@@ -189,7 +189,7 @@ describe('➡️  SlidesToScroll - Horizontal LTR', () => {
       ])
     })
 
-    test('LOOP:FALSE and CONTAINSCROLL:FALSE', () => {
+    test('LOOP:FALSE и CONTAINSCROLL:FALSE', () => {
       emblaApi.reInit({ containScroll: false })
 
       const engine = emblaApi.internalEngine()
@@ -226,7 +226,7 @@ describe('➡️  SlidesToScroll - Horizontal LTR', () => {
     })
   })
 
-  describe('"Custom number 2" is correct for slides WITH MARGINS and:', () => {
+  describe('"Custom number 2" корректно для слайдов С ОТСТУПАМИ и:', () => {
     const emblaApi = EmblaCarousel(mockTestElements(FIXTURE_SLIDES_TO_SCROLL_LTR_2))
 
     beforeEach(() => {
@@ -249,7 +249,7 @@ describe('➡️  SlidesToScroll - Horizontal LTR', () => {
       ])
     })
 
-    test('LOOP:FALSE and CONTAINSCROLL:FALSE', () => {
+    test('LOOP:FALSE и CONTAINSCROLL:FALSE', () => {
       emblaApi.reInit({ containScroll: false })
 
       const engine = emblaApi.internalEngine()
