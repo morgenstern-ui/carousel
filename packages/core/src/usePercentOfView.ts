@@ -6,7 +6,6 @@ export type PercentOfViewType = ReturnType<typeof usePercentOfView>
  * @returns Объект с функцией `measure`, которая вычисляет значение измерения.
  */
 export function usePercentOfView(viewSize: number) {
-
   /**
    * Вычисляет значение измерения на основе процента.
    * @param percent Значение процента.

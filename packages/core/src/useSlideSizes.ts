@@ -6,10 +6,9 @@ import { arrayIsLastIndex, arrayLast, mathAbs, type WindowType } from './utils.t
  */
 export type SlideSizesType = ReturnType<typeof useSlideSizes>
 
-
 /**
  * Вычисляет размеры слайдов и промежутки между ними.
- * 
+ *
  * @param axis - Тип оси (горизонтальная или вертикальная).
  * @param containerRect - Прямоугольник, представляющий контейнер.
  * @param slideRects - Массив прямоугольников, представляющих каждый слайд.
@@ -33,10 +32,9 @@ export function useSlideSizes(
   const slideSizes = slideRects.map(measureSize)
   const slideSizesWithGaps = measureWithGaps()
 
-
   /**
    * Измеряет начальный промежуток между контейнером и первым слайдом.
-   * 
+   *
    * @returns Начальный промежуток.
    */
   function measureStartGap(): number {
@@ -45,10 +43,9 @@ export function useSlideSizes(
     return mathAbs(containerRect[startEdge] - slideRect[startEdge])
   }
 
-
   /**
    * Измеряет конечный промежуток между последним слайдом и контейнером.
-   * 
+   *
    * @returns Конечный промежуток.
    */
   function measureEndGap(): number {
@@ -57,10 +54,9 @@ export function useSlideSizes(
     return parseFloat(style.getPropertyValue(`margin-${endEdge}`))
   }
 
-
   /**
    * Измеряет размеры слайдов с промежутками между ними.
-   * 
+   *
    * @returns Массив размеров слайдов с промежутками.
    */
   function measureWithGaps(): number[] {
@@ -76,14 +72,12 @@ export function useSlideSizes(
       .map(mathAbs)
   }
 
-
   const self = {
     slideSizes,
     slideSizesWithGaps,
     startGap,
     endGap
   } as const
-
 
   return self
 }

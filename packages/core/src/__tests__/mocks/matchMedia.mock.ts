@@ -29,9 +29,6 @@ const matchMediaMock = vi.fn((query) => ({
 
 vi.stubGlobal('matchMedia', matchMediaMock)
 
-
-
-
 let matchingMediaQueries: string[] = []
 
 export function setMatchingMediaQuery(queries: string | string[]): void {

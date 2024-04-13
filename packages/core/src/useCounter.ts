@@ -1,5 +1,5 @@
-import { useLimit } from "./useLimit.ts"
-import { mathAbs } from "./utils.ts"
+import { useLimit } from './useLimit.ts'
+import { mathAbs } from './utils.ts'
 
 /**
  * Тип счетчика.
@@ -8,7 +8,7 @@ export type CounterType = ReturnType<typeof useCounter>
 
 /**
  * Создает и возвращает счетчик.
- * 
+ *
  * @param max - Максимальное значение счетчика.
  * @param start - Начальное значение счетчика.
  * @param loop - Флаг, указывающий, должен ли счетчик зацикливаться.
@@ -21,7 +21,7 @@ export function useCounter(max: number, start: number, loop: boolean) {
 
   /**
    * Проверяет, что значение находится в пределах ограничений счетчика.
-   * 
+   *
    * @param n - Значение для проверки.
    * @returns Возвращает значение, ограниченное пределами счетчика.
    */
@@ -31,7 +31,7 @@ export function useCounter(max: number, start: number, loop: boolean) {
 
   /**
    * Возвращает текущее значение счетчика.
-   * 
+   *
    * @returns Возвращает текущее значение счетчика.
    */
   function get(): number {
@@ -40,7 +40,7 @@ export function useCounter(max: number, start: number, loop: boolean) {
 
   /**
    * Устанавливает новое значение счетчика.
-   * 
+   *
    * @param n - Новое значение счетчика.
    * @returns Возвращает объект счетчика.
    */
@@ -51,7 +51,7 @@ export function useCounter(max: number, start: number, loop: boolean) {
 
   /**
    * Увеличивает значение счетчика на указанное количество.
-   * 
+   *
    * @param n - Количество, на которое нужно увеличить счетчик.
    * @returns Возвращает объект счетчика.
    */
@@ -61,7 +61,7 @@ export function useCounter(max: number, start: number, loop: boolean) {
 
   /**
    * Создает и возвращает копию счетчика.
-   * 
+   *
    * @returns Возвращает копию счетчика.
    */
   function clone(): CounterType {

@@ -235,4 +235,3 @@ export function useEmblaCarousel(
 }
 
 useEmblaCarousel.globalOptions = <EmblaOptionsType | undefined>undefined
-
