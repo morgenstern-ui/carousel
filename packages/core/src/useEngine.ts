@@ -33,11 +33,11 @@ import { useVector1D } from './Vector1d.ts'
 export type EngineType = ReturnType<typeof useEngine>
 
 export function useEngine(
-  root: HTMLElement,
-  container: HTMLElement,
-  slides: HTMLElement[],
-  ownerDocument: Document,
-  ownerWindow: WindowType,
+  $root: HTMLElement,
+  $container: HTMLElement,
+  $slides: HTMLElement[],
+  $ownerDocument: Document,
+  $ownerWindow: WindowType,
   options: OptionsType,
   eventHandler: EventHandlerType
 ) {
@@ -52,7 +52,7 @@ export function useEngine(
     dragFree,
     dragThreshold,
     inViewThreshold,
-    slidesToScroll: groupSlides,
+    slidesToScroll: slidesToScrollProp,
     skipSnaps,
     containScroll,
     watchResize,
@@ -62,27 +62,32 @@ export function useEngine(
 
   // Measurements
   const pixelTolerance = 2
-  const nodeRects = useNodeRects()
-  const containerRect = nodeRects.measure(container)
-  const slideRects = slides.map(nodeRects.measure)
+  const containSnaps = !loop && containScroll !== false
+  const readEdgeGap = loop || containScroll !== false
+
   const axis = useAxis(scrollAxis, direction)
+
+  const nodeRects = useNodeRects()
+  const containerRect = nodeRects.measure($container)
+  const slideRects = $slides.map(nodeRects.measure)
   const viewSize = axis.measureSize(containerRect)
+
   const percentOfView = usePercentOfView(viewSize)
   const alignment = useSlideAlignment(align, viewSize)
-  const containSnaps = !loop && !!containScroll
-  const readEdgeGap = loop || !!containScroll
+
   const { slideSizes, slideSizesWithGaps, startGap, endGap } = useSlideSizes(
     axis,
     containerRect,
     slideRects,
-    slides,
+    $slides,
     readEdgeGap,
-    ownerWindow
+    $ownerWindow
   )
+
   const slidesToScroll = useSlidesToScroll(
     axis,
     viewSize,
-    groupSlides,
+    slidesToScrollProp,
     loop,
     containerRect,
     slideRects,
@@ -90,8 +95,11 @@ export function useEngine(
     endGap,
     pixelTolerance
   )
+
   const { snaps, snapsAligned } = useScrollSnaps(axis, alignment, containerRect, slideRects, slidesToScroll)
-  const contentSize = -arrayLast(snaps) + arrayLast(slideSizesWithGaps)
+
+  const contentSize = -arrayLast(snaps)! + arrayLast(slideSizesWithGaps) 
+
   const { snapsContained, scrollContainLimit } = useScrollContain(
     viewSize,
     contentSize,
@@ -99,13 +107,15 @@ export function useEngine(
     containScroll,
     pixelTolerance
   )
+
   const scrollSnaps = containSnaps ? snapsContained : snapsAligned
+
   const { limit } = useScrollLimit(contentSize, scrollSnaps, loop)
 
   // Indexes
   const index = useCounter(arrayLastIndex(scrollSnaps), startIndex, loop)
   const indexPrevious = index.clone()
-  const slideIndexes = arrayKeys(slides)
+  const slideIndexes = arrayKeys($slides)
 
   // Animation
   const update: AnimationsUpdateType = ({ dragHandler, scrollBody, scrollBounds, options: { loop } }) => {
@@ -147,8 +157,8 @@ export function useEngine(
     translate.to(offsetLocation.get())
   }
   const animation = useAnimations(
-    ownerDocument,
-    ownerWindow,
+    $ownerDocument,
+    $ownerWindow,
     () => update(engine),
     (lagOffset: number) => render(engine, lagOffset)
   )
@@ -164,7 +174,7 @@ export function useEngine(
   const scrollTo = useScrollTo(animation, index, indexPrevious, scrollBody, scrollTarget, target, eventHandler)
   const scrollProgress = useScrollProgress(limit)
   const eventStore = useEventStore()
-  const slidesInView = useSlidesInView(container, slides, eventHandler, inViewThreshold)
+  const slidesInView = useSlidesInView($container, $slides, eventHandler, inViewThreshold)
   const { slideRegistry } = useSlideRegistry(
     containSnaps,
     containScroll,
@@ -173,12 +183,12 @@ export function useEngine(
     slidesToScroll,
     slideIndexes
   )
-  const slideFocus = useSlideFocus(root, slides, slideRegistry, scrollTo, scrollBody, eventStore)
+  const slideFocus = useSlideFocus($root, $slides, slideRegistry, scrollTo, scrollBody, eventStore)
 
   // Engine
   const engine = {
-    ownerDocument,
-    ownerWindow,
+    ownerDocument: $ownerDocument,
+    ownerWindow: $ownerWindow,
     eventHandler,
     containerRect,
     slideRects,
@@ -186,11 +196,11 @@ export function useEngine(
     axis,
     dragHandler: useDragHandler(
       axis,
-      root,
-      ownerDocument,
-      ownerWindow,
+      $root,
+      $ownerDocument,
+      $ownerWindow,
       target,
-      useDragTracker(axis, ownerWindow),
+      useDragTracker(axis, $ownerWindow),
       location,
       animation,
       scrollTo,
@@ -213,7 +223,7 @@ export function useEngine(
     location,
     offsetLocation,
     options,
-    resizeHandler: useResizeHandler(container, eventHandler, ownerWindow, slides, axis, watchResize, nodeRects),
+    resizeHandler: useResizeHandler($container, eventHandler, $ownerWindow, $slides, axis, watchResize, nodeRects),
     scrollBody,
     scrollBounds: useScrollBounds(limit, offsetLocation, target, scrollBody, percentOfView),
     scrollLooper: useScrollLooper(contentSize, limit, offsetLocation, [location, offsetLocation, target]),
@@ -231,16 +241,16 @@ export function useEngine(
       snaps,
       scrollSnaps,
       offsetLocation,
-      slides
+      $slides
     ),
     slideFocus,
-    slidesHandler: useSlidesHandler(container, eventHandler, watchSlides),
+    slidesHandler: useSlidesHandler($container, eventHandler, watchSlides),
     slidesInView,
     slideIndexes,
     slideRegistry,
     slidesToScroll,
     target,
-    translate: useTranslate(axis, container)
+    translate: useTranslate(axis, $container)
   } as const
 
   return engine

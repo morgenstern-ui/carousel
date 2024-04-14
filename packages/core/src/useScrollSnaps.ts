@@ -25,19 +25,24 @@ export function useScrollSnaps(
 ) {
   const { startEdge, endEdge } = axis
   const { groupSlides } = slidesToScroll
-  const alignments = measureSizes().map(alignment.measure)
-  const snaps = measureUnaligned()
-  const snapsAligned = measureAligned()
+  const alignments = measureAlignments()
+  const snaps = measureSnaps()
+  const snapsAligned = measureSnapsAligned()
 
   /**
-   * Измеряет размеры групп слайдов.
+   * Измеряет выравнивание групп слайдов.
    *
-   * @returns Массив чисел, представляющих размеры групп слайдов.
+   * @returns Массив выравниваний.
    */
-  function measureSizes(): number[] {
-    return groupSlides(slideRects)
-      .map((rects) => arrayLast(rects)[endEdge] - rects[0][startEdge])
-      .map(mathAbs)
+  function measureAlignments(): number[] {
+    const groupAlignments = groupSlides(slideRects) as any[]
+
+    for (let idx = 0; idx < groupAlignments.length; idx++) {
+      const group = groupAlignments[idx] as any[]
+      groupAlignments[idx] = alignment.measure(mathAbs(arrayLast(group)[endEdge] - group[0][startEdge]), idx)
+    }
+
+    return groupAlignments
   }
 
   /**
@@ -45,8 +50,10 @@ export function useScrollSnaps(
    *
    * @returns Массив чисел, представляющих несогласованные точки прокрутки.
    */
-  function measureUnaligned(): number[] {
-    return slideRects.map((rect) => containerRect[startEdge] - rect[startEdge]).map((snap) => -mathAbs(snap))
+  function measureSnaps(): number[] {
+    const startContainer = containerRect[startEdge]
+
+    return slideRects.map((rect) => -mathAbs(startContainer - rect[startEdge]))
   }
 
   /**
@@ -54,10 +61,8 @@ export function useScrollSnaps(
    *
    * @returns Массив чисел, представляющих выровненные точки прокрутки.
    */
-  function measureAligned(): number[] {
-    return groupSlides(snaps)
-      .map((g) => g[0])
-      .map((snap, index) => snap + alignments[index])
+  function measureSnapsAligned(): number[] {
+    return groupSlides(snaps).map((group, index) => group[0] + alignments[index])
   }
 
   const self = {

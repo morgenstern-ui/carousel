@@ -1,6 +1,7 @@
 import type { AxisType } from './useAxis.ts'
 import type { NodeRectType } from './useNodeRects.ts'
-import { arrayIsLastIndex, arrayLast, mathAbs, type WindowType } from './utils.ts'
+import { arrayLast, mathAbs, type WindowType } from './utils.ts'
+
 /**
  * Возвращает тип размеров слайдов, возвращаемый функцией `useSlideSizes`.
  */
@@ -39,8 +40,10 @@ export function useSlideSizes(
    */
   function measureStartGap(): number {
     if (!withEdgeGap) return 0
-    const slideRect = slideRects[0]
-    return mathAbs(containerRect[startEdge] - slideRect[startEdge])
+
+    const [firstSlideRect] = slideRects
+
+    return mathAbs(containerRect[startEdge] - firstSlideRect[startEdge])
   }
 
   /**
@@ -50,7 +53,9 @@ export function useSlideSizes(
    */
   function measureEndGap(): number {
     if (!withEdgeGap) return 0
+
     const style = ownerWindow.getComputedStyle(arrayLast(slides))
+
     return parseFloat(style.getPropertyValue(`margin-${endEdge}`))
   }
 
@@ -60,16 +65,24 @@ export function useSlideSizes(
    * @returns Массив размеров слайдов с промежутками.
    */
   function measureWithGaps(): number[] {
-    return slideRects
-      .map((rect, index, rects) => {
-        const isFirst = !index
-        const isLast = arrayIsLastIndex(rects, index)
-        if (isFirst) return slideSizes[index] + startGap
-        if (isLast) return slideSizes[index] + endGap
+    const slideSizesWithGaps: number[] = []
 
-        return rects[index + 1][startEdge] - rect[startEdge]
-      })
-      .map(mathAbs)
+    for (let index = 0; index < slideRects.length; index++) {
+      const rect = slideRects[index]
+      const isFirst = index === 0
+      const isLast = index === slideRects.length - 1
+
+      if (isFirst) {
+        slideSizesWithGaps.push(slideSizes[index] + startGap)
+      } else if (isLast) {
+        slideSizesWithGaps.push(slideSizes[index] + endGap)
+      } else {
+        const nextRect = slideRects[index + 1]
+        slideSizesWithGaps.push(mathAbs(nextRect[startEdge] - rect[startEdge]))
+      }
+    }
+
+    return slideSizesWithGaps
   }
 
   const self = {

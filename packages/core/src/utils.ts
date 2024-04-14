@@ -91,7 +91,7 @@ export function arrayKeys<Type>(array: Type[]): number[] {
  * @returns {Type} Возвращает последний элемент массива.
  */
 export function arrayLast<Type>(array: Type[]): Type {
-  return array[arrayLastIndex(array)]
+  return array.at(-1)!
 }
 
 /**

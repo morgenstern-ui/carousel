@@ -42,53 +42,64 @@ export function useSlidesToScroll(
 
   /**
    * Группирует массив элементов по заданному числу.
-   * @param array - Массив для группировки.
+   * @param slides - Массив для группировки.
    * @param groupSize - Размер каждой группы.
    * @returns Массив сгруппированных элементов.
    */
-  function byNumber<Type>(array: Type[], groupSize: number): Type[][] {
-    return arrayKeys(array)
-      .filter((i) => i % groupSize === 0)
-      .map((i) => array.slice(i, i + groupSize))
+  function byNumber<Type>(slides: Type[], groupSize: number): Type[][] {
+    const groups: Type[][] = []
+
+    for (let i = 0; i < slides.length; i += groupSize) {
+      groups.push(slides.slice(i, i + groupSize))
+    }
+
+    return groups
   }
 
   /**
    * Группирует массив элементов по их размеру.
-   * @param array - Массив для группировки.
+   * @param slides - Массив для группировки.
    * @returns Массив сгруппированных элементов.
    */
-  function bySize<Type>(array: Type[]): Type[][] {
-    if (!array.length) return []
+  function bySize<Type>(slides: Type[]): Type[][] {
+    if (!slides.length) return []
 
-    return arrayKeys(array)
-      .reduce((groups: number[], rectB, index) => {
-        const rectA = arrayLast(groups) || 0
-        const isFirst = rectA === 0
-        const isLast = rectB === arrayLastIndex(array)
+    const groups: Type[][] = []
 
-        const edgeA = containerRect[startEdge] - slideRects[rectA][startEdge]
-        const edgeB = containerRect[startEdge] - slideRects[rectB][endEdge]
-        const gapA = !loop && isFirst ? direction(startGap) : 0
-        const gapB = !loop && isLast ? direction(endGap) : 0
-        const chunkSize = mathAbs(edgeB - gapB - (edgeA + gapA))
+    let previousEndIndex = 0
 
-        if (index && chunkSize > viewSize + pixelTolerance) groups.push(rectB)
-        if (isLast) groups.push(array.length)
-        return groups
-      }, [])
-      .map((currentSize, index, groups) => {
-        const previousSize = Math.max(groups[index - 1] || 0)
-        return array.slice(previousSize, currentSize)
-      })
+    for (let currentEndIndex = 0; currentEndIndex < slides.length; currentEndIndex++) {
+      const isFirstGroup = previousEndIndex === 0
+      const isLastGroup = currentEndIndex === slides.length - 1
+
+      const gapStart = isFirstGroup && !loop ? direction(startGap) : 0
+      const gapEnd = isLastGroup && !loop ? direction(endGap) : 0
+
+      const offsetStart = containerRect[startEdge] - slideRects[previousEndIndex][startEdge] + gapStart
+      const offsetEnd = containerRect[startEdge] - slideRects[currentEndIndex][endEdge] - gapEnd
+
+      const groupSize = mathAbs(offsetEnd - offsetStart)
+
+      if (currentEndIndex && groupSize > viewSize + pixelTolerance) {
+        groups.push(slides.slice(previousEndIndex, currentEndIndex))
+        previousEndIndex = currentEndIndex
+      }
+
+      if (isLastGroup) {
+        groups.push(slides.slice(previousEndIndex, slides.length))
+      }
+    }
+
+    return groups
   }
 
   /**
    * Группирует массив элементов на основе опции `slidesToScroll`.
-   * @param array - Массив для группировки.
+   * @param slides - Массив для группировки.
    * @returns Массив сгруппированных элементов.
    */
-  function groupSlides<Type>(array: Type[]): Type[][] {
-    return groupByNumber ? byNumber(array, slidesToScroll) : bySize(array)
+  function groupSlides<Type>(slides: Type[]): Type[][] {
+    return groupByNumber ? byNumber(slides, slidesToScroll) : bySize(slides)
   }
 
   const self = {

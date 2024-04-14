@@ -36,9 +36,9 @@ export function useEmblaCarousel(
   userOptions?: EmblaOptionsType,
   userPlugins?: EmblaPluginType[]
 ): EmblaCarouselType {
-  const ownerDocument = root.ownerDocument
-  const ownerWindow = <WindowType>ownerDocument.defaultView
-  const optionsHandler = useOptionsHandler(ownerWindow)
+  const $ownerDocument = root.ownerDocument
+  const $ownerWindow = <WindowType>$ownerDocument.defaultView
+  const optionsHandler = useOptionsHandler($ownerWindow)
   const pluginsHandler = usePluginsHandler(optionsHandler)
   const mediaHandlers = useEventStore()
   const eventHandler = useEventHandler()
@@ -53,21 +53,21 @@ export function useEmblaCarousel(
   let pluginList: EmblaPluginType[] = []
   let pluginApis: EmblaPluginsType
 
-  let container: HTMLElement
-  let slides: HTMLElement[]
+  let $container: HTMLElement
+  let $slides: HTMLElement[]
 
   function storeElements(): void {
     const { container: userContainer, slides: userSlides } = options
 
     const customContainer = isString(userContainer) ? root.querySelector(userContainer) : userContainer
-    container = <HTMLElement>(customContainer || root.children[0])
+    $container = <HTMLElement>(customContainer || root.children[0])
 
-    const customSlides = isString(userSlides) ? container.querySelectorAll(userSlides) : userSlides
-    slides = <HTMLElement[]>[].slice.call(customSlides || container.children)
+    const customSlides = isString(userSlides) ? $container.querySelectorAll(userSlides) : userSlides
+    $slides = <HTMLElement[]>[].slice.call(customSlides || $container.children)
   }
 
   function createEngine(options: OptionsType): EngineType {
-    const engine = useEngine(root, container, slides, ownerDocument, ownerWindow, options, eventHandler)
+    const engine = useEngine(root, $container, $slides, $ownerDocument, $ownerWindow, options, eventHandler)
 
     if (options.loop && !engine.slideLooper.canLoop()) {
       const optionsWithoutLoop = Object.assign({}, options, { loop: false })
@@ -102,7 +102,7 @@ export function useEmblaCarousel(
     engine.slidesHandler.init(self)
 
     if (engine.options.loop) engine.slideLooper.loop()
-    if (container.offsetParent && slides.length) engine.dragHandler.init(self)
+    if ($container.offsetParent && $slides.length) engine.dragHandler.init(self)
 
     pluginApis = pluginsHandler.init(self, pluginList)
   }
@@ -198,11 +198,11 @@ export function useEmblaCarousel(
   }
 
   function containerNode(): HTMLElement {
-    return container
+    return $container
   }
 
   function slideNodes(): HTMLElement[] {
-    return slides
+    return $slides
   }
 
   const self: EmblaCarouselType = {

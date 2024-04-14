@@ -46,6 +46,7 @@ export function useCounter(max: number, start: number, loop: boolean) {
    */
   function set(n: number): CounterType {
     counter = withinLimit(n)
+
     return self
   }
 
