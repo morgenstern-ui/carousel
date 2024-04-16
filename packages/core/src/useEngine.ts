@@ -28,7 +28,7 @@ import { useSlideSizes } from './useSlideSizes.ts'
 import { useSlidesToScroll } from './useSlidesToScroll.ts'
 import { useTranslate } from './useTranslate.ts'
 import { arrayKeys, arrayLast, arrayLastIndex, type WindowType } from './utils.ts'
-import { useVector1D } from './Vector1d.ts'
+import { useVector1D } from './useVector1D.ts'
 
 export type EngineType = ReturnType<typeof useEngine>
 
