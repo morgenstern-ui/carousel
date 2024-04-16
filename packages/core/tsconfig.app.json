@@ -6,7 +6,8 @@
     "composite": true,
     "emitDeclarationOnly": true,
     "allowImportingTsExtensions": true,
-    "outDir": "lib",
+    "outDir": "dist",
+    "rootDir": "src",
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo"
   }
 }

@@ -3,8 +3,8 @@
   "include": ["vite.config.*", "vitest.config.*"],
   "compilerOptions": {
     "composite": true,
-    "noEmit": true,
-    "allowImportingTsExtensions": true,
+    "emitDeclarationOnly": true,
+    "allowArbitraryExtensions": true,
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
     "types": ["node"]
   }

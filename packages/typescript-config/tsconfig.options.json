@@ -3,7 +3,7 @@
     /* Visit https://aka.ms/tsconfig to read more about this file */
     /* Проекты */
     "incremental": true, //2                             /* Сохранять файлы .tsbuildinfo для инкрементальной компиляции проектов. */
-    "composite": true, //2                               /* Включить ограничения, позволяющие использовать проект TypeScript с ссылками на проекты. */
+    // "composite": true, //-2                               /* Включить ограничения, позволяющие использовать проект TypeScript с ссылками на проекты. */
     // "tsBuildInfoFile": "./.tsbuildinfo",              /* Указать путь к файлу инкрементальной компиляции .tsbuildinfo. */
     // "disableSourceOfProjectReferenceRedirect": true,  /* Отключить предпочтение исходных файлов вместо файлов объявлений при ссылке на составные проекты. */
     // "disableSolutionSearching": true,                 /* Отключить проверку множественных проектных ссылок при редактировании. */

@@ -12,6 +12,13 @@
     "dev": {
       "cache": false,
       "persistent": true
+    },
+    "playgrounds#dev": {
+      "dependsOn": ["build:watch"]
+    },
+    "build:watch": {
+      "dependsOn": ["^build"],
+      "outputs": [".next/**", "!.next/cache/**"]
     }
   }
 }
