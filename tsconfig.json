@@ -1,0 +1,12 @@
+{
+  "extends": "@teleskop150750/typescript-config/tsconfig.options.json",
+  "files": [],
+  "references": [
+    {
+      "path": "packages/core",
+    },
+    {
+      "path": "playgrounds/core"
+    },
+  ]
+}

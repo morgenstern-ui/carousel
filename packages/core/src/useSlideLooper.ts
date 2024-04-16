@@ -1,6 +1,6 @@
 import type { AxisType } from './useAxis.ts'
 import { arrayKeys } from './utils.ts'
-import { useVector1D, type Vector1DType } from './Vector1d.ts'
+import { useVector1D, type Vector1DType } from './useVector1D.ts'
 import { useTranslate, type TranslateType } from './useTranslate.ts'
 
 type SlideBoundType = {

@@ -1,0 +1,11 @@
+{
+  "extends": "@teleskop150750/typescript-config/tsconfig.options.json",
+  "include": ["vite.config.*", "vitest.config.*"],
+  "compilerOptions": {
+    "composite": true,
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
+    "types": ["node"]
+  }
+}

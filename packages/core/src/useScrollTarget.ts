@@ -1,5 +1,5 @@
 import type { LimitType } from './useLimit.ts'
-import type { Vector1DType } from './Vector1d.ts'
+import type { Vector1DType } from './useVector1D.ts'
 import { arrayLast, mathAbs, mathSign } from './utils.ts'
 
 /**

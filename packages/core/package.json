@@ -2,6 +2,15 @@
   "name": "@teleskop150750/embla-carousel-core",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    }
+  },
   "license": "MIT",
   "publishConfig": {
     "access": "public"

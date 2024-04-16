@@ -1,14 +1,18 @@
 {
   "name": "carousel",
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "type-check": "tsc --build --verbose --force"
   },
   "devDependencies": {
     "@teleskop150750/typescript-config": "workspace:*",
+    "@types/jsdom": "^21.1.6",
+    "@types/node": "^20.12.7",
     "jsdom": "^24.0.0",
     "prettier": "^3.2.5",
     "turbo": "latest",

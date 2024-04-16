@@ -3,7 +3,7 @@ import type { CounterType } from './useCounter.ts'
 import type { EventHandlerType } from './useEventHandler.ts'
 import type { ScrollBodyType } from './useScrollBody.ts'
 import type { ScrollTargetType, TargetType } from './useScrollTarget.ts'
-import type { Vector1DType } from './Vector1d.ts'
+import type { Vector1DType } from './useVector1D.ts'
 
 export type ScrollToType = ReturnType<typeof useScrollTo>
 

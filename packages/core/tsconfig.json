@@ -1,5 +1,17 @@
 {
-  "extends": "@teleskop150750/typescript-config/tsconfig.base.json",
-  "exclude": ["node_modules", "**/*.test.ts"],
-  "include": ["src"]
+  "compilerOptions": {
+    "composite": true
+  },
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    },
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.vitest.json"
+    }
+  ]
 }

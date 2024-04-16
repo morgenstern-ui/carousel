@@ -1,6 +1,6 @@
 import { useLimit, type LimitType } from './useLimit.ts'
 import type { ScrollBodyType } from './useScrollBody.ts'
-import type { Vector1DType } from './Vector1d.ts'
+import type { Vector1DType } from './useVector1D.ts'
 import { mathAbs } from './utils.ts'
 import type { PercentOfViewType } from './usePercentOfView.ts'
 

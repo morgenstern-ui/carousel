@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest'
 import { useEmblaCarousel } from '../useEmblaCarousel'
-import { EngineType } from '../useEngine'
+import type { EngineType } from '../useEngine'
 import { mockTestElements } from './mocks'
 import { FIXTURE_LOOP_LTR_1, FIXTURE_LOOP_LTR_2 } from './fixtures/loop-ltr.fixture'
 
