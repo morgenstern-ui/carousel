@@ -13,20 +13,20 @@ export type ResizeHandlerType = ReturnType<typeof useResizeHandler>
 /**
  * Создает обработчик изменения размера для контейнера карусели.
  *
- * @param container - HTML-элемент, представляющий контейнер карусели.
+ * @param $container - HTML-элемент, представляющий контейнер карусели.
  * @param eventHandler - Обработчик событий для карусели.
- * @param ownerWindow - Объект окна карусели.
- * @param slides - Массив HTML-элементов, представляющих слайды карусели.
+ * @param $ownerWindow - Объект окна карусели.
+ * @param $slides - Массив HTML-элементов, представляющих слайды карусели.
  * @param axis - Тип оси карусели (горизонтальная или вертикальная).
  * @param watchResize - Опция для отслеживания событий изменения размера.
  * @param nodeRects - Объект, содержащий методы для измерения размера узла.
  * @returns Объект с методами для инициализации и уничтожения обработчика изменения размера.
  */
 export function useResizeHandler(
-  container: HTMLElement,
+  $container: HTMLElement,
   eventHandler: EventHandlerType,
-  ownerWindow: WindowType,
-  slides: HTMLElement[],
+  $ownerWindow: WindowType,
+  $slides: HTMLElement[],
   axis: AxisType,
   watchResize: ResizeHandlerOptionType,
   nodeRects: NodeRectsType
@@ -48,19 +48,19 @@ export function useResizeHandler(
   function init(emblaApi: EmblaCarouselType): void {
     if (!watchResize) return
 
-    containerSize = readSize(container)
-    slideSizes = slides.map(readSize)
+    containerSize = readSize($container)
+    slideSizes = $slides.map(readSize)
 
     function defaultCallback(entries: ResizeObserverEntry[]): void {
       for (const entry of entries) {
-        const isContainer = entry.target === container
-        const slideIndex = slides.indexOf(<HTMLElement>entry.target)
+        const isContainer = entry.target === $container
+        const slideIndex = $slides.indexOf(<HTMLElement>entry.target)
         const lastSize = isContainer ? containerSize : slideSizes[slideIndex]
-        const newSize = readSize(isContainer ? container : slides[slideIndex])
+        const newSize = readSize(<HTMLElement>entry.target)
         const diffSize = mathAbs(newSize - lastSize)
 
         if (diffSize >= 0.5) {
-          ownerWindow.requestAnimationFrame(() => {
+          $ownerWindow.requestAnimationFrame(() => {
             emblaApi.reInit()
             eventHandler.emit('resize')
           })
@@ -76,7 +76,7 @@ export function useResizeHandler(
       }
     })
 
-    const observeNodes = [container].concat(slides)
+    const observeNodes = [$container].concat($slides)
     observeNodes.forEach((node) => resizeObserver.observe(node))
   }
 

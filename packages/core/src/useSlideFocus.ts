@@ -11,8 +11,8 @@ export type SlideFocusType = ReturnType<typeof useSlideFocus>
 
 /**
  * Хук, управляющий поведением фокуса слайдов в карусели.
- * @param root - Корневой элемент карусели.
- * @param slides - Массив элементов слайдов.
+ * @param $root - Корневой элемент карусели.
+ * @param $slides - Массив элементов слайдов.
  * @param slideRegistry - Объект реестра слайдов.
  * @param scrollTo - Функция прокрутки к слайду.
  * @param scrollBody - Объект тела прокрутки.
@@ -20,8 +20,8 @@ export type SlideFocusType = ReturnType<typeof useSlideFocus>
  * @returns Объект, содержащий функцию `init`.
  */
 export function useSlideFocus(
-  root: HTMLElement,
-  slides: HTMLElement[],
+  $root: HTMLElement,
+  $slides: HTMLElement[],
   slideRegistry: SlideRegistryType['slideRegistry'],
   scrollTo: ScrollToType,
   scrollBody: ScrollBodyType,
@@ -34,7 +34,7 @@ export function useSlideFocus(
    */
   function init(): void {
     eventStore.add(document, 'keydown', registerTabPress, false)
-    slides.forEach(addSlideFocusEvent)
+    $slides.forEach(addSlideFocusEvent)
   }
 
   /**
@@ -47,17 +47,17 @@ export function useSlideFocus(
 
   /**
    * Добавляет слушатель события фокуса к элементу слайда.
-   * @param slide - Элемент слайда.
+   * @param $slide - Элемент слайда.
    */
-  function addSlideFocusEvent(slide: HTMLElement): void {
+  function addSlideFocusEvent($slide: HTMLElement): void {
     const focus = (): void => {
       const nowTime = new Date().getTime()
       const diffTime = nowTime - lastTabPressTime
 
       if (diffTime > 10) return
 
-      root.scrollLeft = 0
-      const index = slides.indexOf(slide)
+      $root.scrollLeft = 0
+      const index = $slides.indexOf($slide)
       const group = slideRegistry.findIndex((group) => group.includes(index))
 
       if (!isNumber(group)) return
@@ -66,7 +66,7 @@ export function useSlideFocus(
       scrollTo.index(group, 0)
     }
 
-    eventStore.add(slide, 'focus', focus, {
+    eventStore.add($slide, 'focus', focus, {
       passive: true,
       capture: true
     })

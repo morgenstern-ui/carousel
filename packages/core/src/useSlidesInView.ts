@@ -11,15 +11,15 @@ export type SlidesInViewType = ReturnType<typeof useSlidesInView>
 
 /**
  * Создает пользовательский хук, который отслеживает, какие слайды находятся в видимости внутри контейнера.
- * @param container - Элемент контейнера, содержащий слайды.
- * @param slides - Массив элементов слайдов.
+ * @param $container - Элемент контейнера, содержащий слайды.
+ * @param $slides - Массив элементов слайдов.
  * @param eventHandler - Объект обработчика событий.
  * @param threshold - Параметры порога для IntersectionObserver.
  * @returns Объект с методами для инициализации, уничтожения и получения слайдов в видимости.
  */
 export function useSlidesInView(
-  container: HTMLElement,
-  slides: HTMLElement[],
+  $container: HTMLElement,
+  $slides: HTMLElement[],
   eventHandler: EventHandlerType,
   threshold: SlidesInViewOptionsType
 ) {
@@ -38,7 +38,7 @@ export function useSlidesInView(
         if (destroyed) return
 
         entries.forEach((entry) => {
-          const index = slides.indexOf(<HTMLElement>entry.target)
+          const index = $slides.indexOf(<HTMLElement>entry.target)
           intersectionEntryMap[index] = entry
         })
 
@@ -47,12 +47,12 @@ export function useSlidesInView(
         eventHandler.emit('slidesInView')
       },
       {
-        root: container.parentElement,
+        root: $container.parentElement,
         threshold
       }
     )
 
-    slides.forEach((slide) => intersectionObserver.observe(slide))
+    $slides.forEach((slide) => intersectionObserver.observe(slide))
   }
 
   /**

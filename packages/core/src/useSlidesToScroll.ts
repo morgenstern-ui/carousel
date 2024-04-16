@@ -1,6 +1,6 @@
 import type { AxisType } from './useAxis.ts'
 import type { NodeRectType } from './useNodeRects.ts'
-import { arrayKeys, arrayLast, arrayLastIndex, isNumber, mathAbs } from './utils.ts'
+import { isNumber, mathAbs } from './utils.ts'
 
 /**
  * Тип опции `slidesToScroll`.
@@ -58,35 +58,37 @@ export function useSlidesToScroll(
 
   /**
    * Группирует массив элементов по их размеру.
-   * @param slides - Массив для группировки.
+   * @param array - Массив для группировки.
    * @returns Массив сгруппированных элементов.
    */
-  function bySize<Type>(slides: Type[]): Type[][] {
-    if (!slides.length) return []
+  function bySize<Type>(array: Type[]): Type[][] {
+    if (!array.length) return []
 
     const groups: Type[][] = []
+    const arrayLength = array.length
+    const arrayLastIndex = arrayLength - 1
 
-    let previousEndIndex = 0
+    let startIndex = 0
 
-    for (let currentEndIndex = 0; currentEndIndex < slides.length; currentEndIndex++) {
-      const isFirstGroup = previousEndIndex === 0
-      const isLastGroup = currentEndIndex === slides.length - 1
+    for (let endIndex = 0; endIndex < arrayLength; endIndex++) {
+      const isFirstGroup = startIndex === 0
+      const isLastGroup = endIndex === arrayLastIndex
 
       const gapStart = isFirstGroup && !loop ? direction(startGap) : 0
       const gapEnd = isLastGroup && !loop ? direction(endGap) : 0
 
-      const offsetStart = containerRect[startEdge] - slideRects[previousEndIndex][startEdge] + gapStart
-      const offsetEnd = containerRect[startEdge] - slideRects[currentEndIndex][endEdge] - gapEnd
+      const offsetStart = containerRect[startEdge] - slideRects[startIndex][startEdge] + gapStart
+      const offsetEnd = containerRect[startEdge] - slideRects[endIndex][endEdge] - gapEnd
 
       const groupSize = mathAbs(offsetEnd - offsetStart)
 
-      if (currentEndIndex && groupSize > viewSize + pixelTolerance) {
-        groups.push(slides.slice(previousEndIndex, currentEndIndex))
-        previousEndIndex = currentEndIndex
+      if (endIndex && groupSize > viewSize + pixelTolerance) {
+        groups.push(array.slice(startIndex, endIndex))
+        startIndex = endIndex
       }
 
       if (isLastGroup) {
-        groups.push(slides.slice(previousEndIndex, slides.length))
+        groups.push(array.slice(startIndex, arrayLength))
       }
     }
 

@@ -11,13 +11,13 @@ export type SlidesHandlerType = ReturnType<typeof useSlidesHandler>
 /**
  * Создает экземпляр SlidesHandler.
  *
- * @param container - HTML-элемент, содержащий слайды.
+ * @param $container - HTML-элемент, содержащий слайды.
  * @param eventHandler - Обработчик событий для карусели.
  * @param watchSlides - Опция для отслеживания изменений слайдов.
  * @returns Объект с методами `init` и `destroy`.
  */
 export function useSlidesHandler(
-  container: HTMLElement,
+  $container: HTMLElement,
   eventHandler: EventHandlerType,
   watchSlides: SlidesHandlerOptionType
 ) {
@@ -48,7 +48,7 @@ export function useSlidesHandler(
       }
     })
 
-    mutationObserver.observe(container, { childList: true })
+    mutationObserver.observe($container, { childList: true })
   }
 
   /**

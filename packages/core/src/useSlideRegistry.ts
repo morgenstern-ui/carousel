@@ -41,7 +41,7 @@ export function useSlideRegistry(
     if (doNotContain) return groupedSlideIndexes
 
     return groupedSlideIndexes.slice(min, max).map((group, index, groups) => {
-      const isFirst = !index
+      const isFirst = index === 0
       const isLast = arrayIsLastIndex(groups, index)
 
       if (isFirst) {

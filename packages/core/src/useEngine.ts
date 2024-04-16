@@ -1,4 +1,4 @@
-import { useSlideAlignment } from './useSlideAlignment.ts'
+import { useAlignment } from './useAlignment.ts'
 import { useAnimations, type AnimationsUpdateType, type AnimationsRenderType } from './useAnimations.ts'
 import { useAxis } from './useAxis.ts'
 import { useCounter } from './useCounter.ts'
@@ -73,7 +73,7 @@ export function useEngine(
   const viewSize = axis.measureSize(containerRect)
 
   const percentOfView = usePercentOfView(viewSize)
-  const alignment = useSlideAlignment(align, viewSize)
+  const alignment = useAlignment(align, viewSize)
 
   const { slideSizes, slideSizesWithGaps, startGap, endGap } = useSlideSizes(
     axis,
@@ -98,7 +98,7 @@ export function useEngine(
 
   const { snaps, snapsAligned } = useScrollSnaps(axis, alignment, containerRect, slideRects, slidesToScroll)
 
-  const contentSize = -arrayLast(snaps)! + arrayLast(slideSizesWithGaps) 
+  const contentSize = -arrayLast(snaps)! + arrayLast(slideSizesWithGaps)
 
   const { snapsContained, scrollContainLimit } = useScrollContain(
     viewSize,
@@ -166,15 +166,21 @@ export function useEngine(
   // Shared
   const friction = 0.68
   const startLocation = scrollSnaps[index.get()]
+  
   const location = useVector1D(startLocation)
   const offsetLocation = useVector1D(startLocation)
   const target = useVector1D(startLocation)
+  
   const scrollBody = useScrollBody(location, offsetLocation, target, duration, friction)
   const scrollTarget = useScrollTarget(loop, scrollSnaps, contentSize, limit, target)
   const scrollTo = useScrollTo(animation, index, indexPrevious, scrollBody, scrollTarget, target, eventHandler)
+  
   const scrollProgress = useScrollProgress(limit)
+  
   const eventStore = useEventStore()
+  
   const slidesInView = useSlidesInView($container, $slides, eventHandler, inViewThreshold)
+  
   const { slideRegistry } = useSlideRegistry(
     containSnaps,
     containScroll,
@@ -183,6 +189,7 @@ export function useEngine(
     slidesToScroll,
     slideIndexes
   )
+
   const slideFocus = useSlideFocus($root, $slides, slideRegistry, scrollTo, scrollBody, eventStore)
 
   // Engine

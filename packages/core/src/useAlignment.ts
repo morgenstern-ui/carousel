@@ -16,9 +16,9 @@ export type AlignmentOptionType =
 
 /**
  * Тип выравнивания слайда.
- * Возвращаемый тип функции useSlideAlignment.
+ * Возвращаемый тип функции useAlignment.
  */
-export type SlideAlignmentType = ReturnType<typeof useSlideAlignment>
+export type AlignmentType = ReturnType<typeof useAlignment>
 
 /**
  * Функция для выравнивания слайда.
@@ -26,7 +26,7 @@ export type SlideAlignmentType = ReturnType<typeof useSlideAlignment>
  * @param viewSize - размер области просмотра.
  * @returns объект с методом measure для измерения выравнивания.
  */
-export function useSlideAlignment(align: AlignmentOptionType, viewSize: number) {
+export function useAlignment(align: AlignmentOptionType, viewSize: number) {
   const predefined = { start, center, end }
 
   /**

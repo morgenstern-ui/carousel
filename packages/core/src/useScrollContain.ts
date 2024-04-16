@@ -1,5 +1,5 @@
 import { useLimit, type LimitType } from './useLimit.ts'
-import { arrayIsLastIndex, arrayLast, deltaAbs } from './utils.ts'
+import { arrayLast, deltaAbs } from './utils.ts'
 
 export type ScrollContainOptionType = false | 'trimSnaps' | 'keepSnaps'
 
@@ -36,21 +36,36 @@ export function useScrollContain(
    */
   function measureBounded(): number[] {
     const { min, max } = scrollBounds
+    const snapsAlignedLength = snapsAligned.length
+    const snapsAlignedLastIndex = snapsAlignedLength - 1
 
-    return snapsAligned
-      .map((snapAligned, index) => {
-        const snap = scrollBounds.constrain(snapAligned)
-        const isFirst = !index
-        const isLast = arrayIsLastIndex(snapsAligned, index)
+    const boundedList = <number[]>[]
+    const round = (value: number) => parseFloat(value.toFixed(3))
 
-        if (isFirst) return max
-        if (isLast) return min
-        if (usePixelTolerance(min, snap)) return min
-        if (usePixelTolerance(max, snap)) return max
+    for (let index = 0; index < snapsAlignedLength; index++) {
+      const snapAligned = snapsAligned[index]
+      const snap = scrollBounds.constrain(snapAligned)
+      const isFirst = index === 0
+      const isLast = index === snapsAlignedLastIndex
 
-        return snap
-      })
-      .map((scrollBound) => parseFloat(scrollBound.toFixed(3)))
+      let bounded = 0
+
+      if (isFirst) {
+        bounded = round(max)
+      } else if (isLast) {
+        bounded = min
+      } else if (usePixelTolerance(min, snap)) {
+        bounded = round(min)
+      } else if (usePixelTolerance(max, snap)) {
+        bounded = round(max)
+      } else {
+        bounded = round(snap)
+      }
+
+      boundedList.push(bounded)
+    }
+
+    return boundedList
   }
 
   /**

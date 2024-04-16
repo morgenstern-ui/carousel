@@ -1,4 +1,4 @@
-import type { SlideAlignmentType } from './useSlideAlignment.ts'
+import type { AlignmentType } from './useAlignment.ts'
 import type { AxisType } from './useAxis.ts'
 import type { NodeRectType } from './useNodeRects.ts'
 import type { SlidesToScrollType } from './useSlidesToScroll.ts'
@@ -18,14 +18,14 @@ export type ScrollSnapsType = ReturnType<typeof useScrollSnaps>
  */
 export function useScrollSnaps(
   axis: AxisType,
-  alignment: SlideAlignmentType,
+  alignment: AlignmentType,
   containerRect: NodeRectType,
   slideRects: NodeRectType[],
   slidesToScroll: SlidesToScrollType
 ) {
   const { startEdge, endEdge } = axis
   const { groupSlides } = slidesToScroll
-  const alignments = measureAlignments()
+  const groupAlignments = measureGroupAlignments()
   const snaps = measureSnaps()
   const snapsAligned = measureSnapsAligned()
 
@@ -34,12 +34,13 @@ export function useScrollSnaps(
    *
    * @returns Массив выравниваний.
    */
-  function measureAlignments(): number[] {
+  function measureGroupAlignments(): number[] {
     const groupAlignments = groupSlides(slideRects) as any[]
 
     for (let idx = 0; idx < groupAlignments.length; idx++) {
-      const group = groupAlignments[idx] as any[]
-      groupAlignments[idx] = alignment.measure(mathAbs(arrayLast(group)[endEdge] - group[0][startEdge]), idx)
+      const group = groupAlignments[idx] as NodeRectType[]
+      const groupSize = mathAbs(arrayLast(group)[endEdge] - group[0][startEdge])
+      groupAlignments[idx] = alignment.measure(groupSize, idx)
     }
 
     return groupAlignments
@@ -62,7 +63,18 @@ export function useScrollSnaps(
    * @returns Массив чисел, представляющих выровненные точки прокрутки.
    */
   function measureSnapsAligned(): number[] {
-    return groupSlides(snaps).map((group, index) => group[0] + alignments[index])
+    const groupSnaps = groupSlides(snaps)
+    const groupsLength = groupSnaps.length
+    const snapsAligned = <number[]>[]
+
+    for (let idx = 0; idx < groupsLength; idx++) {
+      const groupSnap = groupSnaps[idx]
+      const groupAlignment = groupAlignments[idx]
+
+      snapsAligned.push(groupSnap[0] + groupAlignment)
+    }
+
+    return snapsAligned
   }
 
   const self = {

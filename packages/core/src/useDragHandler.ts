@@ -211,7 +211,9 @@ export function useDragHandler(
       preventScroll = diffScroll > diffCross
       if (!preventScroll) return up(evt)
     }
+
     const diff = dragTracker.pointerMove(evt)
+
     if (diffScroll > dragThreshold) preventClick = true
 
     scrollBody.useFriction(0.3).useDuration(1)

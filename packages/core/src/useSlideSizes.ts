@@ -66,19 +66,20 @@ export function useSlideSizes(
    */
   function measureWithGaps(): number[] {
     const slideSizesWithGaps: number[] = []
+    const slideRectsLength = slideRects.length
 
-    for (let index = 0; index < slideRects.length; index++) {
-      const rect = slideRects[index]
+    for (let index = 0; index < slideRectsLength; index++) {
+      const slideRect = slideRects[index]
       const isFirst = index === 0
-      const isLast = index === slideRects.length - 1
+      const isLast = index === slideRectsLength - 1
 
       if (isFirst) {
         slideSizesWithGaps.push(slideSizes[index] + startGap)
       } else if (isLast) {
         slideSizesWithGaps.push(slideSizes[index] + endGap)
       } else {
-        const nextRect = slideRects[index + 1]
-        slideSizesWithGaps.push(mathAbs(nextRect[startEdge] - rect[startEdge]))
+        const nextSlideRect = slideRects[index + 1]
+        slideSizesWithGaps.push(mathAbs(nextSlideRect[startEdge] - slideRect[startEdge]))
       }
     }
 

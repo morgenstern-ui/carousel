@@ -1,4 +1,4 @@
-import type { AlignmentOptionType } from './useSlideAlignment.ts'
+import type { AlignmentOptionType } from './useAlignment.ts'
 import type { AxisDirectionOptionType, AxisOptionType } from './useAxis.ts'
 import type { SlidesToScrollOptionType } from './useSlidesToScroll.ts'
 import type { ScrollContainOptionType } from './useScrollContain.ts'

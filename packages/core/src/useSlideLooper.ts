@@ -29,7 +29,7 @@ export type SlideLooperType = ReturnType<typeof useSlideLooper>
  * @param snaps - Массив точек привязки для каждого слайда.
  * @param scrollSnaps - Массив точек прокрутки для каждого слайда.
  * @param offsetLocation - Текущее смещение карусели.
- * @param slides - Массив элементов слайдов.
+ * @param $slides - Массив элементов слайдов.
  * @returns Объект, содержащий функции и данные, связанные с циклическим поведением слайдов.
  */
 export function useSlideLooper(
@@ -41,7 +41,7 @@ export function useSlideLooper(
   snaps: number[],
   scrollSnaps: number[],
   offsetLocation: Vector1DType,
-  slides: HTMLElement[]
+  $slides: HTMLElement[]
 ) {
   const roundingSafety = 0.5
   const ascItems = arrayKeys(slideSizesWithGaps)
@@ -49,16 +49,27 @@ export function useSlideLooper(
   const loopPoints = startPoints().concat(endPoints())
 
   /**
-   * Удаляет размеры слайдов с заданными индексами из общего размера.
+   * Находит точки цикла для начального края карусели.
    *
-   * @param indexes - Массив индексов слайдов.
-   * @param from - Общий размер, из которого нужно вычесть.
-   * @returns Обновленный общий размер после удаления размеров слайдов.
+   * @returns Массив точек цикла для начального края.
    */
-  function removeSlideSizes(indexes: number[], from: number): number {
-    return indexes.reduce((a: number, i) => {
-      return a - slideSizesWithGaps[i]
-    }, from)
+  function startPoints(): LoopPointType[] {
+    const gap = scrollSnaps[0]
+    const indexes = slidesInGap(descItems, gap)
+
+    return findLoopPoints(indexes, contentSize, false)
+  }
+
+  /**
+   * Находит точки цикла для конечного края карусели.
+   *
+   * @returns Массив точек цикла для конечного края.
+   */
+  function endPoints(): LoopPointType[] {
+    const gap = viewSize - scrollSnaps[0] - 1
+    const indexes = slidesInGap(ascItems, gap)
+
+    return findLoopPoints(indexes, -contentSize, true)
   }
 
   /**
@@ -76,16 +87,16 @@ export function useSlideLooper(
   }
 
   /**
-   * Находит начальные и конечные границы каждого слайда на основе текущего смещения.
+   * Удаляет размеры слайдов с заданными индексами из общего размера.
    *
-   * @param offset - Текущее смещение.
-   * @returns Массив границ слайдов.
+   * @param indexes - Массив индексов слайдов.
+   * @param from - Общий размер, из которого нужно вычесть.
+   * @returns Обновленный общий размер после удаления размеров слайдов.
    */
-  function findSlideBounds(offset: number): SlideBoundType[] {
-    return snaps.map((snap, index) => ({
-      start: snap - slideSizes[index] + roundingSafety + offset,
-      end: snap + viewSize - roundingSafety + offset
-    }))
+  function removeSlideSizes(indexes: number[], from: number): number {
+    return indexes.reduce((a: number, i) => {
+      return a - slideSizesWithGaps[i]
+    }, from)
   }
 
   /**
@@ -109,32 +120,23 @@ export function useSlideLooper(
         index,
         loopPoint,
         slideLocation: useVector1D(-1),
-        translate: useTranslate(axis, slides[index]),
+        translate: useTranslate(axis, $slides[index]),
         target: () => (offsetLocation.get() > loopPoint ? initial : altered)
       }
     })
   }
 
   /**
-   * Находит точки цикла для начального края карусели.
+   * Находит начальные и конечные границы каждого слайда на основе текущего смещения.
    *
-   * @returns Массив точек цикла для начального края.
+   * @param offset - Текущее смещение.
+   * @returns Массив границ слайдов.
    */
-  function startPoints(): LoopPointType[] {
-    const gap = scrollSnaps[0]
-    const indexes = slidesInGap(descItems, gap)
-    return findLoopPoints(indexes, contentSize, false)
-  }
-
-  /**
-   * Находит точки цикла для конечного края карусели.
-   *
-   * @returns Массив точек цикла для конечного края.
-   */
-  function endPoints(): LoopPointType[] {
-    const gap = viewSize - scrollSnaps[0] - 1
-    const indexes = slidesInGap(ascItems, gap)
-    return findLoopPoints(indexes, -contentSize, true)
+  function findSlideBounds(offset: number): SlideBoundType[] {
+    return snaps.map((snap, index) => ({
+      start: snap - slideSizes[index] + roundingSafety + offset,
+      end: snap + viewSize - roundingSafety + offset
+    }))
   }
 
   /**
