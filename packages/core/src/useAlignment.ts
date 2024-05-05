@@ -14,52 +14,48 @@ export type AlignmentOptionType =
   | 'end'
   | ((viewSize: number, snapSize: number, index: number) => number)
 
-/**
- * Тип выравнивания слайда.
- * Возвращаемый тип функции useAlignment.
- */
 export type AlignmentType = ReturnType<typeof useAlignment>
 
 /**
- * Функция для выравнивания слайда.
- * @param align - опция выравнивания.
- * @param containerSize - размер контейнера.
- * @returns объект с методом measure для измерения выравнивания.
+ * Возвращает функцию измерения на основе опции выравнивания и размера контейнера.
+ * @param align - Опция выравнивания.
+ * @param containerSize - Размер контейнера.
+ * @returns Объект с функцией `measure`, которая вычисляет измерение на основе опции выравнивания и размера контейнера.
  */
 export function useAlignment(align: AlignmentOptionType, containerSize: number) {
   const predefined = { start, center, end }
 
   /**
-   * Функция для выравнивания в начало.
-   * @returns число - начальное значение выравнивания.
+   * Возвращает начальную позицию.
+   * @returns Начальная позиция.
    */
   function start(): number {
     return 0
   }
 
   /**
-   * Функция для выравнивания в центр.
-   * @param slideSize - размер слайда.
-   * @returns число - значение выравнивания в центре.
+   * Возвращает центральную позицию на основе размера слайда.
+   * @param slideSize - Размер слайда.
+   * @returns Центральная позиция.
    */
   function center(slideSize: number): number {
     return end(slideSize) / 2
   }
 
   /**
-   * Функция для выравнивания в конец.
-   * @param slideSize - размер слайда.
-   * @returns число - значение выравнивания в конце.
+   * Возвращает конечную позицию на основе размера слайда.
+   * @param slideSize - Размер слайда.
+   * @returns Конечная позиция.
    */
   function end(slideSize: number): number {
     return containerSize - slideSize
   }
 
   /**
-   * Функция для измерения выравнивания.
-   * @param slideSize - размер слайда.
-   * @param index - индекс слайда.
-   * @returns число - значение выравнивания.
+   * Измеряет позицию на основе опции выравнивания, размера контейнера, размера слайда и индекса.
+   * @param slideSize - Размер слайда.
+   * @param index - Индекс слайда.
+   * @returns Измеренная позиция.
    */
   function measure(slideSize: number, index: number): number {
     if (isString(align)) return predefined[align](slideSize)
