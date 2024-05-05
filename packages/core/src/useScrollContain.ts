@@ -89,7 +89,7 @@ export function useScrollContain(
    */
   function measureSlideGroupSnapsContained(): number[] {
     if (contentSize <= containerSize + pixelTolerance) return [scrollLimit.max]
-    if (containScroll === 'keepSnaps') return slideGroupSnapsBounded
+    if (containScroll === false || containScroll === 'keepSnaps') return slideGroupSnapsBounded
 
     const { min, max } = slideGroupSnapsLimit
 
