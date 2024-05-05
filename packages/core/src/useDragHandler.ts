@@ -201,6 +201,8 @@ export function useDragHandler(
    * @param evt Событие указателя.
    */
   function move(evt: PointerEventType): void {
+    const isTouchEvt = !isMouseEvent(evt, ownerWindow)
+    if (isTouchEvt && evt.touches.length >= 2) return up(evt)
     const lastScroll = dragTracker.readPoint(evt)
     const lastCross = dragTracker.readPoint(evt, crossAxis)
     const diffScroll = deltaAbs(lastScroll, startScroll)
