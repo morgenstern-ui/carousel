@@ -7,14 +7,14 @@ import { arrayLast, mathAbs } from './utils.ts'
 export type ScrollSnapsType = ReturnType<typeof useScrollSnaps>
 
 /**
- * Рассчитывает точки прокрутки для карусели на основе предоставленных параметров.
+ * Вычисляет точки прокрутки для карусели на основе предоставленных параметров.
  *
  * @param axis - Тип оси карусели (горизонтальная или вертикальная).
  * @param alignment - Тип выравнивания слайдов карусели.
- * @param containerRect - Ограничивающий прямоугольник контейнера карусели.
- * @param slideRects - Ограничивающие прямоугольники слайдов карусели.
+ * @param containerRect - Размеры контейнера карусели.
+ * @param slideRects - Размеры слайдов карусели.
  * @param slidesToScroll - Количество слайдов для прокрутки за раз.
- * @returns Объект, содержащий рассчитанные точки прокрутки и выровненные точки прокрутки.
+ * @returns Объект, содержащий вычисленные точки прокрутки слайдов и групп слайдов.
  */
 export function useScrollSnaps(
   axis: AxisType,
@@ -30,9 +30,9 @@ export function useScrollSnaps(
   const slideGroupSnaps = measureSlideGroupSnaps()
 
   /**
-   * Рассчитывает не выровненные точки прокрутки слайдов.
+   * Измеряет точки прокрутки для отдельных слайдов.
    *
-   * @returns Массив чисел, представляющих не выровненные точки прокрутки слайдов.
+   * @returns Массив точек прокрутки для отдельных слайдов.
    */
   function measureSlideSnaps(): number[] {
     const snapsUnaligned: number[] = []
@@ -47,9 +47,9 @@ export function useScrollSnaps(
   }
 
   /**
-   * Рассчитывает выровненные точки прокрутки слайдов.
+   * Измеряет точки прокрутки для групп слайдов.
    *
-   * @returns Массив чисел, представляющих выровненные точки прокрутки слайдов.
+   * @returns Массив точек прокрутки для групп слайдов.
    */
   function measureSlideGroupSnaps(): number[] {
     const slideGroupSnaps: number[] = []
@@ -69,9 +69,9 @@ export function useScrollSnaps(
   }
 
   /**
-   * Рассчитывает выравнивание групп слайдов.
+   * Измеряет выравнивание для групп слайдов.
    *
-   * @returns Массив выравниваний.
+   * @returns Массив выравниваний для групп слайдов.
    */
   function measureSlideGroupAlignments(): number[] {
     const slideGroupAlignments: number[] = []
@@ -90,7 +90,7 @@ export function useScrollSnaps(
 
   const self = {
     slideSnaps,
-    slideGroupSnaps
+    slideGroupSnaps,
   } as const
 
   return self
