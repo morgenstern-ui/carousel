@@ -1,30 +1,18 @@
 import type { NodeRectType } from './useNodeRects.ts'
 
-/**
- * Опции оси.
- */
 export type AxisOptionType = 'x' | 'y'
 
-/**
- * Опции направления оси.
- */
 export type AxisDirectionOptionType = 'ltr' | 'rtl'
 
-/**
- * Тип границы оси.
- */
 type AxisEdgeType = 'top' | 'right' | 'bottom' | 'left'
 
-/**
- * Тип оси.
- */
 export type AxisType = ReturnType<typeof useAxis>
 
 /**
- * Создает объект оси.
- * @param axis - Опция оси, может быть 'x' или 'y'.
- * @param contentDirection - Направление содержимого, может быть 'ltr' или 'rtl'.
- * @returns Объект оси.
+ * Пользовательский хук, который предоставляет утилиты, связанные с осью.
+ * @param axis - Опция оси ('x' или 'y').
+ * @param contentDirection - Опция направления контента ('ltr' или 'rtl').
+ * @returns Объект, содержащий свойства и функции, связанные с осью.
  */
 export function useAxis(axis: AxisOptionType, contentDirection: AxisDirectionOptionType) {
   const isRightToLeft = contentDirection === 'rtl'
@@ -38,9 +26,9 @@ export function useAxis(axis: AxisOptionType, contentDirection: AxisDirectionOpt
   const endEdge = getEndEdge()
 
   /**
-   * Измеряет размер элемента.
-   * @param nodeRect - Размеры элемента.
-   * @returns Размер элемента.
+   * Измеряет размер DOM-узла вдоль оси.
+   * @param nodeRect - Объект rect DOM-узла.
+   * @returns Размер узла вдоль оси.
    */
   function measureSize(nodeRect: NodeRectType): number {
     const { height, width } = nodeRect
@@ -48,8 +36,17 @@ export function useAxis(axis: AxisOptionType, contentDirection: AxisDirectionOpt
   }
 
   /**
-   * Возвращает границу начала оси.
-   * @returns Граница начала оси.
+   * Возвращает значение направления, умноженное на знак.
+   * @param n - Значение направления.
+   * @returns Значение направления, умноженное на знак.
+   */
+  function direction(n: number): number {
+    return n * sign
+  }
+
+  /**
+   * Возвращает начальный край оси.
+   * @returns Начальный край оси.
    */
   function getStartEdge(): AxisEdgeType {
     if (isVertical) return 'top'
@@ -57,21 +54,12 @@ export function useAxis(axis: AxisOptionType, contentDirection: AxisDirectionOpt
   }
 
   /**
-   * Возвращает границу конца оси.
-   * @returns Граница конца оси.
+   * Возвращает конечный край оси.
+   * @returns Конечный край оси.
    */
   function getEndEdge(): AxisEdgeType {
     if (isVertical) return 'bottom'
     return isRightToLeft ? 'left' : 'right'
-  }
-
-  /**
-   * Возвращает направление с учетом знака.
-   * @param n - Число.
-   * @returns Направление.
-   */
-  function direction(n: number): number {
-    return n * sign
   }
 
   const self = {
