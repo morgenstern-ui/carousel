@@ -16,7 +16,7 @@ export type SlidesToScrollType = ReturnType<typeof useSlidesToScroll>
 /**
  * Рассчитывает количество слайдов для прокрутки на основе заданных параметров.
  * @param axis - Тип оси.
- * @param viewSize - Размер области просмотра.
+ * @param containerSize - Размер области просмотра.
  * @param slidesToScroll - Количество слайдов для прокрутки или `'auto'`.
  * @param loop - Булево значение, указывающее, находится ли карусель в режиме цикла.
  * @param containerRect - Прямоугольник контейнера.
@@ -28,7 +28,7 @@ export type SlidesToScrollType = ReturnType<typeof useSlidesToScroll>
  */
 export function useSlidesToScroll(
   axis: AxisType,
-  viewSize: number,
+  containerSize: number,
   slidesToScroll: SlidesToScrollOptionType,
   loop: boolean,
   containerRect: NodeRectType,
@@ -42,15 +42,16 @@ export function useSlidesToScroll(
 
   /**
    * Группирует массив элементов по заданному числу.
-   * @param slides - Массив для группировки.
+   * @param array - Массив для группировки.
    * @param groupSize - Размер каждой группы.
    * @returns Массив сгруппированных элементов.
    */
-  function byNumber<Type>(slides: Type[], groupSize: number): Type[][] {
+  function byNumber<Type>(array: Type[], groupSize: number): Type[][] {
     const groups: Type[][] = []
+    const arrayLength = array.length
 
-    for (let i = 0; i < slides.length; i += groupSize) {
-      groups.push(slides.slice(i, i + groupSize))
+    for (let i = 0; i < arrayLength; i += groupSize) {
+      groups.push(array.slice(i, i + groupSize))
     }
 
     return groups
@@ -68,27 +69,27 @@ export function useSlidesToScroll(
     const arrayLength = array.length
     const arrayLastIndex = arrayLength - 1
 
-    let startIndex = 0
+    let startChunkIdx = 0
 
-    for (let endIndex = 0; endIndex < arrayLength; endIndex++) {
-      const isFirstGroup = startIndex === 0
-      const isLastGroup = endIndex === arrayLastIndex
+    for (let endChunkIdx = 0; endChunkIdx < arrayLength; endChunkIdx++) {
+      const isFirstGroup = startChunkIdx === 0
+      const isLastGroup = endChunkIdx === arrayLastIndex
 
-      const gapStart = isFirstGroup && !loop ? direction(startGap) : 0
-      const gapEnd = isLastGroup && !loop ? direction(endGap) : 0
+      const chunkStartGap = isFirstGroup && !loop ? direction(startGap) : 0
+      const chunkEndGap = isLastGroup && !loop ? direction(endGap) : 0
 
-      const offsetStart = containerRect[startEdge] - slideRects[startIndex][startEdge] + gapStart
-      const offsetEnd = containerRect[startEdge] - slideRects[endIndex][endEdge] - gapEnd
+      const startChunkSize = containerRect[startEdge] + chunkStartGap - slideRects[startChunkIdx][startEdge]
+      const endChunkSize = containerRect[startEdge] - chunkEndGap - slideRects[endChunkIdx][endEdge]
 
-      const groupSize = mathAbs(offsetEnd - offsetStart)
+      const chunkSize = mathAbs(endChunkSize - startChunkSize)
 
-      if (endIndex && groupSize > viewSize + pixelTolerance) {
-        groups.push(array.slice(startIndex, endIndex))
-        startIndex = endIndex
+      if (endChunkIdx && chunkSize > containerSize + pixelTolerance) {
+        groups.push(array.slice(startChunkIdx, endChunkIdx))
+        startChunkIdx = endChunkIdx
       }
 
       if (isLastGroup) {
-        groups.push(array.slice(startIndex, arrayLength))
+        groups.push(array.slice(startChunkIdx, arrayLength))
       }
     }
 
@@ -97,11 +98,11 @@ export function useSlidesToScroll(
 
   /**
    * Группирует массив элементов на основе опции `slidesToScroll`.
-   * @param slides - Массив для группировки.
+   * @param array - Массив для группировки.
    * @returns Массив сгруппированных элементов.
    */
-  function groupSlides<Type>(slides: Type[]): Type[][] {
-    return groupByNumber ? byNumber(slides, slidesToScroll) : bySize(slides)
+  function groupSlides<Type>(array: Type[]): Type[][] {
+    return groupByNumber ? byNumber(array, slidesToScroll) : bySize(array)
   }
 
   const self = {

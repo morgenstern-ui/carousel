@@ -29,6 +29,29 @@ export function useScrollTo(
   eventHandler: EventHandlerType
 ) {
   /**
+   * Прокручивает до указанного индекса.
+   *
+   * @param n - Индекс для прокрутки.
+   * @param direction - Направление прокрутки.
+   */
+  function index(n: number, direction: number): void {
+    const indexTarget = indexCurrent.clone().set(n)
+    const target = scrollTarget.byIndex(indexTarget.get(), direction)
+    scrollTo(target)
+  }
+
+  /**
+   * Прокручивает на указанное расстояние.
+   *
+   * @param n - Расстояние для прокрутки.
+   * @param snap - Привязываться ли к ближайшей цели.
+   */
+  function distance(n: number, snap: boolean): void {
+    const target = scrollTarget.byDistance(n, snap)
+    scrollTo(target)
+  }
+
+  /**
    * Прокручивает до указанной цели.
    *
    * @param target - Цель для прокрутки.
@@ -54,29 +77,6 @@ export function useScrollTo(
       indexCurrent.set(target.index)
       eventHandler.emit('select')
     }
-  }
-
-  /**
-   * Прокручивает на указанное расстояние.
-   *
-   * @param n - Расстояние для прокрутки.
-   * @param snap - Привязываться ли к ближайшей цели.
-   */
-  function distance(n: number, snap: boolean): void {
-    const target = scrollTarget.byDistance(n, snap)
-    scrollTo(target)
-  }
-
-  /**
-   * Прокручивает до указанного индекса.
-   *
-   * @param n - Индекс для прокрутки.
-   * @param direction - Направление прокрутки.
-   */
-  function index(n: number, direction: number): void {
-    const targetIndex = indexCurrent.clone().set(n)
-    const target = scrollTarget.byIndex(targetIndex.get(), direction)
-    scrollTo(target)
   }
 
   const self = {

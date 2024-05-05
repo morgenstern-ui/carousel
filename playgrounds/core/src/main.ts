@@ -6,8 +6,8 @@ import './styles/sandbox.css'
 
 const OPTIONS: EmblaOptionsType = { slidesToScroll: 'auto' }
 
-const emblaNode = <HTMLElement>document.querySelector('.embla')
-const viewportNode = <HTMLElement>emblaNode.querySelector('.embla__viewport')
+const emblaNode = document.querySelector<HTMLElement>('.embla')!
+const viewportNode = emblaNode.querySelector<HTMLElement>('.embla__viewport')!
 // const prevBtnNode = <HTMLElement>emblaNode.querySelector('.embla__button--prev')
 // const nextBtnNode = <HTMLElement>emblaNode.querySelector('.embla__button--next')
 // const dotsNode = <HTMLElement>emblaNode.querySelector('.embla__dots')

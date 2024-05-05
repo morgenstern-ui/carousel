@@ -2,7 +2,7 @@ import { useLimit, type LimitType } from './useLimit.ts'
 import type { ScrollBodyType } from './useScrollBody.ts'
 import type { Vector1DType } from './useVector1D.ts'
 import { mathAbs } from './utils.ts'
-import type { PercentOfViewType } from './usePercentOfView.ts'
+import type { PercentOfViewType } from './usePercentOfContainer.ts'
 
 /**
  * Представляет тип хука `useScrollBounds`.
@@ -12,34 +12,23 @@ export type ScrollBoundsType = ReturnType<typeof useScrollBounds>
 /**
  * Хук, предоставляющий функциональность ограничения прокрутки.
  * @param limit - Ограничение прокрутки.
- * @param offsetLocation - Текущее смещение.
- * @param target - Целевое смещение.
+ * @param offsetLocationVector - Текущее смещение.
+ * @param targetVector - Целевое смещение.
  * @param scrollBody - Тело прокрутки.
- * @param percentOfView - Процент отображения.
+ * @param percentOfContainer - Процент отображения.
  * @returns Объект, содержащий функции `constrain` и `toggleActive`.
  */
 export function useScrollBounds(
   limit: LimitType,
-  offsetLocation: Vector1DType,
-  target: Vector1DType,
+  offsetLocationVector: Vector1DType,
+  targetVector: Vector1DType,
   scrollBody: ScrollBodyType,
-  percentOfView: PercentOfViewType
+  percentOfContainer: PercentOfViewType
 ) {
-  const pullBackThreshold = percentOfView.measure(10)
-  const edgeOffsetTolerance = percentOfView.measure(50)
+  const pullBackThreshold = percentOfContainer.measure(10)
+  const edgeOffsetTolerance = percentOfContainer.measure(50)
   const frictionLimit = useLimit(0.1, 0.99)
   let disabled = false
-
-  /**
-   * Проверяет, должна ли быть ограничена прокрутка.
-   * @returns Булево значение, указывающее, должна ли быть ограничена прокрутка.
-   */
-  function shouldConstrain(): boolean {
-    if (disabled) return false
-    if (!limit.reachedAny(target.get())) return false
-    if (!limit.reachedAny(offsetLocation.get())) return false
-    return true
-  }
 
   /**
    * Ограничивает прокрутку в пределах границ.
@@ -47,15 +36,15 @@ export function useScrollBounds(
    */
   function constrain(pointerDown: boolean): void {
     if (!shouldConstrain()) return
-    const edge = limit.reachedMin(offsetLocation.get()) ? 'min' : 'max'
-    const diffToEdge = mathAbs(limit[edge] - offsetLocation.get())
-    const diffToTarget = target.get() - offsetLocation.get()
+    const edge = limit.reachedMin(offsetLocationVector.get()) ? 'min' : 'max'
+    const diffToEdge = mathAbs(limit[edge] - offsetLocationVector.get())
+    const diffToTarget = targetVector.get() - offsetLocationVector.get()
     const friction = frictionLimit.constrain(diffToEdge / edgeOffsetTolerance)
 
-    target.subtract(diffToTarget * friction)
+    targetVector.subtract(diffToTarget * friction)
 
     if (!pointerDown && mathAbs(diffToTarget) < pullBackThreshold) {
-      target.set(limit.constrain(target.get()))
+      targetVector.set(limit.constrain(targetVector.get()))
       scrollBody.useDuration(25).useBaseFriction()
     }
   }
@@ -66,6 +55,17 @@ export function useScrollBounds(
    */
   function toggleActive(active: boolean): void {
     disabled = !active
+  }
+
+  /**
+   * Проверяет, должна ли быть ограничена прокрутка.
+   * @returns Булево значение, указывающее, должна ли быть ограничена прокрутка.
+   */
+  function shouldConstrain(): boolean {
+    if (disabled) return false
+    if (!limit.reachedAny(targetVector.get())) return false
+    if (!limit.reachedAny(offsetLocationVector.get())) return false
+    return true
   }
 
   const self = {

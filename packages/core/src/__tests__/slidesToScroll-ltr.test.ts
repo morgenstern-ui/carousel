@@ -22,7 +22,7 @@ describe('➡️  Скролл слайдов - Горизонтальный LTR
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0, -1000, -2000, -3001]
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
-      expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
+      expect(engine.locationVector.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
 
       expect(engine.slideRegistry).toEqual([
         [0, 1],
@@ -39,7 +39,7 @@ describe('➡️  Скролл слайдов - Горизонтальный LTR
       const expectedScrollSnaps = [0, -1000, -2000, -3000.5]
 
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
-      expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
+      expect(engine.locationVector.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
 
       expect(engine.slideRegistry).toEqual([
         [0, 1],
@@ -56,7 +56,7 @@ describe('➡️  Скролл слайдов - Горизонтальный LTR
       const expectedScrollSnaps = [0, -1000, -2000, -3000.5]
 
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
-      expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
+      expect(engine.locationVector.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
 
       expect(engine.slideRegistry).toEqual([
         [0, 1],
@@ -79,7 +79,7 @@ describe('➡️  Скролл слайдов - Горизонтальный LTR
       const expectedScrollSnaps = [0, -1020, -2030, -3041]
 
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
-      expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
+      expect(engine.locationVector.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
 
       expect(engine.slideRegistry).toEqual([
         [0, 1],
@@ -96,7 +96,7 @@ describe('➡️  Скролл слайдов - Горизонтальный LTR
       const expectedScrollSnaps = [-10, -1020, -2030, -3030.5]
 
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
-      expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
+      expect(engine.locationVector.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
 
       expect(engine.slideRegistry).toEqual([
         [0, 1],
@@ -113,7 +113,7 @@ describe('➡️  Скролл слайдов - Горизонтальный LTR
       const expectedScrollSnaps = [-10, -1020, -2030, -3030.5]
 
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
-      expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
+      expect(engine.locationVector.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
 
       expect(engine.slideRegistry).toEqual([
         [0, 1],
@@ -136,7 +136,7 @@ describe('➡️  Скролл слайдов - Горизонтальный LTR
       const expectedScrollSnaps = [0, -624, -1200, -1776, -2352, -2976]
 
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
-      expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
+      expect(engine.locationVector.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
 
       expect(engine.slideRegistry).toEqual([[0], [1], [2], [3], [4], [5]])
     })
@@ -148,7 +148,7 @@ describe('➡️  Скролл слайдов - Горизонтальный LTR
       const expectedScrollSnaps = [-48, -624, -1200, -1776, -2352, -2928]
 
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
-      expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
+      expect(engine.locationVector.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
 
       expect(engine.slideRegistry).toEqual([[0], [1], [2], [3], [4], [5]])
     })
@@ -160,7 +160,7 @@ describe('➡️  Скролл слайдов - Горизонтальный LTR
       const expectedScrollSnaps = [-48, -624, -1200, -1776, -2352, -2928]
 
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
-      expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
+      expect(engine.locationVector.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
 
       expect(engine.slideRegistry).toEqual([[0], [1], [2], [3], [4], [5]])
     })
@@ -178,7 +178,7 @@ describe('➡️  Скролл слайдов - Горизонтальный LTR
       const expectedScrollSnaps = [0, -750, -1250, -2000, -3001]
 
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
-      expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
+      expect(engine.locationVector.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
 
       expect(engine.slideRegistry).toEqual([
         [0, 1],
@@ -196,7 +196,7 @@ describe('➡️  Скролл слайдов - Горизонтальный LTR
       const expectedScrollSnaps = [0, -750, -1250, -2000, -3000.5]
 
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
-      expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
+      expect(engine.locationVector.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
 
       expect(engine.slideRegistry).toEqual([
         [0, 1],
@@ -214,7 +214,7 @@ describe('➡️  Скролл слайдов - Горизонтальный LTR
       const expectedScrollSnaps = [0, -750, -1250, -2000, -3000.5]
 
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
-      expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
+      expect(engine.locationVector.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
 
       expect(engine.slideRegistry).toEqual([
         [0, 1],
@@ -238,7 +238,7 @@ describe('➡️  Скролл слайдов - Горизонтальный LTR
       const expectedScrollSnaps = [0, -765, -1275, -2030, -3041]
 
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
-      expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
+      expect(engine.locationVector.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
 
       expect(engine.slideRegistry).toEqual([
         [0, 1],
@@ -256,7 +256,7 @@ describe('➡️  Скролл слайдов - Горизонтальный LTR
       const expectedScrollSnaps = [-10, -765, -1275, -2030, -3030.5]
 
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
-      expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
+      expect(engine.locationVector.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
 
       expect(engine.slideRegistry).toEqual([
         [0, 1],
@@ -274,7 +274,7 @@ describe('➡️  Скролл слайдов - Горизонтальный LTR
       const expectedScrollSnaps = [-10, -765, -1275, -2030, -3030.5]
 
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
-      expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
+      expect(engine.locationVector.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
 
       expect(engine.slideRegistry).toEqual([
         [0, 1],

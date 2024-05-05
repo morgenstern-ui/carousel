@@ -18,7 +18,7 @@ describe('➡️  Align - Horizontal LTR', () => {
       const expectedScrollSnaps = [0, -800, -1200, -1400, -1900]
 
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
-      expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
+      expect(engine.locationVector.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
     })
 
     test('Центр', () => {
@@ -28,7 +28,7 @@ describe('➡️  Align - Horizontal LTR', () => {
       const expectedScrollSnaps = [100, -500, -800, -1150, -1550]
 
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
-      expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
+      expect(engine.locationVector.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
     })
 
     test('Конец', () => {
@@ -38,7 +38,7 @@ describe('➡️  Align - Horizontal LTR', () => {
       const expectedScrollSnaps = [200, -200, -400, -900, -1200]
 
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
-      expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
+      expect(engine.locationVector.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
     })
 
     test('Пользовательское', () => {
@@ -48,7 +48,7 @@ describe('➡️  Align - Horizontal LTR', () => {
       const expectedScrollSnaps = [100, -700, -1100, -1300, -1800]
 
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
-      expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
+      expect(engine.locationVector.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
     })
   })
 
@@ -64,7 +64,7 @@ describe('➡️  Align - Horizontal LTR', () => {
       const expectedScrollSnaps = [-10, -830, -1250, -1470, -1990]
 
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
-      expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
+      expect(engine.locationVector.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
     })
 
     test('Центр', () => {
@@ -74,7 +74,7 @@ describe('➡️  Align - Horizontal LTR', () => {
       const expectedScrollSnaps = [90, -530, -850, -1220, -1640]
 
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
-      expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
+      expect(engine.locationVector.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
     })
 
     test('Конец', () => {
@@ -84,7 +84,7 @@ describe('➡️  Align - Horizontal LTR', () => {
       const expectedScrollSnaps = [190, -230, -450, -970, -1290]
 
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
-      expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
+      expect(engine.locationVector.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
     })
 
     test('Custom', () => {
@@ -94,7 +94,7 @@ describe('➡️  Align - Horizontal LTR', () => {
       const expectedScrollSnaps = [90, -730, -1150, -1370, -1890]
 
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
-      expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
+      expect(engine.locationVector.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
     })
   })
 })

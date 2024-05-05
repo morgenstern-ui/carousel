@@ -29,9 +29,11 @@ export type AxisType = ReturnType<typeof useAxis>
 export function useAxis(axis: AxisOptionType, contentDirection: AxisDirectionOptionType) {
   const isRightToLeft = contentDirection === 'rtl'
   const isVertical = axis === 'y'
+
   const scroll = isVertical ? 'y' : 'x'
   const cross = isVertical ? 'x' : 'y'
   const sign = !isVertical && isRightToLeft ? -1 : 1
+
   const startEdge = getStartEdge()
   const endEdge = getEndEdge()
 

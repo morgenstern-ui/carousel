@@ -32,11 +32,11 @@ export type EmblaCarouselType = {
 }
 
 export function useEmblaCarousel(
-  root: HTMLElement,
+  $root: HTMLElement,
   userOptions?: EmblaOptionsType,
   userPlugins?: EmblaPluginType[]
 ): EmblaCarouselType {
-  const $ownerDocument = root.ownerDocument
+  const $ownerDocument = $root.ownerDocument
   const $ownerWindow = <WindowType>$ownerDocument.defaultView
   const optionsHandler = useOptionsHandler($ownerWindow)
   const pluginsHandler = usePluginsHandler(optionsHandler)
@@ -56,26 +56,6 @@ export function useEmblaCarousel(
   let $container: HTMLElement
   let $slides: HTMLElement[]
 
-  function storeElements(): void {
-    const { container: userContainer, slides: userSlides } = options
-
-    const customContainer = isString(userContainer) ? root.querySelector(userContainer) : userContainer
-    $container = <HTMLElement>(customContainer || root.children[0])
-
-    const customSlides = isString(userSlides) ? $container.querySelectorAll(userSlides) : userSlides
-    $slides = <HTMLElement[]>[].slice.call(customSlides || $container.children)
-  }
-
-  function createEngine(options: OptionsType): EngineType {
-    const engine = useEngine(root, $container, $slides, $ownerDocument, $ownerWindow, options, eventHandler)
-
-    if (options.loop && !engine.slideLooper.canLoop()) {
-      const optionsWithoutLoop = Object.assign({}, options, { loop: false })
-      return createEngine(optionsWithoutLoop)
-    }
-    return engine
-  }
-
   function activate(withOptions?: EmblaOptionsType, withPlugins?: EmblaPluginType[]): void {
     if (destroyed) return
 
@@ -87,13 +67,13 @@ export function useEmblaCarousel(
 
     engine = createEngine(options)
 
-    optionsMediaQueries([optionsBase, ...pluginList.map(({ options }) => options)]).forEach((query) =>
-      mediaHandlers.add(query, 'change', reActivate)
-    )
+    for (const mediaQuery of optionsMediaQueries([optionsBase, ...pluginList.map(({ options }) => options)])) {
+      mediaHandlers.add(mediaQuery, 'change', reActivate);
+    }
 
     if (!options.active) return
 
-    engine.translate.to(engine.location.get())
+    engine.translate.to(engine.locationVector.get())
     engine.animation.init()
     engine.slidesInView.init()
     engine.slideFocus.init()
@@ -142,22 +122,22 @@ export function useEmblaCarousel(
   }
 
   function scrollNext(jump?: boolean): void {
-    const next = engine.index.add(1).get()
+    const next = engine.indexCurrent.add(1).get()
     scrollTo(next, jump, -1)
   }
 
   function scrollPrev(jump?: boolean): void {
-    const prev = engine.index.add(-1).get()
+    const prev = engine.indexCurrent.add(-1).get()
     scrollTo(prev, jump, 1)
   }
 
   function canScrollNext(): boolean {
-    const next = engine.index.add(1).get()
+    const next = engine.indexCurrent.add(1).get()
     return next !== selectedScrollSnap()
   }
 
   function canScrollPrev(): boolean {
-    const prev = engine.index.add(-1).get()
+    const prev = engine.indexCurrent.add(-1).get()
     return prev !== selectedScrollSnap()
   }
 
@@ -166,11 +146,11 @@ export function useEmblaCarousel(
   }
 
   function scrollProgress(): number {
-    return engine.scrollProgress.get(engine.location.get())
+    return engine.scrollProgress.get(engine.locationVector.get())
   }
 
   function selectedScrollSnap(): number {
-    return engine.index.get()
+    return engine.indexCurrent.get()
   }
 
   function previousScrollSnap(): number {
@@ -194,7 +174,7 @@ export function useEmblaCarousel(
   }
 
   function rootNode(): HTMLElement {
-    return root
+    return $root
   }
 
   function containerNode(): HTMLElement {
@@ -203,6 +183,27 @@ export function useEmblaCarousel(
 
   function slideNodes(): HTMLElement[] {
     return $slides
+  }
+
+  function storeElements(): void {
+    const { container: userContainer, slides: userSlides } = options
+
+    const customContainer = isString(userContainer) ? $root.querySelector<HTMLElement>(userContainer) : userContainer
+    $container = customContainer || <HTMLElement>$root.children[0]
+
+    const customSlides = isString(userSlides) ? $container.querySelectorAll<HTMLElement>(userSlides) : userSlides
+    $slides = [].slice.call(customSlides || $container.children)
+  }
+
+  function createEngine(options: OptionsType): EngineType {
+    const engine = useEngine($root, $container, $slides, $ownerDocument, $ownerWindow, options, eventHandler)
+
+    if (options.loop && !engine.slideLooper.canLoop()) {
+      const optionsWithoutLoop = Object.assign({}, options, { loop: false })
+      return createEngine(optionsWithoutLoop)
+    }
+  
+    return engine
   }
 
   const self: EmblaCarouselType = {
@@ -231,6 +232,7 @@ export function useEmblaCarousel(
 
   activate(userOptions, userPlugins)
   setTimeout(() => eventHandler.emit('init'), 0)
+ 
   return self
 }
 

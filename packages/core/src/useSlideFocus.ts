@@ -34,7 +34,10 @@ export function useSlideFocus(
    */
   function init(): void {
     eventStore.add(document, 'keydown', registerTabPress, false)
-    $slides.forEach(addSlideFocusEvent)
+
+    for (const $slide of $slides) {
+      addSlideFocusEvent($slide)
+    }
   }
 
   /**
@@ -50,7 +53,7 @@ export function useSlideFocus(
    * @param $slide - Элемент слайда.
    */
   function addSlideFocusEvent($slide: HTMLElement): void {
-    const focus = (): void => {
+    function focus(): void {
       const nowTime = new Date().getTime()
       const diffTime = nowTime - lastTabPressTime
 
@@ -58,12 +61,12 @@ export function useSlideFocus(
 
       $root.scrollLeft = 0
       const index = $slides.indexOf($slide)
-      const group = slideRegistry.findIndex((group) => group.includes(index))
+      const groupIndex = slideRegistry.findIndex((group) => group.includes(index))
 
-      if (!isNumber(group)) return
+      if (!isNumber(groupIndex)) return
 
       scrollBody.useDuration(0)
-      scrollTo.index(group, 0)
+      scrollTo.index(groupIndex, 0)
     }
 
     eventStore.add($slide, 'focus', focus, {

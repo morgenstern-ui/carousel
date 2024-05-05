@@ -1,7 +1,7 @@
 import type { LimitType } from './useLimit.ts'
 import type { ScrollContainOptionType } from './useScrollContain.ts'
 import type { SlidesToScrollType } from './useSlidesToScroll.ts'
-import { arrayFromNumber, arrayIsLastIndex, arrayLast, arrayLastIndex } from './utils.ts'
+import { arrayFromNumber, arrayLast, arrayLastIndex } from './utils.ts'
 
 export type SlideRegistryType = ReturnType<typeof useSlideRegistry>
 
@@ -34,28 +34,36 @@ export function useSlideRegistry(
    * @returns Массив индексов слайдов, сгруппированных в соответствии с указанными условиями.
    */
   function createSlideRegistry(): number[][] {
-    const groupedSlideIndexes = groupSlides(slideIndexes)
+    let slideIndexGroups = groupSlides(slideIndexes)
     const doNotContain = !containSnaps || containScroll === 'keepSnaps'
 
     if (scrollSnaps.length === 1) return [slideIndexes]
-    if (doNotContain) return groupedSlideIndexes
+    if (doNotContain) return slideIndexGroups
 
-    return groupedSlideIndexes.slice(min, max).map((group, index, groups) => {
-      const isFirst = index === 0
-      const isLast = arrayIsLastIndex(groups, index)
+    const slideRegistry: number[][] = []
+
+    slideIndexGroups = slideIndexGroups.slice(min, max)
+    const slideIndexGroupsLengths = slideIndexGroups.length
+    const slideIndexGroupsLastIndex = slideIndexGroupsLengths - 1
+
+    for (let i = 0; i < slideIndexGroupsLengths; i++) {
+      const isFirst = i === 0
+      const isLast = i === slideIndexGroupsLastIndex
+
+      const slideIndexGroup = slideIndexGroups[i]
 
       if (isFirst) {
-        const range = arrayLast(groups[0]) + 1
-        return arrayFromNumber(range)
+        const range = arrayLast(slideIndexGroups[0]) + 1
+        slideRegistry.push(arrayFromNumber(range))
+      } else if (isLast) {
+        const range = arrayLastIndex(slideIndexes) - arrayLast(slideIndexGroups)[0] + 1
+        slideRegistry.push(arrayFromNumber(range, arrayLast(slideIndexGroups)[0]))
+      } else {
+        slideRegistry.push(slideIndexGroup)
       }
+    }
 
-      if (isLast) {
-        const range = arrayLastIndex(slideIndexes) - arrayLast(groups)[0] + 1
-        return arrayFromNumber(range, arrayLast(groups)[0])
-      }
-
-      return group
-    })
+    return slideRegistry
   }
 
   const self = {

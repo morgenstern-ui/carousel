@@ -61,6 +61,6 @@ describe('➡️  Breakpoints', () => {
     const expectedScrollSnaps = [0, -200, -400, -900, -1200]
 
     expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
-    expect(engine.location.get()).toBe(expectedScrollSnaps[engine.options.startIndex])
+    expect(engine.locationVector.get()).toBe(expectedScrollSnaps[engine.options.startIndex])
   })
 })

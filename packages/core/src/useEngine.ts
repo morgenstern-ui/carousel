@@ -1,5 +1,5 @@
 import { useAlignment } from './useAlignment.ts'
-import { useAnimations, type AnimationsUpdateType, type AnimationsRenderType } from './useAnimations.ts'
+import { useAnimations } from './useAnimations.ts'
 import { useAxis } from './useAxis.ts'
 import { useCounter } from './useCounter.ts'
 import { useDragHandler } from './useDragHandler.ts'
@@ -8,7 +8,7 @@ import type { EventHandlerType } from './useEventHandler.ts'
 import { useEventStore } from './useEventStore.ts'
 import { useNodeRects } from './useNodeRects.ts'
 import type { OptionsType } from './Options.ts'
-import { usePercentOfView } from './usePercentOfView.ts'
+import { usePercentOfContainer } from './usePercentOfContainer.ts'
 import { useResizeHandler } from './useResizeHandler.ts'
 import { useScrollBody } from './useScrollBody.ts'
 import { useScrollBounds } from './useScrollBounds.ts'
@@ -52,7 +52,7 @@ export function useEngine(
     dragFree,
     dragThreshold,
     inViewThreshold,
-    slidesToScroll: slidesToScrollProp,
+    slidesToScroll: slidesToScrollCount,
     skipSnaps,
     containScroll,
     watchResize,
@@ -70,10 +70,10 @@ export function useEngine(
   const nodeRects = useNodeRects()
   const containerRect = nodeRects.measure($container)
   const slideRects = $slides.map(nodeRects.measure)
-  const viewSize = axis.measureSize(containerRect)
+  const containerSize = axis.measureSize(containerRect)
 
-  const percentOfView = usePercentOfView(viewSize)
-  const alignment = useAlignment(align, viewSize)
+  const percentOfContainer = usePercentOfContainer(containerSize)
+  const alignment = useAlignment(align, containerSize)
 
   const { slideSizes, slideSizesWithGaps, startGap, endGap } = useSlideSizes(
     axis,
@@ -86,8 +86,8 @@ export function useEngine(
 
   const slidesToScroll = useSlidesToScroll(
     axis,
-    viewSize,
-    slidesToScrollProp,
+    containerSize,
+    slidesToScrollCount,
     loop,
     containerRect,
     slideRects,
@@ -96,48 +96,48 @@ export function useEngine(
     pixelTolerance
   )
 
-  const { snaps, snapsAligned } = useScrollSnaps(axis, alignment, containerRect, slideRects, slidesToScroll)
+  const { slideSnaps, slideGroupSnaps } = useScrollSnaps(axis, alignment, containerRect, slideRects, slidesToScroll)
 
-  const contentSize = -arrayLast(snaps)! + arrayLast(slideSizesWithGaps)
+  const contentSize = -arrayLast(slideSnaps) + arrayLast(slideSizesWithGaps)
 
-  const { snapsContained, scrollContainLimit } = useScrollContain(
-    viewSize,
+  const { slideGroupSnapsLimit, slideGroupSnapsContained } = useScrollContain(
+    containerSize,
     contentSize,
-    snapsAligned,
+    slideGroupSnaps,
     containScroll,
     pixelTolerance
   )
 
-  const scrollSnaps = containSnaps ? snapsContained : snapsAligned
+  const scrollSnaps = containSnaps ? slideGroupSnapsContained : slideGroupSnaps
 
   const { limit } = useScrollLimit(contentSize, scrollSnaps, loop)
 
   // Indexes
-  const index = useCounter(arrayLastIndex(scrollSnaps), startIndex, loop)
-  const indexPrevious = index.clone()
+  const indexCurrent = useCounter(arrayLastIndex(scrollSnaps), startIndex, loop)
+  const indexPrevious = indexCurrent.clone()
   const slideIndexes = arrayKeys($slides)
 
   // Animation
-  const update: AnimationsUpdateType = ({ dragHandler, scrollBody, scrollBounds, options: { loop } }) => {
+  function update({ dragHandler, scrollBody, scrollBounds, options: { loop } }: EngineType): void {
     if (!loop) scrollBounds.constrain(dragHandler.pointerDown())
     scrollBody.seek()
   }
 
-  const render: AnimationsRenderType = (
+  function render(
     {
       scrollBody,
       translate,
-      location,
-      offsetLocation,
+      locationVector: location,
+      offsetLocationVector: offsetLocation,
       scrollLooper,
       slideLooper,
       dragHandler,
       animation,
       eventHandler,
       options: { loop }
-    },
-    lagOffset
-  ) => {
+    }: EngineType,
+    lagOffset: number
+  ) {
     const velocity = scrollBody.velocity()
     const hasSettled = scrollBody.settled()
 
@@ -156,6 +156,7 @@ export function useEngine(
 
     translate.to(offsetLocation.get())
   }
+
   const animation = useAnimations(
     $ownerDocument,
     $ownerWindow,
@@ -165,27 +166,27 @@ export function useEngine(
 
   // Shared
   const friction = 0.68
-  const startLocation = scrollSnaps[index.get()]
-  
-  const location = useVector1D(startLocation)
-  const offsetLocation = useVector1D(startLocation)
-  const target = useVector1D(startLocation)
-  
-  const scrollBody = useScrollBody(location, offsetLocation, target, duration, friction)
-  const scrollTarget = useScrollTarget(loop, scrollSnaps, contentSize, limit, target)
-  const scrollTo = useScrollTo(animation, index, indexPrevious, scrollBody, scrollTarget, target, eventHandler)
-  
+  const startLocation = scrollSnaps[indexCurrent.get()]
+
+  const locationVector = useVector1D(startLocation)
+  const offsetLocationVector = useVector1D(startLocation)
+  const targetVector = useVector1D(startLocation)
+
+  const scrollBody = useScrollBody(locationVector, offsetLocationVector, targetVector, duration, friction)
+  const scrollTarget = useScrollTarget(loop, scrollSnaps, contentSize, limit, targetVector)
+  const scrollTo = useScrollTo(animation, indexCurrent, indexPrevious, scrollBody, scrollTarget, targetVector, eventHandler)
+
   const scrollProgress = useScrollProgress(limit)
-  
+
   const eventStore = useEventStore()
-  
+
   const slidesInView = useSlidesInView($container, $slides, eventHandler, inViewThreshold)
-  
+
   const { slideRegistry } = useSlideRegistry(
     containSnaps,
     containScroll,
     scrollSnaps,
-    scrollContainLimit,
+    slideGroupSnapsLimit,
     slidesToScroll,
     slideIndexes
   )
@@ -194,8 +195,8 @@ export function useEngine(
 
   // Engine
   const engine = {
-    ownerDocument: $ownerDocument,
-    ownerWindow: $ownerWindow,
+    $ownerDocument,
+    $ownerWindow,
     eventHandler,
     containerRect,
     slideRects,
@@ -206,16 +207,16 @@ export function useEngine(
       $root,
       $ownerDocument,
       $ownerWindow,
-      target,
+      targetVector,
       useDragTracker(axis, $ownerWindow),
-      location,
+      locationVector,
       animation,
       scrollTo,
       scrollBody,
       scrollTarget,
-      index,
+      indexCurrent,
       eventHandler,
-      percentOfView,
+      percentOfContainer,
       dragFree,
       dragThreshold,
       skipSnaps,
@@ -223,17 +224,17 @@ export function useEngine(
       watchDrag
     ),
     eventStore,
-    percentOfView,
-    index,
+    percentOfContainer,
+    indexCurrent,
     indexPrevious,
     limit,
-    location,
-    offsetLocation,
+    locationVector,
+    offsetLocationVector,
     options,
     resizeHandler: useResizeHandler($container, eventHandler, $ownerWindow, $slides, axis, watchResize, nodeRects),
     scrollBody,
-    scrollBounds: useScrollBounds(limit, offsetLocation, target, scrollBody, percentOfView),
-    scrollLooper: useScrollLooper(contentSize, limit, offsetLocation, [location, offsetLocation, target]),
+    scrollBounds: useScrollBounds(limit, offsetLocationVector, targetVector, scrollBody, percentOfContainer),
+    scrollLooper: useScrollLooper(contentSize, limit, offsetLocationVector, [locationVector, offsetLocationVector, targetVector]),
     scrollProgress,
     scrollSnapList: scrollSnaps.map(scrollProgress.get),
     scrollSnaps,
@@ -241,13 +242,13 @@ export function useEngine(
     scrollTo,
     slideLooper: useSlideLooper(
       axis,
-      viewSize,
+      containerSize,
       contentSize,
       slideSizes,
       slideSizesWithGaps,
-      snaps,
+      slideSnaps,
       scrollSnaps,
-      offsetLocation,
+      offsetLocationVector,
       $slides
     ),
     slideFocus,
@@ -256,7 +257,7 @@ export function useEngine(
     slideIndexes,
     slideRegistry,
     slidesToScroll,
-    target,
+    targetVector,
     translate: useTranslate(axis, $container)
   } as const
 

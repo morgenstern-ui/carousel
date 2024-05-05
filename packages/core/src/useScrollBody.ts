@@ -6,17 +6,17 @@ export type ScrollBodyType = ReturnType<typeof useScrollBody>
 /**
  * Хук, который обеспечивает поведение прокрутки для прокручиваемого тела.
  *
- * @param location - Текущее положение прокручиваемого тела.
- * @param offsetLocation - Смещенное положение прокручиваемого тела.
- * @param target - Целевое положение прокручиваемого тела.
+ * @param locationVector - Текущее положение прокручиваемого тела.
+ * @param offsetLocationVector - Смещенное положение прокручиваемого тела.
+ * @param targetVector - Целевое положение прокручиваемого тела.
  * @param baseDuration - Базовая продолжительность анимации прокрутки.
  * @param baseFriction - Базовое трение анимации прокрутки.
  * @returns Объект, содержащий функции и свойства, связанные с поведением прокрутки.
  */
 export function useScrollBody(
-  location: Vector1DType,
-  offsetLocation: Vector1DType,
-  target: Vector1DType,
+  locationVector: Vector1DType,
+  offsetLocationVector: Vector1DType,
+  targetVector: Vector1DType,
   baseDuration: number,
   baseFriction: number
 ) {
@@ -24,7 +24,7 @@ export function useScrollBody(
   let scrollDirection = 0
   let scrollDuration = baseDuration
   let scrollFriction = baseFriction
-  let rawLocation = location.get()
+  let rawLocation = locationVector.get()
   let rawLocationPrevious = 0
 
   /**
@@ -33,20 +33,20 @@ export function useScrollBody(
    * @returns Текущий экземпляр прокручиваемого тела.
    */
   function seek(): ScrollBodyType {
-    const diff = target.get() - location.get()
+    const diff = targetVector.get() - locationVector.get()
     const isInstant = !scrollDuration
     let directionDiff = 0
 
     if (isInstant) {
       bodyVelocity = 0
-      location.set(target)
+      locationVector.set(targetVector)
 
       directionDiff = diff
     } else {
       bodyVelocity += diff / scrollDuration
       bodyVelocity *= scrollFriction
       rawLocation += bodyVelocity
-      location.add(bodyVelocity)
+      locationVector.add(bodyVelocity)
 
       directionDiff = rawLocation - rawLocationPrevious
     }
@@ -63,7 +63,7 @@ export function useScrollBody(
    * @returns Булево значение, указывающее, установилось ли прокручиваемое тело.
    */
   function settled(): boolean {
-    const diff = target.get() - offsetLocation.get()
+    const diff = targetVector.get() - offsetLocationVector.get()
 
     return mathAbs(diff) < 0.001
   }

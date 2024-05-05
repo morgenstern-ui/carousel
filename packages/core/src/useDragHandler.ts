@@ -9,7 +9,7 @@ import type { ScrollBodyType } from './useScrollBody.ts'
 import type { ScrollTargetType } from './useScrollTarget.ts'
 import type { ScrollToType } from './useScrollTo.ts'
 import type { Vector1DType } from './useVector1D.ts'
-import type { PercentOfViewType } from './usePercentOfView.ts'
+import type { PercentOfViewType } from './usePercentOfContainer.ts'
 import { useLimit } from './useLimit.ts'
 import { deltaAbs, factorAbs, isBoolean, isMouseEvent, mathAbs, mathSign, type WindowType } from './utils.ts'
 
@@ -43,7 +43,7 @@ export type DragHandlerType = ReturnType<typeof useDragHandler>
  * @param scrollTarget Конфигурация цели прокрутки.
  * @param index Счетчик текущего индекса.
  * @param eventHandler Обработчик событий.
- * @param percentOfView Конфигурация процента видимости.
+ * @param percentOfContainer Конфигурация процента видимости.
  * @param dragFree Флаг, указывающий, является ли перетаскивание свободным.
  * @param dragThreshold Порог перетаскивания.
  * @param skipSnaps Флаг, указывающий, пропускать ли снимки.
@@ -65,7 +65,7 @@ export function useDragHandler(
   scrollTarget: ScrollTargetType,
   index: CounterType,
   eventHandler: EventHandlerType,
-  percentOfView: PercentOfViewType,
+  percentOfContainer: PercentOfViewType,
   dragFree: boolean,
   dragThreshold: number,
   skipSnaps: boolean,
@@ -77,7 +77,7 @@ export function useDragHandler(
   const nonPassiveEvent = { passive: false }
   const initEvents = useEventStore()
   const dragEvents = useEventStore()
-  const goToNextThreshold = useLimit(50, 225).constrain(percentOfView.measure(20))
+  const goToNextThreshold = useLimit(50, 225).constrain(percentOfContainer.measure(20))
   const snapForceBoost = { mouse: 300, touch: 400 }
   const freeForceBoost = { mouse: 500, touch: 600 }
   const baseSpeed = dragFree ? 43 : 25

@@ -7,15 +7,11 @@ import type { ResizeHandlerOptionType } from './useResizeHandler.ts'
 import type { SlidesHandlerOptionType } from './useSlidesHandler.ts'
 import type { SlidesInViewOptionsType } from './useSlidesInView.ts'
 
-export type LooseOptionsType = {
-  [key: string]: unknown
-}
+export type LooseOptionsType = Record<string, unknown>
 
 export type CreateOptionsType<Type extends LooseOptionsType> = Type & {
   active: boolean
-  breakpoints: {
-    [key: string]: Omit<Partial<CreateOptionsType<Type>>, 'breakpoints'>
-  }
+  breakpoints: Record<string, Omit<Partial<CreateOptionsType<Type>>, 'breakpoints'>>
 }
 
 export type OptionsType = CreateOptionsType<{

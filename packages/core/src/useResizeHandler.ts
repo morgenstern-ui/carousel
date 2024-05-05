@@ -51,12 +51,14 @@ export function useResizeHandler(
     containerSize = readSize($container)
     slideSizes = $slides.map(readSize)
 
-    function defaultCallback(entries: ResizeObserverEntry[]): void {
+    function callback(entries: ResizeObserverEntry[]): void {
       for (const entry of entries) {
-        const isContainer = entry.target === $container
-        const slideIndex = $slides.indexOf(<HTMLElement>entry.target)
-        const lastSize = isContainer ? containerSize : slideSizes[slideIndex]
-        const newSize = readSize(<HTMLElement>entry.target)
+        const target = <HTMLElement>entry.target
+
+        const isContainer = target === $container
+
+        const lastSize = isContainer ? containerSize : slideSizes[$slides.indexOf(target)]
+        const newSize = readSize(target)
         const diffSize = mathAbs(newSize - lastSize)
 
         if (diffSize >= 0.5) {
@@ -64,6 +66,7 @@ export function useResizeHandler(
             emblaApi.reInit()
             eventHandler.emit('resize')
           })
+
           break
         }
       }
@@ -72,12 +75,13 @@ export function useResizeHandler(
     resizeObserver = new ResizeObserver((entries) => {
       if (destroyed) return
       if (isBoolean(watchResize) || watchResize(emblaApi, entries)) {
-        defaultCallback(entries)
+        callback(entries)
       }
     })
 
-    const observeNodes = [$container].concat($slides)
-    observeNodes.forEach((node) => resizeObserver.observe(node))
+    for (const $node of [$container].concat($slides)) {
+      resizeObserver.observe($node)
+    }
   }
 
   /**

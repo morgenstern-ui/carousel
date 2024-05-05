@@ -31,10 +31,15 @@ export function useOptionsHandler(ownerWindow: WindowType) {
    */
   function optionsAtMedia<Type extends OptionsType>(options: Type): Type {
     const optionsAtMedia = options.breakpoints || {}
-    const matchedMediaOptions = objectKeys(optionsAtMedia)
-      .filter((media) => ownerWindow.matchMedia(media).matches)
-      .map((media) => optionsAtMedia[media])
-      .reduce((a, mediaOption) => mergeOptions(a, mediaOption), {})
+
+    let matchedMediaOptions: OptionsType = {}
+
+    for (const query of objectKeys(optionsAtMedia)) {
+      if (ownerWindow.matchMedia(query).matches) {
+        const mediaOption = optionsAtMedia[query]
+        matchedMediaOptions = mergeOptions(matchedMediaOptions, mediaOption)
+      }
+    }
 
     return mergeOptions(options, matchedMediaOptions)
   }
@@ -45,10 +50,17 @@ export function useOptionsHandler(ownerWindow: WindowType) {
    * @returns Массив списков медиа-запросов, соответствующих медиа-точкам в объектах параметров.
    */
   function optionsMediaQueries(optionsList: OptionsType[]): MediaQueryList[] {
-    return optionsList
-      .map((options) => objectKeys(options.breakpoints || {}))
-      .reduce((acc, mediaQueries) => acc.concat(mediaQueries), [])
-      .map(ownerWindow.matchMedia)
+    const mediaQueries: MediaQueryList[] = [];
+
+    for (const options of optionsList) {
+      const queries = objectKeys(options.breakpoints || {});
+
+      for (const query of queries) {
+        mediaQueries.push(ownerWindow.matchMedia(query));
+      }
+    }
+
+    return mediaQueries;
   }
 
   const self = {

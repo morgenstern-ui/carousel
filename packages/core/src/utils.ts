@@ -82,7 +82,7 @@ export function factorAbs(valueB: number, valueA: number): number {
  * @returns {number[]} Возвращает массив ключей.
  */
 export function arrayKeys<Type>(array: Type[]): number[] {
-  return objectKeys(array).map(Number)
+  return Array.from(array.keys());
 }
 
 /**
@@ -128,8 +128,8 @@ export function arrayFromNumber(n: number, startAt: number = 0): number[] {
  * @param {Type} object - Объект.
  * @returns {string[]} Возвращает массив ключей объекта.
  */
-export function objectKeys<Type extends object>(object: Type): string[] {
-  return Object.keys(object)
+export function objectKeys<Type extends object>(object: Type): (keyof Type)[] {
+  return Object.keys(object) as (keyof Type)[]
 }
 
 /**

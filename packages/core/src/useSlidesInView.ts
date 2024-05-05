@@ -1,9 +1,7 @@
 import type { EventHandlerType } from './useEventHandler.ts'
 import { objectKeys } from './utils.ts'
 
-type IntersectionEntryMapType = {
-  [key: number]: IntersectionObserverEntry
-}
+type IntersectionEntryMapType = Record<number, IntersectionObserverEntry>
 
 export type SlidesInViewOptionsType = IntersectionObserverInit['threshold']
 
@@ -37,10 +35,10 @@ export function useSlidesInView(
       (entries) => {
         if (destroyed) return
 
-        entries.forEach((entry) => {
+        for (const entry of entries) {
           const index = $slides.indexOf(<HTMLElement>entry.target)
           intersectionEntryMap[index] = entry
-        })
+        }
 
         inViewCache = null
         notInViewCache = null
@@ -64,23 +62,6 @@ export function useSlidesInView(
   }
 
   /**
-   * Создает список индексов слайдов, которые находятся в видимости или не находятся в видимости.
-   * @param inView - Определяет, создавать список слайдов в видимости или не в видимости.
-   * @returns Массив индексов слайдов.
-   */
-  function createInViewList(inView: boolean): number[] {
-    return objectKeys(intersectionEntryMap).reduce((list: number[], slideIndex) => {
-      const index = parseInt(slideIndex)
-      const { isIntersecting } = intersectionEntryMap[index]
-      const inViewMatch = inView && isIntersecting
-      const notInViewMatch = !inView && !isIntersecting
-
-      if (inViewMatch || notInViewMatch) list.push(index)
-      return list
-    }, [])
-  }
-
-  /**
    * Получает индексы слайдов, которые находятся в видимости или не находятся в видимости.
    * @param inView - Определяет, получать слайды в видимости или не в видимости.
    * @returns Массив индексов слайдов.
@@ -92,9 +73,28 @@ export function useSlidesInView(
     const slideIndexes = createInViewList(inView)
 
     if (inView) inViewCache = slideIndexes
-    if (!inView) notInViewCache = slideIndexes
+    else notInViewCache = slideIndexes
 
     return slideIndexes
+  }
+
+  /**
+   * Создает список индексов слайдов, которые находятся в видимости или не находятся в видимости.
+   * @param inView - Определяет, создавать список слайдов в видимости или не в видимости.
+   * @returns Массив индексов слайдов.
+   */
+  function createInViewList(inView: boolean): number[] {
+    const list: number[] = []
+
+    for (const slideIndex of objectKeys(intersectionEntryMap)) {
+      const { isIntersecting } = intersectionEntryMap[slideIndex]
+      const inViewMatch = inView && isIntersecting
+      const notInViewMatch = !inView && !isIntersecting
+
+      if (inViewMatch || notInViewMatch) list.push(slideIndex)
+    }
+
+    return list
   }
 
   const self = {

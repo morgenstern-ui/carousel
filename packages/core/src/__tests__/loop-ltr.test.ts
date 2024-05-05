@@ -5,7 +5,7 @@ import { mockTestElements } from './mocks'
 import { FIXTURE_LOOP_LTR_1, FIXTURE_LOOP_LTR_2 } from './fixtures/loop-ltr.fixture'
 
 export const scrollToLocationInstant = (engine: EngineType, location: number): void => {
-  engine.target.set(location)
+  engine.targetVector.set(location)
   engine.scrollBody.useDuration(0)
   engine.animation.update()
   engine.animation.render(1)

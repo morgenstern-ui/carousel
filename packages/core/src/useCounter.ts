@@ -17,6 +17,7 @@ export type CounterType = ReturnType<typeof useCounter>
 export function useCounter(max: number, start: number, loop: boolean) {
   const { constrain } = useLimit(0, max)
   const loopEnd = max + 1
+
   let counter = withinLimit(start)
 
   /**

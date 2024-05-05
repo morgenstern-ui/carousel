@@ -12,6 +12,7 @@ export function useScrollProgress(limit: LimitType) {
 
   function get(n: number): number {
     const currentLocation = n - max
+
     return length ? currentLocation / -length : 0
   }
 

@@ -1,23 +1,23 @@
-import type { EngineType } from './useEngine.ts'
+// import type { EngineType } from './useEngine.ts'
 import { useEventStore } from './useEventStore.ts'
 import { mathAbs, type WindowType } from './utils.ts'
 
-export type AnimationsUpdateType = (engine: EngineType) => void
-export type AnimationsRenderType = (engine: EngineType, lagOffset: number) => void
+// export type AnimationsUpdateType = (engine: EngineType) => void
+// export type AnimationsRenderType = (engine: EngineType, lagOffset: number) => void
 
 export type AnimationsType = ReturnType<typeof useAnimations>
 /**
  * Экспортируемая функция Animations, которая создает объект для управления анимациями.
  *
- * @param ownerDocument - Документ, владеющий анимацией.
- * @param ownerWindow - Окно, владеющее анимацией.
+ * @param $ownerDocument - Документ, владеющий анимацией.
+ * @param $ownerWindow - Окно, владеющее анимацией.
  * @param update - Функция обновления анимации.
  * @param render - Функция рендеринга анимации.
  * @returns  Возвращает объект Animations.
  */
 export function useAnimations(
-  ownerDocument: Document,
-  ownerWindow: WindowType,
+  $ownerDocument: Document,
+  $ownerWindow: WindowType,
   update: () => void,
   render: (lagOffset: number) => void
 ) {
@@ -31,8 +31,8 @@ export function useAnimations(
    * Инициализирует анимацию.
    */
   function init(): void {
-    documentVisibleHandler.add(ownerDocument, 'visibilitychange', () => {
-      if (ownerDocument.hidden) reset()
+    documentVisibleHandler.add($ownerDocument, 'visibilitychange', () => {
+      if ($ownerDocument.hidden) reset()
     })
   }
 
@@ -65,7 +65,7 @@ export function useAnimations(
     const lagOffset = mathAbs(lag / timeStep)
     render(lagOffset)
 
-    if (animationFrame) ownerWindow.requestAnimationFrame(animate)
+    if (animationFrame) $ownerWindow.requestAnimationFrame(animate)
   }
 
   /**
@@ -74,14 +74,14 @@ export function useAnimations(
   function start(): void {
     if (animationFrame) return
 
-    animationFrame = ownerWindow.requestAnimationFrame(animate)
+    animationFrame = $ownerWindow.requestAnimationFrame(animate)
   }
 
   /**
    * Останавливает анимацию.
    */
   function stop(): void {
-    ownerWindow.cancelAnimationFrame(animationFrame)
+    $ownerWindow.cancelAnimationFrame(animationFrame)
     lastTimeStamp = null
     lag = 0
     animationFrame = 0

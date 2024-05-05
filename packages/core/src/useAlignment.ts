@@ -23,10 +23,10 @@ export type AlignmentType = ReturnType<typeof useAlignment>
 /**
  * Функция для выравнивания слайда.
  * @param align - опция выравнивания.
- * @param viewSize - размер области просмотра.
+ * @param containerSize - размер контейнера.
  * @returns объект с методом measure для измерения выравнивания.
  */
-export function useAlignment(align: AlignmentOptionType, viewSize: number) {
+export function useAlignment(align: AlignmentOptionType, containerSize: number) {
   const predefined = { start, center, end }
 
   /**
@@ -52,7 +52,7 @@ export function useAlignment(align: AlignmentOptionType, viewSize: number) {
    * @returns число - значение выравнивания в конце.
    */
   function end(slideSize: number): number {
-    return viewSize - slideSize
+    return containerSize - slideSize
   }
 
   /**
@@ -63,7 +63,7 @@ export function useAlignment(align: AlignmentOptionType, viewSize: number) {
    */
   function measure(slideSize: number, index: number): number {
     if (isString(align)) return predefined[align](slideSize)
-    return align(viewSize, slideSize, index)
+    return align(containerSize, slideSize, index)
   }
 
   const self = {

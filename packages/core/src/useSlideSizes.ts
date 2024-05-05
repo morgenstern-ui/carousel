@@ -27,9 +27,11 @@ export function useSlideSizes(
   ownerWindow: WindowType
 ) {
   const { measureSize, startEdge, endEdge } = axis
+
   const withEdgeGap = slideRects[0] && readEdgeGap
   const startGap = measureStartGap()
   const endGap = measureEndGap()
+
   const slideSizes = slideRects.map(measureSize)
   const slideSizesWithGaps = measureWithGaps()
 
@@ -67,18 +69,19 @@ export function useSlideSizes(
   function measureWithGaps(): number[] {
     const slideSizesWithGaps: number[] = []
     const slideRectsLength = slideRects.length
+    const slideRectsLastIndex = slideRectsLength - 1
 
-    for (let index = 0; index < slideRectsLength; index++) {
-      const slideRect = slideRects[index]
-      const isFirst = index === 0
-      const isLast = index === slideRectsLength - 1
+    for (let i = 0; i < slideRectsLength; i++) {
+      const slideRect = slideRects[i]
+      const isFirst = i === 0
+      const isLast = i === slideRectsLastIndex
 
       if (isFirst) {
-        slideSizesWithGaps.push(slideSizes[index] + startGap)
+        slideSizesWithGaps.push(slideSizes[i] + startGap)
       } else if (isLast) {
-        slideSizesWithGaps.push(slideSizes[index] + endGap)
+        slideSizesWithGaps.push(slideSizes[i] + endGap)
       } else {
-        const nextSlideRect = slideRects[index + 1]
+        const nextSlideRect = slideRects[i + 1]
         slideSizesWithGaps.push(mathAbs(nextSlideRect[startEdge] - slideRect[startEdge]))
       }
     }

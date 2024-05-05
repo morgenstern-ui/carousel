@@ -22,31 +22,67 @@ export type SlideLooperType = ReturnType<typeof useSlideLooper>
  * Пользовательский хук, который обрабатывает циклическое поведение слайдов в карусели.
  *
  * @param axis - Тип оси карусели (горизонтальная или вертикальная).
- * @param viewSize - Размер видимой области карусели.
+ * @param containerSize - Размер видимой области карусели.
  * @param contentSize - Общий размер содержимого карусели.
  * @param slideSizes - Массив размеров для каждого слайда.
  * @param slideSizesWithGaps - Массив размеров для каждого слайда с учетом промежутков.
- * @param snaps - Массив точек привязки для каждого слайда.
+ * @param slideSnaps - Массив точек привязки для каждого слайда.
  * @param scrollSnaps - Массив точек прокрутки для каждого слайда.
- * @param offsetLocation - Текущее смещение карусели.
+ * @param offsetLocationVector - Текущее смещение карусели.
  * @param $slides - Массив элементов слайдов.
  * @returns Объект, содержащий функции и данные, связанные с циклическим поведением слайдов.
  */
 export function useSlideLooper(
   axis: AxisType,
-  viewSize: number,
+  containerSize: number,
   contentSize: number,
   slideSizes: number[],
   slideSizesWithGaps: number[],
-  snaps: number[],
+  slideSnaps: number[],
   scrollSnaps: number[],
-  offsetLocation: Vector1DType,
+  offsetLocationVector: Vector1DType,
   $slides: HTMLElement[]
 ) {
   const roundingSafety = 0.5
   const ascItems = arrayKeys(slideSizesWithGaps)
-  const descItems = arrayKeys(slideSizesWithGaps).reverse()
+  const descItems = [...ascItems].reverse()
   const loopPoints = startPoints().concat(endPoints())
+
+  /**
+   * Проверяет, может ли карусель циклически перемещаться.
+   *
+   * @returns True, если карусель может циклически перемещаться, в противном случае - false.
+   */
+  function canLoop(): boolean {
+    return loopPoints.every(({ index }) => {
+      const otherIndexes = ascItems.filter((i) => i !== index)
+      return removeSlideSizes(otherIndexes, containerSize) <= 0.1
+    })
+  }
+
+  /**
+   * Циклически перемещает слайды в карусели.
+   */
+  function loop(): void {
+    for (const loopPoint of loopPoints) {
+      const { target, translate, slideLocation } = loopPoint
+      const shiftLocation = target()
+      
+      if (shiftLocation === slideLocation.get()) continue
+      
+      translate.to(shiftLocation)
+      slideLocation.set(shiftLocation)
+    }
+  }
+
+  /**
+   * Очищает переводы точек цикла.
+   */
+  function clear(): void {
+    for (const loopPoint of loopPoints) {
+      loopPoint.translate.clear()
+    }
+  }
 
   /**
    * Находит точки цикла для начального края карусели.
@@ -66,7 +102,7 @@ export function useSlideLooper(
    * @returns Массив точек цикла для конечного края.
    */
   function endPoints(): LoopPointType[] {
-    const gap = viewSize - scrollSnaps[0] - 1
+    const gap = containerSize - scrollSnaps[0] - 1
     const indexes = slidesInGap(ascItems, gap)
 
     return findLoopPoints(indexes, -contentSize, true)
@@ -80,10 +116,16 @@ export function useSlideLooper(
    * @returns Массив индексов слайдов, которые помещаются в промежуток.
    */
   function slidesInGap(indexes: number[], gap: number): number[] {
-    return indexes.reduce((a: number[], i) => {
-      const remainingGap = removeSlideSizes(a, gap)
-      return remainingGap > 0 ? a.concat([i]) : a
-    }, [])
+    const slides: number[] = []
+
+    for (const index of indexes) {
+      const remainingGap = removeSlideSizes(slides, gap)
+
+      if (remainingGap > 0)
+        slides.push(index)
+    }
+
+    return slides
   }
 
   /**
@@ -94,9 +136,13 @@ export function useSlideLooper(
    * @returns Обновленный общий размер после удаления размеров слайдов.
    */
   function removeSlideSizes(indexes: number[], from: number): number {
-    return indexes.reduce((a: number, i) => {
-      return a - slideSizesWithGaps[i]
-    }, from)
+    let to = from
+
+    for (const index of indexes) {
+      to -= slideSizesWithGaps[index]
+    }
+
+    return to
   }
 
   /**
@@ -121,7 +167,7 @@ export function useSlideLooper(
         loopPoint,
         slideLocation: useVector1D(-1),
         translate: useTranslate(axis, $slides[index]),
-        target: () => (offsetLocation.get() > loopPoint ? initial : altered)
+        target: () => (offsetLocationVector.get() > loopPoint ? initial : altered)
       }
     })
   }
@@ -133,42 +179,10 @@ export function useSlideLooper(
    * @returns Массив границ слайдов.
    */
   function findSlideBounds(offset: number): SlideBoundType[] {
-    return snaps.map((snap, index) => ({
+    return slideSnaps.map((snap, index) => ({
       start: snap - slideSizes[index] + roundingSafety + offset,
-      end: snap + viewSize - roundingSafety + offset
+      end: snap + containerSize - roundingSafety + offset
     }))
-  }
-
-  /**
-   * Проверяет, может ли карусель циклически перемещаться.
-   *
-   * @returns True, если карусель может циклически перемещаться, в противном случае - false.
-   */
-  function canLoop(): boolean {
-    return loopPoints.every(({ index }) => {
-      const otherIndexes = ascItems.filter((i) => i !== index)
-      return removeSlideSizes(otherIndexes, viewSize) <= 0.1
-    })
-  }
-
-  /**
-   * Циклически перемещает слайды в карусели.
-   */
-  function loop(): void {
-    loopPoints.forEach((loopPoint) => {
-      const { target, translate, slideLocation } = loopPoint
-      const shiftLocation = target()
-      if (shiftLocation === slideLocation.get()) return
-      translate.to(shiftLocation)
-      slideLocation.set(shiftLocation)
-    })
-  }
-
-  /**
-   * Очищает переводы точек цикла.
-   */
-  function clear(): void {
-    loopPoints.forEach((loopPoint) => loopPoint.translate.clear())
   }
 
   const self = {

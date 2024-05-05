@@ -7,7 +7,7 @@ Fixture 1
 - LTR
 - No slide margins
 */
-export const FIXTURE_REINIT_1: TestElementDimensionsType = {
+export const FIXTURE_RE_INIT_1: TestElementDimensionsType = {
   containerOffset: {
     offsetWidth: 1000,
     offsetHeight: 190,
@@ -59,7 +59,7 @@ Fixture 2
 - LTR
 - Slide left margin: 10px, Slide right margin: 10px 
 */
-export const FIXTURE_REINIT_2: TestElementDimensionsType = {
+export const FIXTURE_RE_INIT_2: TestElementDimensionsType = {
   containerOffset: {
     offsetWidth: 1000,
     offsetHeight: 190,

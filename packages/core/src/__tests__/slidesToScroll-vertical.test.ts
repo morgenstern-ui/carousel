@@ -23,7 +23,7 @@ describe('➡️  SlidesToScroll - Вертикальный', () => {
       const expectedScrollSnaps = [0, -1000, -2000, -3001]
 
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
-      expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
+      expect(engine.locationVector.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
 
       expect(engine.slideRegistry).toEqual([
         [0, 1],
@@ -40,7 +40,7 @@ describe('➡️  SlidesToScroll - Вертикальный', () => {
       const expectedScrollSnaps = [0, -1000, -2000, -3000.5]
 
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
-      expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
+      expect(engine.locationVector.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
 
       expect(engine.slideRegistry).toEqual([
         [0, 1],
@@ -57,7 +57,7 @@ describe('➡️  SlidesToScroll - Вертикальный', () => {
       const expectedScrollSnaps = [0, -1000, -2000, -3000.5]
 
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
-      expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
+      expect(engine.locationVector.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
 
       expect(engine.slideRegistry).toEqual([
         [0, 1],
@@ -80,7 +80,7 @@ describe('➡️  SlidesToScroll - Вертикальный', () => {
       const expectedScrollSnaps = [0, -1020, -2030, -3041]
 
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
-      expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
+      expect(engine.locationVector.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
 
       expect(engine.slideRegistry).toEqual([
         [0, 1],
@@ -97,7 +97,7 @@ describe('➡️  SlidesToScroll - Вертикальный', () => {
       const expectedScrollSnaps = [-10, -1020, -2030, -3030.5]
 
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
-      expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
+      expect(engine.locationVector.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
 
       expect(engine.slideRegistry).toEqual([
         [0, 1],
@@ -114,7 +114,7 @@ describe('➡️  SlidesToScroll - Вертикальный', () => {
       const expectedScrollSnaps = [-10, -1020, -2030, -3030.5]
 
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
-      expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
+      expect(engine.locationVector.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
 
       expect(engine.slideRegistry).toEqual([
         [0, 1],
@@ -141,7 +141,7 @@ describe('➡️  SlidesToScroll - Вертикальный', () => {
       const expectedScrollSnaps = [0, -247, -475, -703, -931, -1178]
 
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
-      expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
+      expect(engine.locationVector.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
 
       expect(engine.slideRegistry).toEqual([[0], [1], [2], [3], [4], [5]])
     })
@@ -153,7 +153,7 @@ describe('➡️  SlidesToScroll - Вертикальный', () => {
       const expectedScrollSnaps = [-19, -247, -475, -703, -931, -1159]
 
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
-      expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
+      expect(engine.locationVector.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
 
       expect(engine.slideRegistry).toEqual([[0], [1], [2], [3], [4], [5]])
     })
@@ -165,7 +165,7 @@ describe('➡️  SlidesToScroll - Вертикальный', () => {
       const expectedScrollSnaps = [-19, -247, -475, -703, -931, -1159]
 
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
-      expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
+      expect(engine.locationVector.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
 
       expect(engine.slideRegistry).toEqual([[0], [1], [2], [3], [4], [5]])
     })
@@ -183,7 +183,7 @@ describe('➡️  SlidesToScroll - Вертикальный', () => {
       const expectedScrollSnaps = [0, -750, -1250, -2000, -3001]
 
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
-      expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
+      expect(engine.locationVector.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
 
       expect(engine.slideRegistry).toEqual([
         [0, 1],
@@ -201,7 +201,7 @@ describe('➡️  SlidesToScroll - Вертикальный', () => {
       const expectedScrollSnaps = [0, -750, -1250, -2000, -3000.5]
 
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
-      expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
+      expect(engine.locationVector.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
 
       expect(engine.slideRegistry).toEqual([
         [0, 1],
@@ -219,7 +219,7 @@ describe('➡️  SlidesToScroll - Вертикальный', () => {
       const expectedScrollSnaps = [0, -750, -1250, -2000, -3000.5]
 
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
-      expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
+      expect(engine.locationVector.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
 
       expect(engine.slideRegistry).toEqual([
         [0, 1],
@@ -243,7 +243,7 @@ describe('➡️  SlidesToScroll - Вертикальный', () => {
       const expectedScrollSnaps = [0, -765, -1275, -2030, -3041]
 
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
-      expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
+      expect(engine.locationVector.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
 
       expect(engine.slideRegistry).toEqual([
         [0, 1],
@@ -261,7 +261,7 @@ describe('➡️  SlidesToScroll - Вертикальный', () => {
       const expectedScrollSnaps = [-10, -765, -1275, -2030, -3030.5]
 
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
-      expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
+      expect(engine.locationVector.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
 
       expect(engine.slideRegistry).toEqual([
         [0, 1],
@@ -279,7 +279,7 @@ describe('➡️  SlidesToScroll - Вертикальный', () => {
       const expectedScrollSnaps = [-10, -765, -1275, -2030, -3030.5]
 
       expect(engine.scrollSnaps).toEqual(expectedScrollSnaps)
-      expect(engine.location.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
+      expect(engine.locationVector.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
 
       expect(engine.slideRegistry).toEqual([
         [0, 1],
