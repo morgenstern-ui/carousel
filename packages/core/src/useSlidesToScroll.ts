@@ -71,6 +71,8 @@ export function useSlidesToScroll(
 
     let startChunkIdx = 0
 
+    const containerStart = containerRect[startEdge]
+
     for (let endChunkIdx = 0; endChunkIdx < arrayLength; endChunkIdx++) {
       const isFirstGroup = startChunkIdx === 0
       const isLastGroup = endChunkIdx === arrayLastIndex
@@ -78,10 +80,10 @@ export function useSlidesToScroll(
       const chunkStartGap = isFirstGroup && !loop ? direction(startGap) : 0
       const chunkEndGap = isLastGroup && !loop ? direction(endGap) : 0
 
-      const startChunkSize = containerRect[startEdge] + chunkStartGap - slideRects[startChunkIdx][startEdge]
-      const endChunkSize = containerRect[startEdge] - chunkEndGap - slideRects[endChunkIdx][endEdge]
+      const startChunk = containerStart - slideRects[startChunkIdx][startEdge] + chunkStartGap
+      const endChunk = containerStart - slideRects[endChunkIdx][endEdge] - chunkEndGap
 
-      const chunkSize = mathAbs(endChunkSize - startChunkSize)
+      const chunkSize = mathAbs(endChunk - startChunk)
 
       if (endChunkIdx && chunkSize > containerSize + pixelTolerance) {
         groups.push(array.slice(startChunkIdx, endChunkIdx))

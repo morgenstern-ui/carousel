@@ -2,29 +2,26 @@ import type { AxisType } from './useAxis.ts'
 import type { NodeRectType } from './useNodeRects.ts'
 import { arrayLast, mathAbs, type WindowType } from './utils.ts'
 
-/**
- * Возвращает тип размеров слайдов, возвращаемый функцией `useSlideSizes`.
- */
 export type SlideSizesType = ReturnType<typeof useSlideSizes>
 
 /**
  * Вычисляет размеры слайдов и промежутки между ними.
  *
- * @param axis - Тип оси (горизонтальная или вертикальная).
- * @param containerRect - Прямоугольник, представляющий контейнер.
- * @param slideRects - Массив прямоугольников, представляющих каждый слайд.
- * @param slides - Массив HTML-элементов, представляющих каждый слайд.
- * @param readEdgeGap - Булево значение, указывающее, нужно ли считывать промежуток на краю.
- * @param ownerWindow - Объект окна владельца.
+ * @param axis - Ось.
+ * @param containerRect - Размеры контейнера.
+ * @param slideRects - Размеры каждого слайда.
+ * @param $slides - Элементы слайдов.
+ * @param readEdgeGap - Определяет, нужно ли учитывать промежуток на краях.
+ * @param $ownerWindow - Объект окна.
  * @returns Объект, содержащий размеры слайдов, размеры слайдов с промежутками, начальный промежуток и конечный промежуток.
  */
 export function useSlideSizes(
   axis: AxisType,
   containerRect: NodeRectType,
   slideRects: NodeRectType[],
-  slides: HTMLElement[],
+  $slides: HTMLElement[],
   readEdgeGap: boolean,
-  ownerWindow: WindowType
+  $ownerWindow: WindowType
 ) {
   const { measureSize, startEdge, endEdge } = axis
 
@@ -56,7 +53,7 @@ export function useSlideSizes(
   function measureEndGap(): number {
     if (!withEdgeGap) return 0
 
-    const style = ownerWindow.getComputedStyle(arrayLast(slides))
+    const style = $ownerWindow.getComputedStyle(arrayLast($slides))
 
     return parseFloat(style.getPropertyValue(`margin-${endEdge}`))
   }
