@@ -6,13 +6,15 @@ export type ScrollContainOptionType = false | 'trimSnaps' | 'keepSnaps'
 export type ScrollContainType = ReturnType<typeof useScrollContain>
 
 /**
- * Рассчитывает поведение ограничения прокрутки на основе предоставленных параметров.
- * @param containerSize - Размер области просмотра.
- * @param contentSize - Размер содержимого.
- * @param slideGroupSnaps - Массив выровненных снапов.
+ * Рассчитывает ограниченные и содержащиеся снапы группы слайдов на основе размера контейнера, размера контента,
+ * снапов группы слайдов, опции ограничения прокрутки и пиксельной допустимости.
+ *
+ * @param containerSize - Размер контейнера.
+ * @param contentSize - Размер контента.
+ * @param slideGroupSnaps - Массив снапов группы слайдов.
  * @param containScroll - Опция ограничения прокрутки.
- * @param pixelTolerance - Значение пиксельной допустимости.
- * @returns Объект, содержащий ограниченные снапы и предел ограничения прокрутки.
+ * @param pixelTolerance - Пиксельная допустимость.
+ * @returns Объект, содержащий ограниченные и содержащиеся снапы группы слайдов.
  */
 export function useScrollContain(
   containerSize: number,
@@ -21,18 +23,16 @@ export function useScrollContain(
   containScroll: ScrollContainOptionType,
   pixelTolerance: number
 ) {
-  /**
-   * Рассчитывает границы прокрутки на основе размера содержимого и размера области просмотра.
-   */
-  const scrollLimit = useLimit(containerSize - contentSize, 0)
+  const scrollLimit = useLimit(-(contentSize - containerSize), 0)
 
   const slideGroupSnapsBounded = measureSlideGroupSnapsBounded()
   const slideGroupSnapsLimit = getSlideGroupSnapsLimit()
   const slideGroupSnapsContained = measureSlideGroupSnapsContained()
 
   /**
-   * Измеряет ограниченные снапы на основе границ прокрутки.
-   * @returns Массив ограниченных снапов.
+   * Рассчитывает ограниченные снапы группы слайдов на основе ограничения прокрутки.
+   * 
+   * @returns Массив ограниченных снапов группы слайдов.
    */
   function measureSlideGroupSnapsBounded(): number[] {
     const { min, max } = scrollLimit
@@ -68,22 +68,24 @@ export function useScrollContain(
   }
 
   /**
-   * Находит предел ограничения прокрутки на основе ограниченных снапов.
-   * @returns Предел ограничения прокрутки.
+   * Рассчитывает ограничение снапов группы слайдов на основе ограниченных снапов группы слайдов.
+   * 
+   * @returns Ограничение снапов группы слайдов.
    */
   function getSlideGroupSnapsLimit(): LimitType {
     const maxSnapBounded = slideGroupSnapsBounded[0]
     const minSnapBounded = arrayLast(slideGroupSnapsBounded)
 
     const minSnapIdx = slideGroupSnapsBounded.lastIndexOf(maxSnapBounded)
-    const maxSnapIdx = slideGroupSnapsBounded.indexOf(minSnapBounded) + 1
+    const maxSnapIdx = slideGroupSnapsBounded.indexOf(minSnapBounded)
 
-    return useLimit(minSnapIdx, maxSnapIdx)
+    return useLimit(minSnapIdx, maxSnapIdx + 1)
   }
 
   /**
-   * Измеряет содержащиеся снапы на основе размера содержимого, размера области просмотра и опции ограничения прокрутки.
-   * @returns Массив содержащихся снапов.
+   * Рассчитывает снапы группы слайдов, которые содержатся в контейнере прокрутки.
+   * 
+   * @returns Массив снапов группы слайдов, которые содержатся в контейнере прокрутки.
    */
   function measureSlideGroupSnapsContained(): number[] {
     if (contentSize <= containerSize + pixelTolerance) return [scrollLimit.max]
@@ -96,9 +98,10 @@ export function useScrollContain(
 
   /**
    * Проверяет, находится ли разница между двумя значениями в пределах пиксельной допустимости.
-   * @param bound - Значение границы.
-   * @param snap - Значение снапа.
-   * @returns Булево значение, указывающее, находится ли разница в пределах пиксельной допустимости.
+   * 
+   * @param bound - Ограничение.
+   * @param snap - Снап.
+   * @returns True, если разница между ограничением и снапом меньше 1, иначе false.
    */
   function usePixelTolerance(bound: number, snap: number): boolean {
     return deltaAbs(bound, snap) < 1
