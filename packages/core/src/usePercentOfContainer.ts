@@ -1,15 +1,17 @@
 export type PercentOfViewType = ReturnType<typeof usePercentOfContainer>
 
 /**
- * Вычисляет значение измерения на основе процента от размера представления.
- * @param containerSize Размер контейнера.
- * @returns Объект с функцией `measure`, которая вычисляет значение измерения.
+ * Возвращает функцию, которая вычисляет указанный процент от размера контейнера.
+ * 
+ * @param containerSize - Размер контейнера.
+ * @returns Объект с функцией `measure`, которая вычисляет указанный процент от размера контейнера.
  */
 export function usePercentOfContainer(containerSize: number) {
   /**
-   * Вычисляет значение измерения на основе процента.
-   * @param percent Значение процента.
-   * @returns Вычисленное значение измерения.
+   * Вычисляет измерение на основе заданного процента от размера контейнера.
+   * 
+   * @param percent - Значение процента для вычисления измерения.
+   * @returns Вычисленное измерение.
    */
   function measure(percent: number): number {
     return containerSize * (percent / 100)
