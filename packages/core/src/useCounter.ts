@@ -21,16 +21,6 @@ export function useCounter(max: number, start: number, loop: boolean) {
   let counter = withinLimit(start)
 
   /**
-   * Проверяет, что значение находится в пределах ограничений счетчика.
-   *
-   * @param n - Значение для проверки.
-   * @returns Возвращает значение, ограниченное пределами счетчика.
-   */
-  function withinLimit(n: number): number {
-    return !loop ? constrain(n) : mathAbs((loopEnd + n) % loopEnd)
-  }
-
-  /**
    * Возвращает текущее значение счетчика.
    *
    * @returns Возвращает текущее значение счетчика.
@@ -68,6 +58,16 @@ export function useCounter(max: number, start: number, loop: boolean) {
    */
   function clone(): CounterType {
     return useCounter(max, get(), loop)
+  }
+
+  /**
+   * Проверяет, что значение находится в пределах ограничений счетчика.
+   *
+   * @param n - Значение для проверки.
+   * @returns Возвращает значение, ограниченное пределами счетчика.
+   */
+  function withinLimit(n: number): number {
+    return !loop ? constrain(n) : mathAbs((loopEnd + n) % loopEnd)
   }
 
   const self = {
