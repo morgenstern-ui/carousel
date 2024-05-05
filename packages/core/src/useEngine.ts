@@ -145,6 +145,7 @@ export function useEngine(
       animation.stop()
       eventHandler.emit('settle')
     }
+
     if (!hasSettled) eventHandler.emit('scroll')
 
     offsetLocation.set(location.get() - velocity + velocity * lagOffset)
