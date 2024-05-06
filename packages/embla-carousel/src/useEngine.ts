@@ -127,8 +127,8 @@ export function useEngine(
     {
       scrollBody,
       translate,
-      locationVector: location,
-      offsetLocationVector: offsetLocation,
+      locationVector,
+      offsetLocationVector,
       scrollLooper,
       slideLooper,
       dragHandler,
@@ -148,14 +148,14 @@ export function useEngine(
 
     if (!hasSettled) eventHandler.emit('scroll')
 
-    offsetLocation.set(location.get() - velocity + velocity * lagOffset)
+    offsetLocationVector.set(locationVector.get() - velocity + velocity * lagOffset)
 
     if (loop) {
       scrollLooper.loop(scrollBody.direction())
       slideLooper.loop()
     }
 
-    translate.to(offsetLocation.get())
+    translate.to(offsetLocationVector.get())
   }
 
   const animation = useAnimations(
