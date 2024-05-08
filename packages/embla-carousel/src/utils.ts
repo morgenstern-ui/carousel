@@ -4,8 +4,8 @@ export type WindowType = Window & typeof globalThis
 
 /**
  * Функция для проверки, является ли переданный аргумент числом.
- * @param {unknown} subject - Проверяемый аргумент.
- * @returns {boolean} Возвращает true, если аргумент является числом, иначе false.
+ * @param subject - Проверяемый аргумент.
+ * @returns Возвращает true, если аргумент является числом, иначе false.
  */
 export function isNumber(subject: unknown): subject is number {
   return typeof subject === 'number'
@@ -13,18 +13,17 @@ export function isNumber(subject: unknown): subject is number {
 
 /**
  * Функция для проверки, является ли переданный аргумент строкой.
- * @param {unknown} subject - Проверяемый аргумент.
- * @returns {boolean} Возвращает true, если аргумент является строкой, иначе false.
+ * @param subject - Проверяемый аргумент.
+ * @returns Возвращает true, если аргумент является строкой, иначе false.
  */
-
 export function isString(subject: unknown): subject is string {
   return typeof subject === 'string'
 }
 
 /**
  * Функция для проверки, является ли переданный аргумент булевым значением.
- * @param {unknown} subject - Проверяемый аргумент.
- * @returns {boolean} Возвращает true, если аргумент является булевым значением, иначе false.
+ * @param subject - Проверяемый аргумент.
+ * @returns Возвращает true, если аргумент является булевым значением, иначе false.
  */
 export function isBoolean(subject: unknown): subject is boolean {
   return typeof subject === 'boolean'
@@ -32,8 +31,8 @@ export function isBoolean(subject: unknown): subject is boolean {
 
 /**
  * Функция для проверки, является ли переданный аргумент объектом.
- * @param {unknown} subject - Проверяемый аргумент.
- * @returns {boolean} Возвращает true, если аргумент является объектом, иначе false.
+ * @param subject - Проверяемый аргумент.
+ * @returns Возвращает true, если аргумент является объектом, иначе false.
  */
 export function isObject(subject: unknown): subject is Record<string, unknown> {
   return Object.prototype.toString.call(subject) === '[object Object]'
@@ -41,23 +40,23 @@ export function isObject(subject: unknown): subject is Record<string, unknown> {
 
 /**
  * Функция для получения абсолютного значения числа.
- * @param {number} n - Число.
- * @returns {number} Возвращает абсолютное значение числа.
+ * @param n - Число.
+ * @returns Возвращает абсолютное значение числа.
  */
 export const mathAbs = Math.abs
 
 /**
  * Функция для получения знака числа.
- * @param {number} n - Число.
- * @returns {number} Возвращает 1, если число положительное, -1, если число отрицательное, и 0, если число равно нулю.
+ * @param n - Число.
+ * @returns Возвращает 1, если число положительное, -1, если число отрицательное, и 0, если число равно нулю.
  */
 export const mathSign = Math.sign
 
 /**
  * Функция для получения абсолютного значения разности двух чисел.
- * @param {number} valueB - Первое число.
- * @param {number} valueA - Второе число.
- * @returns {number} Возвращает абсолютное значение разности двух чисел.
+ * @param valueB - Первое число.
+ * @param valueA - Второе число.
+ * @returns Возвращает абсолютное значение разности двух чисел.
  */
 export function deltaAbs(valueB: number, valueA: number): number {
   return mathAbs(valueB - valueA)
@@ -65,9 +64,9 @@ export function deltaAbs(valueB: number, valueA: number): number {
 
 /**
  * Функция для получения абсолютного значения фактора двух чисел.
- * @param {number} valueB - Первое число.
- * @param {number} valueA - Второе число.
- * @returns {number} Возвращает абсолютное значение фактора двух чисел.
+ * @param valueB - Первое число.
+ * @param valueA - Второе число.
+ * @returns Возвращает абсолютное значение фактора двух чисел.
  */
 export function factorAbs(valueB: number, valueA: number): number {
   if (valueB === 0 || valueA === 0) return 0
@@ -78,8 +77,8 @@ export function factorAbs(valueB: number, valueA: number): number {
 
 /**
  * Функция для получения ключей массива.
- * @param {Type[]} array - Массив.
- * @returns {number[]} Возвращает массив ключей.
+ * @param array - Массив.
+ * @returns Возвращает массив ключей.
  */
 export function arrayKeys<Type>(array: Type[]): number[] {
   return Array.from(array.keys());
@@ -87,8 +86,8 @@ export function arrayKeys<Type>(array: Type[]): number[] {
 
 /**
  * Функция для получения последнего элемента массива.
- * @param {Type[]} array - Массив.
- * @returns {Type} Возвращает последний элемент массива.
+ * @param array - Массив.
+ * @returns Возвращает последний элемент массива.
  */
 export function arrayLast<Type>(array: Type[]): Type {
   return array.at(-1)!
@@ -96,8 +95,8 @@ export function arrayLast<Type>(array: Type[]): Type {
 
 /**
  * Функция для получения индекса последнего элемента массива.
- * @param {Type[]} array - Массив.
- * @returns {number} Возвращает индекс последнего элемента массива.
+ * @param array - Массив.
+ * @returns Возвращает индекс последнего элемента массива.
  */
 export function arrayLastIndex<Type>(array: Type[]): number {
   return Math.max(0, array.length - 1)
@@ -105,9 +104,9 @@ export function arrayLastIndex<Type>(array: Type[]): number {
 
 /**
  * Функция для проверки, является ли индекс последним в массиве.
- * @param {Type[]} array - Массив.
- * @param {number} index - Индекс.
- * @returns {boolean} Возвращает true, если индекс является последним в массиве, иначе false.
+ * @param array - Массив.
+ * @param index - Индекс.
+ * @returns Возвращает true, если индекс является последним в массиве, иначе false.
  */
 export function arrayIsLastIndex<Type>(array: Type[], index: number): boolean {
   return index === arrayLastIndex(array)
@@ -115,9 +114,9 @@ export function arrayIsLastIndex<Type>(array: Type[], index: number): boolean {
 
 /**
  * Функция для создания массива из числа.
- * @param {number} n - Число.
- * @param {number} startAt - Начальное значение (по умолчанию равно 0).
- * @returns {number[]} Возвращает массив из числа.
+ * @param n - Число.
+ * @param startAt - Начальное значение (по умолчанию равно 0).
+ * @returns Возвращает массив из числа.
  */
 export function arrayFromNumber(n: number, startAt: number = 0): number[] {
   return Array.from(Array(n), (_, i) => startAt + i)
@@ -125,8 +124,8 @@ export function arrayFromNumber(n: number, startAt: number = 0): number[] {
 
 /**
  * Функция для получения ключей объекта.
- * @param {Type} object - Объект.
- * @returns {string[]} Возвращает массив ключей объекта.
+ * @param object - Объект.
+ * @returns Возвращает массив ключей объекта.
  */
 export function objectKeys<Type extends object>(object: Type): (keyof Type)[] {
   return Object.keys(object) as (keyof Type)[]
@@ -134,9 +133,9 @@ export function objectKeys<Type extends object>(object: Type): (keyof Type)[] {
 
 /**
  * Функция для глубокого слияния двух объектов.
- * @param {Record<string, unknown>} objectA - Первый объект.
- * @param {Record<string, unknown>} objectB - Второй объект.
- * @returns {Record<string, unknown>} Возвращает результат глубокого слияния двух объектов.
+ * @param objectA - Первый объект.
+ * @param objectB - Второй объект.
+ * @returns Возвращает результат глубокого слияния двух объектов.
  */
 export function objectsMergeDeep(
   objectA: Record<string, unknown>,
@@ -161,9 +160,9 @@ export function objectsMergeDeep(
 
 /**
  * Функция для проверки, является ли событие событием мыши.
- * @param {PointerEventType} evt - Событие.
- * @param {WindowType} ownerWindow - Объект окна.
- * @returns {boolean} Возвращает true, если событие является событием мыши, иначе false.
+ * @param evt - Событие.
+ * @param ownerWindow - Объект окна.
+ * @returns Возвращает true, если событие является событием мыши, иначе false.
  */
 export function isMouseEvent(evt: PointerEventType, ownerWindow: WindowType): evt is MouseEvent {
   return typeof ownerWindow.MouseEvent !== 'undefined' && evt instanceof ownerWindow.MouseEvent
