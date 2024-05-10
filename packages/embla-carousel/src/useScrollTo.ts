@@ -58,7 +58,7 @@ export function useScrollTo(
    */
   function scrollTo(target: TargetType): void {
     const distanceDiff = target.distance
-    const indexDiff = target.index !== indexCurrent.get()
+    const isIndexChanged = target.index !== indexCurrent.get()
 
     targetVector.add(distanceDiff)
 
@@ -72,7 +72,7 @@ export function useScrollTo(
       }
     }
 
-    if (indexDiff) {
+    if (isIndexChanged) {
       indexPrevious.set(indexCurrent.get())
       indexCurrent.set(target.index)
       eventHandler.emit('select')

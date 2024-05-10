@@ -58,7 +58,10 @@ export function useEventHandler() {
    * @returns Экземпляр обработчика событий.
    */
   function emit(evt: EmblaEventType): EventHandlerType {
-    getListeners(evt).forEach((e) => e(api, evt))
+    for (const cb of getListeners(evt)) {
+      cb(api, evt)
+    }
+
     return self
   }
 

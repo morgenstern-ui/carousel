@@ -22,10 +22,17 @@ export function usePluginsHandler(optionsHandler: OptionsHandlerType) {
    * @returns Карта имен плагинов и экземпляров плагинов.
    */
   function init(emblaApi: EmblaCarouselType, plugins: EmblaPluginType[]): EmblaPluginsType {
-    activePlugins = plugins.filter(({ options }) => optionsHandler.optionsAtMedia(options).active !== false)
-    activePlugins.forEach((plugin) => plugin.init(emblaApi, optionsHandler))
+    const pluginMap: EmblaPluginsType = {}
 
-    return plugins.reduce((map, plugin) => Object.assign(map, { [plugin.name]: plugin }), {})
+    for (const plugin of plugins) {
+      if (optionsHandler.optionsAtMedia(plugin.options).active !== false) {
+        activePlugins.push(plugin)
+        plugin.init(emblaApi, optionsHandler)
+        pluginMap[plugin.name] = plugin
+      }
+    }
+
+    return pluginMap
   }
 
   /**

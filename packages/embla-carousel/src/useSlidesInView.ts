@@ -50,7 +50,9 @@ export function useSlidesInView(
       }
     )
 
-    $slides.forEach((slide) => intersectionObserver.observe(slide))
+    for (const $slide of $slides) {
+      intersectionObserver.observe($slide)
+    }
   }
 
   /**
