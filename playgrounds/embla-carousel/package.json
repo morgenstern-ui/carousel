@@ -1,5 +1,5 @@
 {
-  "name": "@teleskop150750/playground-core",
+  "name": "@teleskop150750/playground-embla-carousel",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,6 +9,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@teleskop150750/embla-carousel-core": "workspace:*"
+    "@teleskop150750/embla-carousel": "workspace:*"
   }
 }

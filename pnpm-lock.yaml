@@ -39,15 +39,15 @@ importers:
         specifier: ^1.5.0
         version: 1.5.0(@types/node@20.12.7)(jsdom@24.0.0)
 
-  packages/core: {}
+  packages/embla-carousel: {}
 
   packages/typescript-config: {}
 
-  playgrounds/core:
+  playgrounds/embla-carousel:
     dependencies:
-      '@teleskop150750/embla-carousel-core':
+      '@teleskop150750/embla-carousel':
         specifier: workspace:*
-        version: link:../../packages/core
+        version: link:../../packages/embla-carousel
 
 packages:
 
