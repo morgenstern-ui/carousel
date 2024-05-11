@@ -25,6 +25,15 @@ export function useAnimations(
   let lag = 0
   let animationFrame = 0
 
+  let table: Array<{
+    s_lag: number
+    lag: number
+    timeStep: number
+    lastTimeStamp: number | null
+    timeStamp: number
+    elapsed: number
+  }> = []
+
   /**
    * Инициализирует анимацию.
    */
@@ -52,8 +61,18 @@ export function useAnimations(
     if (!lastTimeStamp) lastTimeStamp = timeStamp
 
     const elapsed = timeStamp - lastTimeStamp
+    const s_lag = lag
     lastTimeStamp = timeStamp
     lag += elapsed
+
+    table.push({
+      s_lag: s_lag,
+      lag: lag,
+      timeStep: timeStep,
+      lastTimeStamp: lastTimeStamp,
+      timeStamp: timeStamp,
+      elapsed: elapsed
+    })
 
     while (lag >= timeStep) {
       update()
@@ -72,6 +91,7 @@ export function useAnimations(
   function start(): void {
     if (animationFrame) return
 
+    table = []
     animationFrame = $ownerWindow.requestAnimationFrame(animate)
   }
 
@@ -79,6 +99,7 @@ export function useAnimations(
    * Останавливает анимацию.
    */
   function stop(): void {
+    console.table(table)
     $ownerWindow.cancelAnimationFrame(animationFrame)
     lastTimeStamp = null
     lag = 0
