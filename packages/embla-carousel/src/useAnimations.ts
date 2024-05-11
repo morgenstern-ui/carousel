@@ -3,6 +3,7 @@ import { useEventStore } from './useEventStore.ts'
 import { mathAbs, type WindowType } from './utils.ts'
 
 export type AnimationsType = ReturnType<typeof useAnimations>
+
 /**
  * Экспортируемая функция Animations, которая создает объект для управления анимациями.
  *
