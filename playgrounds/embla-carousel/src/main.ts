@@ -4,7 +4,7 @@ import './styles/embla.css'
 import './styles/sandbox.css'
 
 
-const OPTIONS: EmblaOptionsType = {align: 'start' }
+const OPTIONS: EmblaOptionsType = { align: 'start', skipSnaps: false}
 
 const emblaNode = document.querySelector<HTMLElement>('.embla')!
 const viewportNode = emblaNode.querySelector<HTMLElement>('.embla__viewport')!
@@ -17,11 +17,11 @@ console.log(emblaApi)
 
 addPrevNextBtnsClickHandlers(emblaApi, prevBtnNode, nextBtnNode)
 
-function addTogglePrevNextBtnsActive (
+function addTogglePrevNextBtnsActive(
   emblaApi: EmblaCarouselType,
   prevBtn: HTMLElement,
   nextBtn: HTMLElement
-): (() => void)  {
+): (() => void) {
   const togglePrevNextBtnsState = (): void => {
     if (emblaApi.canScrollPrev()) prevBtn.removeAttribute('disabled')
     else prevBtn.setAttribute('disabled', 'disabled')
