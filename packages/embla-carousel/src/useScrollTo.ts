@@ -43,11 +43,11 @@ export function useScrollTo(
   /**
    * Прокручивает на указанное расстояние.
    *
-   * @param n - Расстояние для прокрутки.
+   * @param distance - Расстояние для прокрутки.
    * @param snap - Привязываться ли к ближайшей цели.
    */
-  function distance(n: number, snap: boolean): void {
-    const target = scrollTarget.byDistance(n, snap)
+  function distance(distance: number, snap: boolean): void {
+    const target = scrollTarget.byDistance(distance, snap)
     scrollTo(target)
   }
 

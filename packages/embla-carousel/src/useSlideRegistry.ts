@@ -11,7 +11,7 @@ export type SlideRegistryType = ReturnType<typeof useSlideRegistry>
  * @param containSnaps - Булево значение, указывающее, должны ли слайды находиться внутри контейнера прокрутки.
  * @param containScroll - Тип опции контейнера прокрутки.
  * @param scrollSnaps - Массив позиций прокрутки.
- * @param scrollContainLimit - Тип ограничения контейнера прокрутки.
+ * @param slideGroupSnapsLimit - Тип ограничения контейнера прокрутки.
  * @param slidesToScroll - Тип количества прокручиваемых слайдов.
  * @param slideIndexes - Массив индексов слайдов.
  * @returns Объект, содержащий реестр слайдов.
@@ -20,12 +20,12 @@ export function useSlideRegistry(
   containSnaps: boolean,
   containScroll: ScrollContainOptionType,
   scrollSnaps: number[],
-  scrollContainLimit: LimitType,
+  slideGroupSnapsLimit: LimitType,
   slidesToScroll: SlidesToScrollType,
   slideIndexes: number[]
 ) {
   const { groupSlides } = slidesToScroll
-  const { min, max } = scrollContainLimit
+  const { min, max } = slideGroupSnapsLimit
   const slideRegistry = createSlideRegistry()
 
   /**

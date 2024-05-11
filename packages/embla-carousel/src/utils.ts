@@ -81,7 +81,14 @@ export function factorAbs(valueB: number, valueA: number): number {
  * @returns Возвращает массив ключей.
  */
 export function arrayKeys<Type>(array: Type[]): number[] {
-  return Array.from(array.keys());
+  const result: number[] = [];
+  const length = array.length;
+
+  for (let i = 0; i < length; i++) {
+    result.push(i);
+  }
+
+  return result;
 }
 
 /**
@@ -119,7 +126,13 @@ export function arrayIsLastIndex<Type>(array: Type[], index: number): boolean {
  * @returns Возвращает массив из числа.
  */
 export function arrayFromNumber(n: number, startAt: number = 0): number[] {
-  return Array.from(Array(n), (_, i) => startAt + i)
+  const result: number[] = []
+
+  for (let i = 0; i < n; i++) {
+    result[i] = startAt + i;
+  }
+
+  return result;
 }
 
 /**
