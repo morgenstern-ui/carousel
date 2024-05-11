@@ -17,6 +17,7 @@ export type ScrollTargetType = ReturnType<typeof useScrollTarget>
 
 /**
  * Создает объект цели прокрутки.
+ *
  * @param loop - Прокрутка зациклена или нет.
  * @param scrollSnaps - Позиции привязки прокрутки.
  * @param contentSize - Размер содержимого прокрутки.
@@ -35,6 +36,7 @@ export function useScrollTarget(
 
   /**
    * Вычисляет цель прокрутки на основе целевого индекса и направления.
+   *
    * @param index - Целевой индекс.
    * @param direction - Направление прокрутки.
    * @returns Цель прокрутки.
@@ -47,11 +49,12 @@ export function useScrollTarget(
   }
 
   /**
-    * Вычисляет цель прокрутки на основе расстояния и опции привязки.
-    * @param distance - Расстояние для прокрутки.
-    * @param snap - Привязываться ли к ближайшей привязке прокрутки.
-    * @returns Цель прокрутки.
-    */
+   * Вычисляет цель прокрутки на основе расстояния и опции привязки.
+   *
+   * @param distance - Расстояние для прокрутки.
+   * @param snap - Привязываться ли к ближайшей привязке прокрутки.
+   * @returns Цель прокрутки.
+   */
   function byDistance(distance: number, snap: boolean): TargetType {
     const target = targetVector.get() + distance
     const { index, distance: targetSnapDistance } = findTargetSnap(target)
@@ -66,10 +69,11 @@ export function useScrollTarget(
   }
 
   /**
-   * Вычисляет цель прокрутки на основе целевого индекса и направления.
-   * @param target - Целевой индекс.
+   * Вычисляет целевую позицию для прокрутки.
+   *
+   * @param target - Текущая целевая позиция прокрутки.
    * @param direction - Направление прокрутки.
-   * @returns Цель прокрутки.
+   * @returns Целевая позиция для прокрутки.
    */
   function shortcut(target: number, direction: number): number {
     const targets = [target, target + contentSize, target - contentSize]
@@ -85,6 +89,7 @@ export function useScrollTarget(
 
   /**
    * Вычисляет минимальное расстояние из массива расстояний.
+   *
    * @param distances - Массив расстояний.
    * @returns Минимальное расстояние.
    */
@@ -94,17 +99,29 @@ export function useScrollTarget(
 
   /**
    * Находит целевую привязку на основе целевой позиции.
+   *
    * @param target - Целевая позиция.
    * @returns Целевая привязка.
    */
   function findTargetSnap(target: number): TargetType {
     const distance = loop ? removeOffset(target) : constrain(target)
-    const ascDiffsToSnaps = scrollSnaps
-      .map((snap, index) => ({ diff: shortcut(snap - distance, 0), index }))
-      .sort((d1, d2) => mathAbs(d1.diff) - mathAbs(d2.diff))
 
-    const { index } = ascDiffsToSnaps[0]
-    return { index, distance }
+    const scrollSnapsLength = scrollSnaps.length;
+
+    let minDiff = Infinity;
+    let index = 0;
+
+    for (let i = 0; i < scrollSnapsLength; i++) {
+      const scrollSnap = scrollSnaps[i];
+      const diff = shortcut(scrollSnap - distance, 0);
+
+      if (mathAbs(diff) < mathAbs(minDiff)) {
+        minDiff = diff;
+        index = i;
+      }
+    }
+
+    return { index, distance };
   }
 
   const self = {
