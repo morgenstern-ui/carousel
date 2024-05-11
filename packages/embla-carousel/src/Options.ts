@@ -19,6 +19,8 @@ export type OptionsType = CreateOptionsType<{
    * Выровняйте слайды относительно области просмотра карусели.
    * Используйте одно из предопределенных выравниваний start или center, end.
    * Альтернативно, предоставьте свой собственный обратный вызов, чтобы полностью настроить выравнивание.
+   * 
+   * @default 'center'
    */
   align: AlignmentOptionType
 
@@ -94,6 +96,8 @@ export type OptionsType = CreateOptionsType<{
 
   /**
    * Это Intersection Observer threshold параметр, который будет применен ко всем слайдам.
+   * 
+   * @default 0
    */
   inViewThreshold: SlidesInViewOptionsType
 

@@ -63,13 +63,13 @@ export function useDragTracker(axis: AxisType, ownerWindow: WindowType) {
    * @returns Разница в значениях координат.
    */
   function pointerMove(evt: PointerEventType): number {
-    const diff = readPoint(evt) - readPoint(lastEvent)
+    const diffDrag = readPoint(evt) - readPoint(lastEvent)
     const expired = readTime(evt) - readTime(startEvent) > logInterval
 
     lastEvent = evt
     if (expired) startEvent = evt
 
-    return diff
+    return diffDrag
   }
 
   /**

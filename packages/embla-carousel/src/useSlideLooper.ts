@@ -54,10 +54,14 @@ export function useSlideLooper(
    * @returns True, если карусель может циклически перемещаться, в противном случае - false.
    */
   function canLoop(): boolean {
-    return loopPoints.every(({ index }) => {
+    for (const { index } of loopPoints) {
       const otherIndexes = ascItems.filter((i) => i !== index)
-      return removeSlideSizes(otherIndexes, containerSize) <= 0.1
-    })
+
+      if (removeSlideSizes(otherIndexes, containerSize) > 0.1)
+        return false
+    }
+
+    return true
   }
 
   /**
@@ -67,9 +71,9 @@ export function useSlideLooper(
     for (const loopPoint of loopPoints) {
       const { target, translate, slideLocation } = loopPoint
       const shiftLocation = target()
-      
+
       if (shiftLocation === slideLocation.get()) continue
-      
+
       translate.to(shiftLocation)
       slideLocation.set(shiftLocation)
     }
