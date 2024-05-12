@@ -32,6 +32,7 @@ export function useScrollBounds(
 
   /**
    * Ограничивает прокрутку в пределах границ.
+   *
    * @param pointerDown - Булево значение, указывающее, нажата ли кнопка указателя.
    */
   function constrain(pointerDown: boolean): void {
@@ -51,6 +52,7 @@ export function useScrollBounds(
 
   /**
    * Переключает активное состояние границ прокрутки.
+   *
    * @param active - Булево значение, указывающее, должны ли границы прокрутки быть активными.
    */
   function toggleActive(active: boolean): void {
@@ -59,6 +61,7 @@ export function useScrollBounds(
 
   /**
    * Проверяет, должна ли быть ограничена прокрутка.
+   *
    * @returns Булево значение, указывающее, должна ли быть ограничена прокрутка.
    */
   function shouldConstrain(): boolean {
