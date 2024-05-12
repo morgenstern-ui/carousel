@@ -26,12 +26,13 @@ export function useSlidesHandler(
 
   /**
    * Инициализирует обработчик слайдов.
+   *
    * @param emblaApi - Объект типа EmblaCarouselType.
    */
   function init(emblaApi: EmblaCarouselType): void {
     if (!watchSlides) return
 
-    function defaultCallback(mutations: MutationRecord[]): void {
+    function callback(mutations: MutationRecord[]): void {
       for (const mutation of mutations) {
         if (mutation.type === 'childList') {
           emblaApi.reInit()
@@ -43,8 +44,9 @@ export function useSlidesHandler(
 
     mutationObserver = new MutationObserver((mutations) => {
       if (destroyed) return
+
       if (isBoolean(watchSlides) || watchSlides(emblaApi, mutations)) {
-        defaultCallback(mutations)
+        callback(mutations)
       }
     })
 

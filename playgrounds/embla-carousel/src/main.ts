@@ -4,7 +4,7 @@ import './styles/embla.css'
 import './styles/sandbox.css'
 
 
-const OPTIONS: EmblaOptionsType = { align: 'start', slidesToScroll: 2 }
+const OPTIONS: EmblaOptionsType = { align: 'start', slidesToScroll: 1 }
 
 const emblaNode = document.querySelector<HTMLElement>('.embla')!
 const viewportNode = emblaNode.querySelector<HTMLElement>('.embla__viewport')!
@@ -14,6 +14,7 @@ const nextBtnNode = emblaNode.querySelector<HTMLElement>('.embla__button--next')
 
 const emblaApi = useEmblaCarousel(viewportNode, OPTIONS)
 console.log(emblaApi)
+console.log(emblaApi.scrollSnapList())
 
 addPrevNextBtnsClickHandlers(emblaApi, prevBtnNode, nextBtnNode)
 
