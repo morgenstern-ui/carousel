@@ -8,14 +8,14 @@ export type ScrollLooperType = ReturnType<typeof useScrollLooper>
  *
  * @param contentSize - Размер контента, который нужно прокрутить.
  * @param limit - Ограничения прокрутки.
- * @param offsetLocation - Текущее положение смещения.
+ * @param offsetLocationVector - Текущее положение смещения.
  * @param vectors - Векторы, представляющие позицию прокрутки.
  * @returns Объект с функцией `loop` для циклической прокрутки.
  */
 export function useScrollLooper(
   contentSize: number,
   limit: LimitType,
-  offsetLocation: Vector1DType,
+  offsetLocationVector: Vector1DType,
   vectors: [locationVector: Vector1DType, offsetLocationVector: Vector1DType, targetVector: Vector1DType]
 ) {
   const jointSafety = 0.1
@@ -45,8 +45,8 @@ export function useScrollLooper(
    * @returns Булево значение, указывающее, должна ли происходить циклическая прокрутка в заданном направлении.
    */
   function shouldLoop(direction: number): boolean {
-    if (direction === 1) return reachedMax(offsetLocation.get())
-    if (direction === -1) return reachedMin(offsetLocation.get())
+    if (direction === 1) return reachedMax(offsetLocationVector.get())
+    if (direction === -1) return reachedMin(offsetLocationVector.get())
     return false
   }
 
