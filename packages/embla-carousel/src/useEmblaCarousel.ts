@@ -7,27 +7,137 @@ import { usePluginsHandler } from './usePluginsHandler.ts'
 import type { EmblaPluginsType, EmblaPluginType } from './Plugins.ts'
 import { isString, type WindowType } from './utils.ts'
 
+/**
+ * Представляет экземпляр карусели Embla.
+ */
 export type EmblaCarouselType = {
+  /**
+   * Проверяет, может ли карусель прокрутиться к следующему слайду.
+   * @returns Булевое значение, указывающее, может ли карусель прокрутиться к следующему слайду.
+   */
   canScrollNext: () => boolean
+
+  /**
+   * Проверяет, может ли карусель прокрутиться к предыдущему слайду.
+   * @returns Булевое значение, указывающее, может ли карусель прокрутиться к предыдущему слайду.
+   */
   canScrollPrev: () => boolean
+
+  /**
+   * Возвращает узел контейнера карусели.
+   * @returns Узел контейнера карусели.
+   */
   containerNode: () => HTMLElement
+
+  /**
+   * Возвращает внутренний движок карусели.
+   * @returns Внутренний движок карусели.
+   */
   internalEngine: () => EngineType
+
+  /**
+   * Уничтожает экземпляр карусели.
+   */
   destroy: () => void
+
+  /**
+   * Удаляет слушатель событий из карусели.
+   * @param event Событие, с которого нужно удалить слушатель.
+   */
   off: EventHandlerType['off']
+
+  /**
+   * Добавляет слушатель событий к карусели.
+   * @param event Событие, на которое нужно слушать.
+   * @param listener Функция-слушатель, которая будет вызвана при срабатывании события.
+   */
   on: EventHandlerType['on']
+
+  /**
+   * Генерирует событие в карусели.
+   * @param event Событие, которое нужно сгенерировать.
+   * @param data Данные, передаваемые слушателям событий.
+   */
   emit: EventHandlerType['emit']
+
+  /**
+   * Возвращает плагины карусели.
+   * @returns Плагины карусели.
+   */
   plugins: () => EmblaPluginsType
+
+  /**
+   * Возвращает индекс предыдущего прокрученного снапа.
+   * @returns Индекс предыдущего прокрученного снапа.
+   */
   previousScrollSnap: () => number
+
+  /**
+   * Переинициализирует карусель с новыми параметрами и плагинами.
+   * @param options Новые параметры для карусели.
+   * @param plugins Новые плагины для карусели.
+   */
   reInit: (options?: EmblaOptionsType, plugins?: EmblaPluginType[]) => void
+
+  /**
+   * Возвращает корневой узел карусели.
+   * @returns Корневой узел карусели.
+   */
   rootNode: () => HTMLElement
+
+  /**
+   * Прокручивает к следующему слайду.
+   * @param jump Булевое значение, указывающее, должна ли прокрутка перейти к следующему слайду.
+   */
   scrollNext: (jump?: boolean) => void
+
+  /**
+   * Прокручивает к предыдущему слайду.
+   * @param jump Булевое значение, указывающее, должна ли прокрутка перейти к предыдущему слайду.
+   */
   scrollPrev: (jump?: boolean) => void
+
+  /**
+   * Возвращает прогресс текущей прокрутки.
+   * @returns Прогресс текущей прокрутки.
+   */
   scrollProgress: () => number
+
+  /**
+   * Возвращает список снапов прокрутки.
+   * @returns Список снапов прокрутки.
+   */
   scrollSnapList: () => number[]
+
+  /**
+   * Прокручивает к указанному индексу слайда.
+   * @param index Индекс слайда, к которому нужно прокрутить.
+   * @param jump Булевое значение, указывающее, должна ли прокрутка перейти к указанному слайду.
+   */
   scrollTo: (index: number, jump?: boolean) => void
+
+  /**
+   * Возвращает индекс текущего выбранного снапа прокрутки.
+   * @returns Индекс текущего выбранного снапа прокрутки.
+   */
   selectedScrollSnap: () => number
+
+  /**
+   * Возвращает узлы слайдов.
+   * @returns Узлы слайдов.
+   */
   slideNodes: () => HTMLElement[]
+
+  /**
+   * Возвращает количество слайдов в виде.
+   * @returns Количество слайдов в виде.
+   */
   slidesInView: () => number[]
+
+  /**
+   * Возвращает количество слайдов, не входящих в вид.
+   * @returns Количество слайдов, не входящих в вид.
+   */
   slidesNotInView: () => number[]
 }
 
@@ -107,6 +217,17 @@ export function useEmblaCarousel(
     mediaHandlers.clear()
   }
 
+  /**
+   * Уничтожает экземпляр карусели.
+   * Эта функция очищает все слушатели событий, удаляет все плагины и устанавливает флаг `destroyed` в true.
+   * После вызова этой функции экземпляр карусели больше не может быть использован.
+   * @example
+   * ```javascript
+   * const embla = useEmblaCarousel(document.querySelector('.embla'))
+   * embla.destroy()
+   * ```
+   * @returns void
+   */
   function destroy(): void {
     if (destroyed) return
     destroyed = true
@@ -206,7 +327,7 @@ export function useEmblaCarousel(
     return engine
   }
 
-  const self: EmblaCarouselType = {
+  const self = {
     canScrollNext,
     canScrollPrev,
     containerNode,
@@ -237,3 +358,7 @@ export function useEmblaCarousel(
 }
 
 useEmblaCarousel.globalOptions = <EmblaOptionsType | undefined>undefined
+
+
+const dd = useEmblaCarousel(document.querySelector('.embla')!)
+dd.reInit
