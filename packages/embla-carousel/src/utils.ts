@@ -141,10 +141,10 @@ export function arrayFromNumber(n: number, startAt: number = 0): number[] {
   const result: number[] = []
 
   for (let i = 0; i < n; i++) {
-    result[i] = startAt + i;
+    result.push(startAt + i)
   }
 
-  return result;
+  return result
 }
 
 /**

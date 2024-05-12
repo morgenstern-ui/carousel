@@ -122,11 +122,15 @@ export function useSlideLooper(
   function slidesInGap(indexes: number[], gap: number): number[] {
     const slides: number[] = []
 
+    if (gap <= 0) return slides
+
     for (const index of indexes) {
       const remainingGap = removeSlideSizes(slides, gap)
 
       if (remainingGap > 0)
         slides.push(index)
+      else
+        break
     }
 
     return slides
@@ -158,22 +162,30 @@ export function useSlideLooper(
    * @returns Массив точек цикла.
    */
   function findLoopPoints(indexes: number[], offset: number, isEndEdge: boolean): LoopPointType[] {
-    const slideBounds = findSlideBounds(offset)
+    if (indexes.length === 0) return []
 
-    return indexes.map((index) => {
-      const initial = isEndEdge ? 0 : -contentSize
-      const altered = isEndEdge ? contentSize : 0
-      const boundEdge = isEndEdge ? 'end' : 'start'
+    const points: LoopPointType[] = []
+
+    const slideBounds = findSlideBounds(offset)
+    const boundEdge = isEndEdge ? 'end' : 'start'
+    const initial = isEndEdge ? 0 : -contentSize
+    const altered = isEndEdge ? contentSize : 0
+
+    for (const index of indexes) {
       const loopPoint = slideBounds[index][boundEdge]
 
-      return {
+      points.push({
         index,
         loopPoint,
         slideLocation: useVector1D(-1),
         translate: useTranslate(axis, $slides[index]),
-        target: () => (offsetLocationVector.get() > loopPoint ? initial : altered)
-      }
-    })
+        target() {
+          return offsetLocationVector.get() > loopPoint ? initial : altered
+        }
+      })
+    }
+
+    return points
   }
 
   /**
@@ -183,16 +195,26 @@ export function useSlideLooper(
    * @returns Массив границ слайдов.
    */
   function findSlideBounds(offset: number): SlideBoundType[] {
-    return slideSnaps.map((snap, index) => ({
-      start: snap - slideSizes[index] + roundingSafety + offset,
-      end: snap + containerSize - roundingSafety + offset
-    }))
+    const bounds: SlideBoundType[] = []
+
+    const slideSnapsLength = slideSnaps.length
+
+    for (let i = 0; i < slideSnapsLength; i++) {
+      const slideSnap = slideSnaps[i];
+
+      bounds.push({
+        start: slideSnap - slideSizes[i] + roundingSafety + offset,
+        end: slideSnap + containerSize - roundingSafety + offset
+      })
+    }
+
+    return bounds
   }
 
   const self = {
     canLoop,
-    clear,
     loop,
+    clear,
     loopPoints
   } as const
 
