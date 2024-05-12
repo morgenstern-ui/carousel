@@ -30,6 +30,7 @@ export type DragHandlerType = ReturnType<typeof useDragHandler>
 
 /**
  * Функция для обработки поведения перетаскивания.
+ *
  * @param axis Конфигурация оси.
  * @param $rootNode Корневой элемент карусели.
  * @param $ownerDocument Документ-владелец.
@@ -92,6 +93,7 @@ export function useDragHandler(
 
   /**
    * Проверяет, нажат ли указатель.
+   *
    * @returns True, если указатель нажат, иначе false.
    */
   function pointerDown(): boolean {
@@ -100,6 +102,7 @@ export function useDragHandler(
 
   /**
    * Инициализирует обработчик перетаскивания.
+   *
    * @param emblaApi API карусели Embla.
    */
   function init(emblaApi: EmblaCarouselType): void {
@@ -107,6 +110,7 @@ export function useDragHandler(
 
     /**
      * Обрабатывает событие нажатия указателя, если разрешено.
+     *
      * @param evt Событие указателя.
      */
     function downIfAllowed(evt: PointerEventType): void {
@@ -146,6 +150,7 @@ export function useDragHandler(
 
   /**
    * Обрабатывает событие нажатия указателя.
+   *
    * @param evt Событие указателя.
    */
   function down(evt: PointerEventType): void {
@@ -173,6 +178,7 @@ export function useDragHandler(
 
   /**
    * Обрабатывает событие перемещения указателя.
+   *
    * @param evt Событие указателя.
    */
   function move(evt: PointerEventType): void {
@@ -220,14 +226,18 @@ export function useDragHandler(
     isScrollMoreCross = false
     pointerIsDown = false
     dragEvents.clear()
+
     scrollBody.useDuration(speed).useFriction(friction)
     scrollTo.distance(force, !dragFree)
+
     isMouse = false
+
     eventHandler.emit('pointerUp')
   }
 
   /**
    * Обрабатывает событие клика.
+   *
    * @param evt Событие клика.
    */
   function click(evt: MouseEvent): void {
@@ -240,16 +250,19 @@ export function useDragHandler(
 
   /**
    * Вычисляет значение усиления силы.
+   *
    * @returns Значение усиления силы.
    */
   function forceBoost(): number {
     const boost = dragFree ? freeForceBoost : snapForceBoost
     const type = isMouse ? 'mouse' : 'touch'
+
     return boost[type]
   }
 
   /**
    * Вычисляет разрешенное значение силы.
+   *
    * @param force Сырое значение силы.
    * @param targetChanged Флаг, указывающий, изменилась ли цель.
    * @returns Разрешенное значение силы.
@@ -260,12 +273,12 @@ export function useDragHandler(
 
     if (dragFree || mathAbs(force) < goToNextThreshold) return baseForce
     if (skipSnaps && targetChanged) return baseForce * 0.5
-
     return scrollTarget.byIndex(next.get(), 0).distance
   }
 
   /**
    * Проверяет, является ли узел фокусируемым.
+   *
    * @param $node Проверяемый узел.
    * @returns True, если узел является фокусируемым, иначе false.
    */

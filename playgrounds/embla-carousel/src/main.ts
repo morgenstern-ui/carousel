@@ -4,7 +4,7 @@ import './styles/embla.css'
 import './styles/sandbox.css'
 
 
-const OPTIONS: EmblaOptionsType = { align: 'start', skipSnaps: false}
+const OPTIONS: EmblaOptionsType = { align: 'start', slidesToScroll: 2 }
 
 const emblaNode = document.querySelector<HTMLElement>('.embla')!
 const viewportNode = emblaNode.querySelector<HTMLElement>('.embla__viewport')!

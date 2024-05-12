@@ -99,7 +99,6 @@ export function useAnimations(
    * Останавливает анимацию.
    */
   function stop(): void {
-    console.table(table)
     $ownerWindow.cancelAnimationFrame(animationFrame)
     lastTimeStamp = null
     lag = 0

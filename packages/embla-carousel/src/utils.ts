@@ -64,19 +64,27 @@ export function deltaAbs(valueB: number, valueA: number): number {
 
 /**
  * Функция для получения абсолютного значения фактора двух чисел.
+ *
  * @param valueB - Первое число.
  * @param valueA - Второе число.
  * @returns Возвращает абсолютное значение фактора двух чисел.
  */
 export function factorAbs(valueB: number, valueA: number): number {
   if (valueB === 0 || valueA === 0) return 0
-  if (mathAbs(valueB) <= mathAbs(valueA)) return 0
-  const diff = deltaAbs(mathAbs(valueB), mathAbs(valueA))
+
+  const absB = mathAbs(valueB)
+  const absA = mathAbs(valueA)
+
+  if (absB <= absA) return 0
+
+  const diff = deltaAbs(absB, absA)
+
   return mathAbs(diff / valueB)
 }
 
 /**
  * Функция для получения ключей массива.
+ *
  * @param array - Массив.
  * @returns Возвращает массив ключей.
  */
@@ -93,6 +101,7 @@ export function arrayKeys<Type>(array: Type[]): number[] {
 
 /**
  * Функция для получения последнего элемента массива.
+ *
  * @param array - Массив.
  * @returns Возвращает последний элемент массива.
  */
@@ -102,6 +111,7 @@ export function arrayLast<Type>(array: Type[]): Type {
 
 /**
  * Функция для получения индекса последнего элемента массива.
+ *
  * @param array - Массив.
  * @returns Возвращает индекс последнего элемента массива.
  */
@@ -111,6 +121,7 @@ export function arrayLastIndex<Type>(array: Type[]): number {
 
 /**
  * Функция для проверки, является ли индекс последним в массиве.
+ *
  * @param array - Массив.
  * @param index - Индекс.
  * @returns Возвращает true, если индекс является последним в массиве, иначе false.
@@ -121,6 +132,7 @@ export function arrayIsLastIndex<Type>(array: Type[], index: number): boolean {
 
 /**
  * Функция для создания массива из числа.
+ *
  * @param n - Число.
  * @param startAt - Начальное значение (по умолчанию равно 0).
  * @returns Возвращает массив из числа.
@@ -137,6 +149,7 @@ export function arrayFromNumber(n: number, startAt: number = 0): number[] {
 
 /**
  * Функция для получения ключей объекта.
+ *
  * @param object - Объект.
  * @returns Возвращает массив ключей объекта.
  */
@@ -146,6 +159,7 @@ export function objectKeys<Type extends object>(object: Type): (keyof Type)[] {
 
 /**
  * Функция для глубокого слияния двух объектов.
+ *
  * @param objectA - Первый объект.
  * @param objectB - Второй объект.
  * @returns Возвращает результат глубокого слияния двух объектов.
@@ -173,6 +187,7 @@ export function objectsMergeDeep(
 
 /**
  * Функция для проверки, является ли событие событием мыши.
+ *
  * @param evt - Событие.
  * @param ownerWindow - Объект окна.
  * @returns Возвращает true, если событие является событием мыши, иначе false.
