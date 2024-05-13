@@ -1,7 +1,9 @@
 import type { EventHandlerType } from './useEventHandler.ts'
 import { objectKeys } from './utils.ts'
 
-type IntersectionEntryMapType = Record<number, IntersectionObserverEntry>
+type IntersectionEntryMapType = {
+  [key: number]: IntersectionObserverEntry
+}
 
 export type SlidesInViewOptionsType = IntersectionObserverInit['threshold']
 

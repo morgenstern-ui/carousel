@@ -7,10 +7,10 @@ export type OptionsHandlerType = ReturnType<typeof useOptionsHandler>
 
 /**
  * Пользовательский хук, который предоставляет функции для обработки параметров в компоненте карусели.
- * @param ownerWindow - Объект окна владельца компонента.
+ * @param $ownerWindow - Объект окна владельца компонента.
  * @returns Объект, содержащий функции для объединения параметров, получения параметров для конкретных медиа-точек и получения списков медиа-запросов для параметров.
  */
-export function useOptionsHandler(ownerWindow: WindowType) {
+export function useOptionsHandler($ownerWindow: WindowType) {
   /**
    * Глубоко объединяет два объекта параметров.
    * @param optionsA - Первый объект параметров.
@@ -34,8 +34,8 @@ export function useOptionsHandler(ownerWindow: WindowType) {
 
     let matchedMediaOptions: OptionsType = {}
 
-    for (const query of objectKeys(optionsAtMedia)) {
-      if (ownerWindow.matchMedia(query).matches) {
+    for (const query of objectKeys(optionsAtMedia) as string[]) {
+      if ($ownerWindow.matchMedia(query).matches) {
         const mediaOption = optionsAtMedia[query]
         matchedMediaOptions = mergeOptions(matchedMediaOptions, mediaOption)
       }
@@ -53,10 +53,10 @@ export function useOptionsHandler(ownerWindow: WindowType) {
     const mediaQueries: MediaQueryList[] = [];
 
     for (const options of optionsList) {
-      const queries = objectKeys(options.breakpoints || {});
+      const queries = objectKeys(options.breakpoints || {}) as string[]
 
       for (const query of queries) {
-        mediaQueries.push(ownerWindow.matchMedia(query));
+        mediaQueries.push($ownerWindow.matchMedia(query))
       }
     }
 

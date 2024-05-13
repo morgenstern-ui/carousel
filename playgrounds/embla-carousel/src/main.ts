@@ -3,6 +3,7 @@ import './styles/base.css'
 import './styles/embla.css'
 import './styles/sandbox.css'
 import { Table } from './table'
+import { AutoScroll } from './AutoScroll'
 
 
 const OPTIONS: EmblaOptionsType = {
@@ -19,8 +20,9 @@ const nextBtnNode = emblaNode.querySelector<HTMLElement>('.embla__button--next')
 const emblaApi = useEmblaCarousel(
   viewportNode,
   OPTIONS, 
-  [Table()]
+  [Table(), AutoScroll()]
 )
+
 console.log(emblaApi)
 
 addPrevNextBtnsClickHandlers(emblaApi, prevBtnNode, nextBtnNode)
