@@ -358,7 +358,3 @@ export function useEmblaCarousel(
 }
 
 useEmblaCarousel.globalOptions = <EmblaOptionsType | undefined>undefined
-
-
-const dd = useEmblaCarousel(document.querySelector('.embla')!)
-dd.reInit
