@@ -183,6 +183,7 @@ export function useEmblaCarousel(
 
     if (!options.active) return
 
+    pluginApis = pluginsHandler.init(self, pluginList)
     engine.translate.to(engine.locationVector.get())
     engine.animation.init()
     engine.slidesInView.init()
@@ -194,7 +195,6 @@ export function useEmblaCarousel(
     if (engine.options.loop) engine.slideLooper.loop()
     if ($container.offsetParent && $slides.length) engine.dragHandler.init(self)
 
-    pluginApis = pluginsHandler.init(self, pluginList)
   }
 
   function reActivate(withOptions?: EmblaOptionsType, withPlugins?: EmblaPluginType[]): void {
