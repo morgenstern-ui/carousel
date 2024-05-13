@@ -1,4 +1,4 @@
-import type { CreateOptionsType, LooseOptionsType } from './Options.ts'
+import type { CreateOptionsType, LooseOptionsType } from './options.ts'
 import type { EmblaCarouselType } from './useEmblaCarousel.ts'
 import type { OptionsHandlerType } from './useOptionsHandler.ts'
 

@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, test } from 'vitest'
 import { useEmblaCarousel } from '../useEmblaCarousel'
-import { defaultOptions } from '../Options'
+import { defaultOptions } from '../options'
 import { mockTestElements } from './mocks'
 import {
   FIXTURE_SLIDES_TO_SCROLL_LTR_1,

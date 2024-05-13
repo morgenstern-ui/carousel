@@ -1,10 +1,14 @@
-import { type EmblaOptionsType, type EmblaCarouselType, useEmblaCarousel } from '@teleskop150750/embla-carousel'
+import { useEmblaCarousel,type EmblaOptionsType, type EmblaCarouselType } from '@teleskop150750/embla-carousel'
 import './styles/base.css'
 import './styles/embla.css'
 import './styles/sandbox.css'
+import { Table } from './table'
 
 
-const OPTIONS: EmblaOptionsType = { align: 'start', slidesToScroll: 1, }
+const OPTIONS: EmblaOptionsType = {
+  align: 'start',
+  slidesToScroll: 1,
+}
 
 const emblaNode = document.querySelector<HTMLElement>('.embla')!
 const viewportNode = emblaNode.querySelector<HTMLElement>('.embla__viewport')!
@@ -12,7 +16,11 @@ const prevBtnNode = emblaNode.querySelector<HTMLElement>('.embla__button--prev')
 const nextBtnNode = emblaNode.querySelector<HTMLElement>('.embla__button--next')!
 // const dotsNode = <HTMLElement>emblaNode.querySelector('.embla__dots')
 
-const emblaApi = useEmblaCarousel(viewportNode, OPTIONS)
+const emblaApi = useEmblaCarousel(
+  viewportNode,
+  OPTIONS, 
+  [Table()]
+)
 console.log(emblaApi)
 
 addPrevNextBtnsClickHandlers(emblaApi, prevBtnNode, nextBtnNode)

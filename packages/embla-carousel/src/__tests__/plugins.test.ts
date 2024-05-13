@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, test, vi } from 'vitest'
 import { useEmblaCarousel, type EmblaCarouselType } from '../useEmblaCarousel'
 import { mockTestElements } from './mocks'
 import { FIXTURE_PLUGINS } from './fixtures/plugins.fixture'
-import type { EmblaPluginType } from '../Plugins'
+import type { EmblaPluginType } from '../plugins'
 
 const PLUGIN_ONE: EmblaPluginType = {
   name: 'plugin-one',

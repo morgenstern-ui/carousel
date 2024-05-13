@@ -1,10 +1,10 @@
 import { useEngine, type EngineType } from './useEngine.ts'
 import { useEventStore } from './useEventStore.ts'
 import { useEventHandler, type EventHandlerType } from './useEventHandler.ts'
-import { defaultOptions, type EmblaOptionsType, type OptionsType } from './Options.ts'
+import { defaultOptions, type EmblaOptionsType, type OptionsType } from './options.ts'
 import { useOptionsHandler } from './useOptionsHandler.ts'
 import { usePluginsHandler } from './usePluginsHandler.ts'
-import type { EmblaPluginsType, EmblaPluginType } from './Plugins.ts'
+import type { EmblaPluginsType, EmblaPluginType } from './plugins.ts'
 import { isString, type WindowType } from './utils.ts'
 
 /**

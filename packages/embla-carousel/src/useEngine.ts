@@ -7,7 +7,7 @@ import { useDragTracker } from './useDragTracker.ts'
 import type { EventHandlerType } from './useEventHandler.ts'
 import { useEventStore } from './useEventStore.ts'
 import { useNodeRects } from './useNodeRects.ts'
-import type { OptionsType } from './Options.ts'
+import type { OptionsType } from './options.ts'
 import { usePercentOfContainer } from './usePercentOfContainer.ts'
 import { useResizeHandler } from './useResizeHandler.ts'
 import { useScrollBody } from './useScrollBody.ts'
@@ -260,7 +260,7 @@ export function useEngine(
     slidesToScroll,
     targetVector,
     translate: useTranslate(axis, $container)
-  } as const
+  }
 
   return engine
 }

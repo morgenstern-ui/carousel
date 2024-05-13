@@ -1,6 +1,6 @@
 import type { EmblaCarouselType } from './useEmblaCarousel.ts'
 import type { OptionsHandlerType } from './useOptionsHandler.ts'
-import type { EmblaPluginsType, EmblaPluginType } from './Plugins.ts'
+import type { EmblaPluginsType, EmblaPluginType } from './plugins.ts'
 
 /**
  * Представляет тип PluginsHandler.

@@ -1,9 +1,11 @@
 {
   "name": "@teleskop150750/embla-carousel",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "sideEffects": false,
   "type": "module",
+  "module": "dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     "./package.json": "./package.json",
     ".": {
@@ -11,14 +13,18 @@
         "types": "./dist/index.d.ts",
         "default": "./dist/index.js"
       }
+    },
+    "./*": {
+      "types": "./dist/*.d.ts"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "license": "MIT",
   "publishConfig": {
     "access": "public"
   },
-  
   "scripts": {
     "dev": "vite",
     "build": "vite build",

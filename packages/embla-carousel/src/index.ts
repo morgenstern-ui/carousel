@@ -1,5 +1,5 @@
-export type { EmblaOptionsType } from './Options.ts'
+export type { EmblaOptionsType } from './options.ts'
 export type { EmblaEventType } from './useEventHandler.ts'
-export type { EmblaPluginType } from './Plugins.ts'
+export type { EmblaPluginType } from './plugins.ts'
 export type { EmblaCarouselType } from './useEmblaCarousel.ts'
 export { useEmblaCarousel } from './useEmblaCarousel.ts'

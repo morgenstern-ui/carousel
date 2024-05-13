@@ -1,4 +1,4 @@
-import type { LooseOptionsType, CreateOptionsType } from './Options.ts'
+import type { LooseOptionsType, CreateOptionsType } from './options.ts'
 import { objectKeys, objectsMergeDeep, type WindowType } from './utils.ts'
 
 type OptionsType = Partial<CreateOptionsType<LooseOptionsType>>
