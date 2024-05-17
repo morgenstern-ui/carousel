@@ -2,7 +2,7 @@ import type { EventHandlerType } from './useEventHandler.ts'
 import { objectKeys } from './utils.ts'
 
 type IntersectionEntryMapType = {
-  [key: number]: IntersectionObserverEntry
+  [key: string]: IntersectionObserverEntry
 }
 
 export type SlidesInViewOptionsType = IntersectionObserverInit['threshold']
@@ -95,7 +95,7 @@ export function useSlidesInView(
       const inViewMatch = inView && isIntersecting
       const notInViewMatch = !inView && !isIntersecting
 
-      if (inViewMatch || notInViewMatch) list.push(slideIndex)
+      if (inViewMatch || notInViewMatch) list.push(Number(slideIndex))
     }
 
     return list
