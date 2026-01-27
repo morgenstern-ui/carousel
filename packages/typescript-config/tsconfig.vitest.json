@@ -10,6 +10,6 @@
       "path": "./tsconfig.app.json"
     }
   ],
-  "include": ["src/**/*.test.ts"],
+  "include": ["tests"],
   "exclude": []
 }
