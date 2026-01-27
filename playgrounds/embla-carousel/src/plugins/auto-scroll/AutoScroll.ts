@@ -1,47 +1,10 @@
-import type { CreatePluginType } from '@teleskop150750/embla-carousel/plugins'
-import type {} from '@teleskop150750/embla-carousel/useEventHandler'
-import type { OptionsHandlerType } from '@teleskop150750/embla-carousel/useOptionsHandler'
 import type { EmblaCarouselType } from '@teleskop150750/embla-carousel'
+import type { CreatePluginType } from '@teleskop150750/embla-carousel/plugins'
 import type { EngineType } from '@teleskop150750/embla-carousel/useEngine'
+import type { OptionsHandlerType } from '@teleskop150750/embla-carousel/useOptionsHandler'
 import type { ScrollBodyType } from '@teleskop150750/embla-carousel/useScrollBody'
-import type { CreateOptionsType } from '@teleskop150750/embla-carousel/options'
-
-declare module '@teleskop150750/embla-carousel/plugins' {
-  interface EmblaPluginsType {
-    autoScroll?: AutoScrollType
-  }
-}
-
-declare module '@teleskop150750/embla-carousel/useEventHandler' {
-  interface EmblaEventListType {
-    autoScrollPlay: 'autoScroll:play'
-    autoScrollStop: 'autoScroll:stop'
-  }
-}
-
-export type OptionsType = CreateOptionsType<{
-  direction: 'forward' | 'backward'
-  speed: number
-  startDelay: number
-  playOnInit: boolean
-  stopOnFocusIn: boolean
-  stopOnInteraction: boolean
-  stopOnMouseEnter: boolean
-  rootNode: ((emblaRoot: HTMLElement) => HTMLElement | null) | null
-}>
-
-export const defaultOptions: OptionsType = {
-  direction: 'forward',
-  speed: 2,
-  startDelay: 1000,
-  active: true,
-  breakpoints: {},
-  playOnInit: true,
-  stopOnFocusIn: true,
-  stopOnInteraction: true,
-  stopOnMouseEnter: false,
-  rootNode: null
-}
+import type { OptionsType } from './Options'
+import { defaultOptions } from './Options'
 
 export type AutoScrollType = CreatePluginType<
   {
@@ -55,7 +18,7 @@ export type AutoScrollType = CreatePluginType<
 
 export type AutoScrollOptionsType = AutoScrollType['options']
 
-function AutoScroll(userOptions: AutoScrollOptionsType = {}): AutoScrollType {
+export function AutoScroll(userOptions: AutoScrollOptionsType = {}): AutoScrollType {
   let options: OptionsType
   let emblaApi: EmblaCarouselType
   let destroyed: boolean
@@ -271,4 +234,15 @@ function AutoScroll(userOptions: AutoScrollOptionsType = {}): AutoScrollType {
 
 AutoScroll.globalOptions = undefined as AutoScrollOptionsType | undefined
 
-export { AutoScroll }
+declare module '@teleskop150750/embla-carousel/plugins' {
+  interface EmblaPluginsType {
+    autoScroll?: AutoScrollType
+  }
+}
+
+declare module '@teleskop150750/embla-carousel/useEventHandler' {
+  interface EmblaEventListType {
+    autoScrollPlay: 'autoScroll:play'
+    autoScrollStop: 'autoScroll:stop'
+  }
+}
