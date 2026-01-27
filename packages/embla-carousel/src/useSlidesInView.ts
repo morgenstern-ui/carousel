@@ -38,7 +38,7 @@ export function useSlidesInView(
         if (destroyed) return
 
         for (const entry of entries) {
-          const index = $slides.indexOf(<HTMLElement>entry.target)
+          const index = $slides.indexOf(entry.target as  HTMLElement)
           intersectionEntryMap[index] = entry
         }
 
@@ -91,7 +91,7 @@ export function useSlidesInView(
     const list: number[] = []
 
     for (const slideIndex of objectKeys(intersectionEntryMap)) {
-      const { isIntersecting } = intersectionEntryMap[slideIndex]
+      const { isIntersecting } = intersectionEntryMap[slideIndex]!
       const inViewMatch = inView && isIntersecting
       const notInViewMatch = !inView && !isIntersecting
 

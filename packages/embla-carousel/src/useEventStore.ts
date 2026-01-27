@@ -32,7 +32,7 @@ export function useEventStore() {
       node.addEventListener(type, handler, options)
       removeListener = () => node.removeEventListener(type, handler, options)
     } else {
-      const legacyMediaQueryList = <MediaQueryList>node
+      const legacyMediaQueryList = node as MediaQueryList
       legacyMediaQueryList.addListener(handler)
       removeListener = () => legacyMediaQueryList.removeListener(handler)
     }

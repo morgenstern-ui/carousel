@@ -12,7 +12,7 @@ export type ScrollLimitType = ReturnType<typeof useScrollLimit>
  * @returns Объект, содержащий предел прокрутки.
  */
 export function useScrollLimit(contentSize: number, scrollSnaps: number[], loop: boolean) {
-  const max = scrollSnaps[0]
+  const max = scrollSnaps[0]!
   const min = loop ? max - contentSize : arrayLast(scrollSnaps)
   const limit = useLimit(min, max)
 

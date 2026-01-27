@@ -40,7 +40,7 @@ export function useDragTracker(axis: AxisType, ownerWindow: WindowType) {
     const property = evtAxis || axis.scroll
     const coord: PointerCoordType = `client${property === 'x' ? 'X' : 'Y'}`
 
-    return (isMouseEvent(evt, ownerWindow) ? evt : evt.touches[0])[coord]
+    return (isMouseEvent(evt, ownerWindow) ? evt : evt.touches[0]!)[coord]
   }
 
   /**

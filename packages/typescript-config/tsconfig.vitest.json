@@ -2,22 +2,14 @@
   "extends": "./tsconfig.app.json",
   "compilerOptions": {
     "tsBuildInfoFile": ".tmp/tsconfig.vitest.tsbuildinfo",
-    "types": [
-      "vitest/globals",
-      "vitest/importMeta",
-      "node"
-    ],
-    "outDir": ".tmp/dist/vitest"
+    "types": ["vitest/globals", "vitest/importMeta", "node"],
+    "noEmit": true
   },
   "references": [
     {
       "path": "./tsconfig.app.json"
     }
   ],
-  "include": [
-    "src/**/*.test.ts",
-    "integration",
-    "scripts"
-  ],
+  "include": ["src/**/*.test.ts"],
   "exclude": []
 }

@@ -40,7 +40,7 @@ export function useSlideSizes(
   function measureStartGap(): number {
     if (!withEdgeGap) return 0
 
-    const [firstSlideRect] = slideRects
+    const firstSlideRect = slideRects[0]!
 
     return mathAbs(containerRect[startEdge] - firstSlideRect[startEdge])
   }
@@ -69,17 +69,17 @@ export function useSlideSizes(
     const slideRectsLastIndex = slideRectsLength - 1
 
     for (let i = 0; i < slideRectsLength; i++) {
-      const slideRect = slideRects[i]
+      const slideRect = slideRects[i]!
       const isFirst = i === 0
       const isLast = i === slideRectsLastIndex
 
       if (isFirst) {
-        slideSizesWithGaps.push(slideSizes[i] + startGap)
+        slideSizesWithGaps.push(slideSizes[i]! + startGap)
       } else if (isLast) {
-        slideSizesWithGaps.push(slideSizes[i] + endGap)
+        slideSizesWithGaps.push(slideSizes[i]! + endGap)
       } else {
-        const nextSlideRect = slideRects[i + 1]
-        slideSizesWithGaps.push(mathAbs(nextSlideRect[startEdge] - slideRect[startEdge]))
+        const nextSlideRect = slideRects[i + 1]!
+        slideSizesWithGaps.push(mathAbs(nextSlideRect[startEdge]! - slideRect[startEdge]!))
       }
     }
 

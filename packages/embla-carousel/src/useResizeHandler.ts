@@ -53,11 +53,11 @@ export function useResizeHandler(
 
     function callback(entries: ResizeObserverEntry[]): void {
       for (const entry of entries) {
-        const target = <HTMLElement>entry.target
+        const target = entry.target as HTMLElement
 
         const isContainer = target === $container
 
-        const lastSize = isContainer ? containerSize : slideSizes[$slides.indexOf(target)]
+        const lastSize = isContainer ? containerSize : slideSizes[$slides.indexOf(target)]!
         const newSize = readSize(target)
         const diffSize = mathAbs(newSize - lastSize)
 

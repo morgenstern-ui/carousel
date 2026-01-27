@@ -50,14 +50,14 @@ export function useSlideRegistry(
       const isFirst = i === 0
       const isLast = i === slideIndexGroupsLastIndex
 
-      const slideIndexGroup = slideIndexGroups[i]
+      const slideIndexGroup = slideIndexGroups[i]!
 
       if (isFirst) {
-        const range = arrayLast(slideIndexGroups[0]) + 1
+        const range = arrayLast(slideIndexGroups[0]!) + 1
         slideRegistry.push(arrayFromNumber(range))
       } else if (isLast) {
-        const range = arrayLastIndex(slideIndexes) - arrayLast(slideIndexGroups)[0] + 1
-        slideRegistry.push(arrayFromNumber(range, arrayLast(slideIndexGroups)[0]))
+        const range = arrayLastIndex(slideIndexes) - arrayLast(slideIndexGroups)[0]! + 1
+        slideRegistry.push(arrayFromNumber(range, arrayLast(slideIndexGroups)[0]!))
       } else {
         slideRegistry.push(slideIndexGroup)
       }

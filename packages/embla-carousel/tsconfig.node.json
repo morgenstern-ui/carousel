@@ -1,11 +1,11 @@
 {
-  "extends": "@teleskop150750/typescript-config/tsconfig.options.json",
-  "include": ["vite.config.*", "vitest.config.*"],
+  "extends": "@teleskop150750/typescript-config/tsconfig.node.json",
   "compilerOptions": {
-    "composite": true,
-    "emitDeclarationOnly": true,
-    "allowArbitraryExtensions": true,
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
-    "types": ["node"]
-  }
+    "tsBuildInfoFile": ".tmp/tsconfig.node.tsbuildinfo",
+    "outDir": ".tmp/dist/node"
+  },
+  "include": [
+    "tsdown.config.ts",
+    "vitest.config.ts",
+  ]
 }

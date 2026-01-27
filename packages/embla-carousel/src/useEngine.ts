@@ -167,7 +167,7 @@ export function useEngine(
 
   // Shared
   const friction = 0.68
-  const startLocation = scrollSnaps[indexCurrent.get()]
+  const startLocation = scrollSnaps[indexCurrent.get()]!
 
   const locationVector = useVector1D(startLocation)
   const offsetLocationVector = useVector1D(startLocation)

@@ -21,7 +21,7 @@ export function useOptionsHandler($ownerWindow: WindowType) {
     optionsA: TypeA,
     optionsB?: TypeB
   ): TypeA {
-    return <TypeA>objectsMergeDeep(optionsA, optionsB || {})
+    return objectsMergeDeep(optionsA, optionsB || {}) as TypeA
   }
 
   /**

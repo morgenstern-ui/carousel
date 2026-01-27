@@ -59,10 +59,10 @@ export function useScrollSnaps(
     const slideSnapGroupAlignments = measureSlideGroupAlignments()
 
     for (let i = 0; i < slideSnapGroupsLength; i++) {
-      const slideSnapGroup = slideSnapGroups[i]
-      const slideSnapGroupAlignment = slideSnapGroupAlignments[i]
+      const slideSnapGroup = slideSnapGroups[i]!
+      const slideSnapGroupAlignment = slideSnapGroupAlignments[i]!
 
-      slideGroupSnaps.push(slideSnapGroup[0] + slideSnapGroupAlignment)
+      slideGroupSnaps.push(slideSnapGroup[0]! + slideSnapGroupAlignment)
     }
 
     return slideGroupSnaps
@@ -80,8 +80,8 @@ export function useScrollSnaps(
     const slideGroupsLength = slideGroups.length
 
     for (let i = 0; i < slideGroupsLength; i++) {
-      const slideGroup = slideGroups[i]
-      const slideGroupSize = mathAbs(arrayLast(slideGroup)[endEdge] - slideGroup[0][startEdge])
+      const slideGroup = slideGroups[i]!
+      const slideGroupSize = mathAbs(arrayLast(slideGroup)[endEdge] - slideGroup[0]![startEdge])
       slideGroupAlignments.push(alignment.measure(slideGroupSize, i))
     }
 

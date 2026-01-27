@@ -94,7 +94,7 @@ export function useSlideLooper(
    * @returns Массив точек цикла для начального края.
    */
   function startPoints(): LoopPointType[] {
-    const gap = scrollSnaps[0]
+    const gap = scrollSnaps[0]!
     const indexes = slidesInGap(descItems, gap)
 
     return findLoopPoints(indexes, contentSize, false)
@@ -106,7 +106,7 @@ export function useSlideLooper(
    * @returns Массив точек цикла для конечного края.
    */
   function endPoints(): LoopPointType[] {
-    const gap = containerSize - scrollSnaps[0] - 1
+    const gap = containerSize - scrollSnaps[0]! - 1
     const indexes = slidesInGap(ascItems, gap)
 
     return findLoopPoints(indexes, -contentSize, true)
@@ -147,7 +147,7 @@ export function useSlideLooper(
     let to = from
 
     for (const index of indexes) {
-      to -= slideSizesWithGaps[index]
+      to -= slideSizesWithGaps[index]!
     }
 
     return to
@@ -172,13 +172,13 @@ export function useSlideLooper(
     const altered = isEndEdge ? contentSize : 0
 
     for (const index of indexes) {
-      const loopPoint = slideBounds[index][boundEdge]
+      const loopPoint = slideBounds[index]![boundEdge]
 
       points.push({
         index,
         loopPoint,
         slideLocation: useVector1D(-1),
-        translate: useTranslate(axis, $slides[index]),
+        translate: useTranslate(axis, $slides[index]!),
         target() {
           return offsetLocationVector.get() > loopPoint ? initial : altered
         }
@@ -200,10 +200,10 @@ export function useSlideLooper(
     const slideSnapsLength = slideSnaps.length
 
     for (let i = 0; i < slideSnapsLength; i++) {
-      const slideSnap = slideSnaps[i];
+      const slideSnap = slideSnaps[i]!;
 
       bounds.push({
-        start: slideSnap - slideSizes[i] + roundingSafety + offset,
+        start: slideSnap - slideSizes[i]! + roundingSafety + offset,
         end: slideSnap + containerSize - roundingSafety + offset
       })
     }

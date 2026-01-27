@@ -12,17 +12,17 @@
   "devDependencies": {
     "@teleskop150750/typescript-config": "workspace:*",
     "@types/jsdom": "^21.1.6",
-    "@types/node": "^20.12.7",
+    "@types/node": "^25.0.10",
     "jsdom": "^24.0.0",
-    "prettier": "^3.2.5",
+    "prettier": "^3.8.1",
     "turbo": "latest",
-    "typescript": "^5.4.5",
+    "typescript": "^5.9.3",
     "vite": "^5.2.0",
-    "vite-plugin-dts": "^3.8.3",
+    "vite-plugin-dts": "^4.5.4",
     "vitest": "^1.5.0"
   },
-  "packageManager": "pnpm@8.15.6",
+  "packageManager": "pnpm@10.28.2",
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   }
 }

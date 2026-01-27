@@ -24,7 +24,7 @@ function mockNodeOffsets(node: HTMLElement, offsets: TestElementOffsetType): voi
 
 export function mockTestElementDimensions(dimensions: TestElementDimensionsType, rootNode: HTMLElement): void {
   const { containerOffset, slideOffsets, endMargin } = dimensions
-  const containerNode = <HTMLElement>rootNode.children[0]
+  const containerNode = rootNode.children[0] as HTMLElement
   const slideNodes = slideOffsets.map(() => document.createElement('div'))
 
   if (!containerOffset) return
@@ -34,11 +34,11 @@ export function mockTestElementDimensions(dimensions: TestElementDimensionsType,
 
   mockNodeOffsets(rootNode, containerOffset)
   mockNodeOffsets(containerNode, containerOffset)
-  slideNodes.forEach((s, i) => mockNodeOffsets(s, slideOffsets[i]))
+  slideNodes.forEach((s, i) => mockNodeOffsets(s, slideOffsets[i]!))
 
   if (!slideNodes.length) return
 
-  const lastSlide = slideNodes[slideNodes.length - 1]
+  const lastSlide = slideNodes[slideNodes.length - 1]!
   lastSlide.style[endMargin.property] = `${endMargin.value}px`
 }
 

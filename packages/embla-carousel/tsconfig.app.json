@@ -1,13 +1,13 @@
 {
-  "extends": "@teleskop150750/typescript-config/tsconfig.options.json",
-  "include": ["env.d.ts", "src/**/*"],
-  "exclude": ["src/**/__tests__/*"],
+  "extends": "@teleskop150750/typescript-config/tsconfig.app.json",
   "compilerOptions": {
-    "composite": true,
-    "emitDeclarationOnly": true,
     "allowImportingTsExtensions": true,
-    "outDir": "dist",
-    "rootDir": "src",
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo"
-  }
+    "tsBuildInfoFile": ".tmp/tsconfig.app.tsbuildinfo",
+    "exactOptionalPropertyTypes": false,
+    "outDir": ".tmp/dist/app"
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts"
+  ]
 }

@@ -42,7 +42,7 @@ export function useScrollContain(
     const boundedList: number[] = []
 
     for (let i = 0; i < slideGroupSnapsLength; i++) {
-      const slideGroupSnap = slideGroupSnaps[i]
+      const slideGroupSnap = slideGroupSnaps[i]!
       const snap = scrollLimit.constrain(slideGroupSnap)
       const isFirst = i === 0
       const isLast = i === slideGroupSnapsLastIndex
@@ -73,7 +73,7 @@ export function useScrollContain(
    * @returns Ограничение снапов группы слайдов.
    */
   function getSlideGroupSnapsLimit(): LimitType {
-    const maxSnapBounded = slideGroupSnapsBounded[0]
+    const maxSnapBounded = slideGroupSnapsBounded[0]!
     const minSnapBounded = arrayLast(slideGroupSnapsBounded)
 
     const minSnapIdx = slideGroupSnapsBounded.lastIndexOf(maxSnapBounded)

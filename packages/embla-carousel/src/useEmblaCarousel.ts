@@ -147,7 +147,7 @@ export function useEmblaCarousel(
   userPlugins?: EmblaPluginType[]
 ): EmblaCarouselType {
   const $ownerDocument = $root.ownerDocument
-  const $ownerWindow = <WindowType>$ownerDocument.defaultView
+  const $ownerWindow = $ownerDocument.defaultView as WindowType
   const optionsHandler = useOptionsHandler($ownerWindow)
   const pluginsHandler = usePluginsHandler(optionsHandler)
   const mediaHandlers = useEventStore()
@@ -310,7 +310,7 @@ export function useEmblaCarousel(
     const { container: userContainer, slides: userSlides } = options
 
     const customContainer = isString(userContainer) ? $root.querySelector<HTMLElement>(userContainer) : userContainer
-    $container = customContainer || <HTMLElement>$root.children[0]
+    $container = customContainer || $root.children[0] as HTMLElement
 
     const customSlides = isString(userSlides) ? $container.querySelectorAll<HTMLElement>(userSlides) : userSlides
     $slides = [].slice.call(customSlides || $container.children)
@@ -357,4 +357,4 @@ export function useEmblaCarousel(
   return self
 }
 
-useEmblaCarousel.globalOptions = <EmblaOptionsType | undefined>undefined
+useEmblaCarousel.globalOptions = undefined as EmblaOptionsType | undefined

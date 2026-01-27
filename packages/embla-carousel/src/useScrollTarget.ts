@@ -42,7 +42,7 @@ export function useScrollTarget(
    * @returns Цель прокрутки.
    */
   function byIndex(index: number, direction: number): TargetType {
-    const diffToSnap = scrollSnaps[index] - targetVector.get()
+    const diffToSnap = scrollSnaps[index]! - targetVector.get()
     const distance = shortcut(diffToSnap, direction)
 
     return { index, distance }
@@ -62,7 +62,7 @@ export function useScrollTarget(
 
     if (!snap || reachedBound) return { index, distance }
 
-    const diffToSnap = scrollSnaps[index] - targetSnapDistance
+    const diffToSnap = scrollSnaps[index]! - targetSnapDistance
     const snapDistance = distance + shortcut(diffToSnap, 0)
 
     return { index, distance: snapDistance }
@@ -78,7 +78,7 @@ export function useScrollTarget(
   function shortcut(target: number, direction: number): number {
     const targets = [target, target + contentSize, target - contentSize]
 
-    if (!loop) return targets[0]
+    if (!loop) return targets[0]!
     if (!direction) return minDistance(targets)
 
     const matchingTargets = targets.filter((t) => mathSign(t) === direction)
@@ -94,7 +94,7 @@ export function useScrollTarget(
    * @returns Минимальное расстояние.
    */
   function minDistance(distances: number[]): number {
-    return distances.sort((a, b) => mathAbs(a) - mathAbs(b))[0]
+    return distances.sort((a, b) => mathAbs(a) - mathAbs(b))[0]!
   }
 
   /**
@@ -112,7 +112,7 @@ export function useScrollTarget(
     let index = 0;
 
     for (let i = 0; i < scrollSnapsLength; i++) {
-      const scrollSnap = scrollSnaps[i];
+      const scrollSnap = scrollSnaps[i]!;
       const diff = shortcut(scrollSnap - distance, 0);
 
       if (mathAbs(diff) < mathAbs(minDiff)) {

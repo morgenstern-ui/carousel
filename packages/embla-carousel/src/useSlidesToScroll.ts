@@ -92,8 +92,8 @@ export function useSlidesToScroll(
       const chunkStartGap = isFirstGroup && !loop ? direction(startGap) : 0
       const chunkEndGap = isLastGroup && !loop ? direction(endGap) : 0
 
-      const startChunk = containerStart - slideRects[startChunkIdx][startEdge] + chunkStartGap
-      const endChunk = containerStart - slideRects[endChunkIdx][endEdge] - chunkEndGap
+      const startChunk = containerStart - slideRects[startChunkIdx]![startEdge] + chunkStartGap
+      const endChunk = containerStart - slideRects[endChunkIdx]![endEdge] - chunkEndGap
 
       const chunkSize = mathAbs(endChunk - startChunk)
 

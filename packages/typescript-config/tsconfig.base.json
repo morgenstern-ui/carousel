@@ -1,0 +1,111 @@
+{
+  "$schema": "https://www.schemastore.org/tsconfig",
+  "_version": "2.0.0",
+  "compilerOptions": {
+    // Проверка типов
+    "allowUnreachableCode": false, // Разрешить недоступный код
+    "allowUnusedLabels": false, // Разрешить неиспользуемые метки
+    "alwaysStrict": true, // Всегда парсить файлы в режиме строгого соответствия ECMAScript
+    "exactOptionalPropertyTypes": true, // Точное соответствие типов необязательных свойств
+    "noFallthroughCasesInSwitch": false, // Запретить переходы в switch
+    "noImplicitAny": true, // Запретить неявный тип any
+    "noImplicitOverride": true, // Требовать явное указание override для переопределяемых методов
+    "noImplicitReturns": true, // Требовать явное возвращение значения из функций
+    "noImplicitThis": true, // Запретить неявный тип any для this
+    "noPropertyAccessFromIndexSignature": true, // Запретить доступ к свойствам через индексные сигнатуры
+    "noUncheckedIndexedAccess": true, // Включить дополнительные проверки для доступа по индексу
+    "noUnusedLocals": true, // Выдавать ошибку для неиспользуемых локальных переменных
+    "noUnusedParameters": true, // Выдавать ошибку для неиспользуемых параметров функций
+    "strict": true, // Включить все строгие проверки типов
+    "strictBindCallApply": true, // Строгая проверка методов bind, call и apply
+    "strictBuiltinIteratorReturn": true, // Строгая проверка возвращаемых значений встроенных итераторов
+    "strictFunctionTypes": true, // Строгая проверка типов функций
+    "strictNullChecks": true, // Включить строгую проверку на null и undefined
+    "strictPropertyInitialization": true, // Строгая проверка инициализации свойств в классах
+    "useUnknownInCatchVariables": true, // Использовать тип unknown для переменных catch
+
+    // Модули
+    // "allowArbitraryExtensions": true, // Разрешить произвольные расширения файлов при импорте
+    // "allowUmdGlobalAccess": true, // Разрешить доступ к глобальным переменным UMD-модулей
+    // "baseUrl": ".", // Базовый URL для разрешения неотносительных модулей
+    // "customConditions": [], // Пользовательские условия для разрешения модулей
+    "module": "preserve", // Целевой модульный стандарт
+    "moduleResolution": "bundler", // Стратегия разрешения модулей
+    // "moduleSuffixes": [], // Суффиксы модулей для разрешения
+    // "noResolve": false, // Не разрешать модули
+    // "noUncheckedSideEffectImports": true, // Запретить импорт модулей с потенциальными побочными эффектами без проверки
+    // "paths": // Пути для разрешения модулей
+    "resolveJsonModule": true, // Разрешить импорт JSON-модулей
+    // "resolvePackageJsonExports": true, // Разрешить экспорт из package.json
+    // "resolvePackageJsonImports": true, // Разрешить импорт из package.json
+    // "rewriteRelativeImportExtensions": true, // Перезаписывать расширения относительных импортов
+    // "rootDir": "./src", // Корневой каталог входных файлов
+    // "rootDirs": [], // Корневые каталоги для разрешения модулей
+    // "typeRoots": [], // Каталоги для поиска определений типов
+    // "types": [], // Списки типов для включения
+
+    // Излучать
+    "declaration": true, // Генерировать файлы объявлений (.d.ts)
+    // "declarationDir": "./types", // Каталог для файлов объявлений
+    "declarationMap": false, // Генерировать карты объявлений
+    // "downlevelIteration": false, // Включить поддержку итерации для старых версий JavaScript
+    // "emitBOM": false, // Не излучать BOM в выходные файлы
+    "emitDeclarationOnly": true, // Излучать только файлы объявлений
+    // "importHelpers": true, // Использовать tslib для вспомогательных функций
+    // "inlineSourceMap": true, // Встраивать карты исходников в выходные файлы
+    // "inlineSources": true, // Встраивать исходные файлы в карты исходников
+    // "mapRoot": "./", // Каталог для карт исходников
+    // "newLine": "lf", // Тип новой строки в выходных файлах
+    // "noEmit": false, // Не излучать выходные файлы
+    // "noEmitHelpers": false, // Не излучать вспомогательные функции
+    "noEmitOnError": false, // Не излучать выходные файлы при ошибках компиляции
+    // "outDir": "./dist", // Каталог для выходных файлов
+    // "outFile": "./dist/index.js", // Выходной файл для объединенных модулей
+    // "preserveConstEnums": true, // Сохранять объявления const enum в выходных файлах
+    // "removeComments": true, // Удалять комментарии из выходных файлов
+    // "sourceMap": true, // Генерировать карты исходников
+    // "sourceRoot": "./", // Корневой каталог исходных файлов для карт исходников
+    // "stripInternal": true, // Удалять объявления с @internal из выходных файлов
+
+    // Поддержка JavaScript
+    "allowJs": true, // Разрешить компиляцию файлов JavaScript
+    "checkJs": true, // Проверять файлы JavaScript на наличие ошибок
+    // "maxNodeModuleJsDepth": 2, // Максимальная глубина проверки файлов JavaScript в node_modules
+
+    // Поддержка редактора
+    // "disableSizeLimit": true, // Отключить ограничение размера файлов для редакторов
+    // "plugins": [], // Плагины для компилятора
+
+    // Ограничения взаимодействия
+    "allowSyntheticDefaultImports": true, // Разрешить синтетические импорты по умолчанию
+    "erasableSyntaxOnly": true, // Включить только стираемый синтаксис
+    "esModuleInterop": true, // Включить совместимость с модулями ES
+    "forceConsistentCasingInFileNames": true, // Требовать согласованное использование регистра в именах файлов
+    // "isolatedDeclarations": true, // Проверять файлы объявлений на изоляцию
+    "isolatedModules": true, // Включить проверки для изолированных модулей
+    // "preserveSymlinks": true, // Сохранять символические ссылки при разрешении модулей
+    "verbatimModuleSyntax": true, // Сохранять синтаксис модулей без изменений
+
+    // Язык и окружающая среда
+    // "emitDecoratorMetadata": true // Включить метаданные декораторов
+    // "experimentalDecorators": true, // Включить экспериментальную поддержку декораторов
+    "jsx": "preserve", // Целевой стандарт JSX
+    // "jsxFactory": "React.createElement", // Фабрика JSX
+    // "jsxFragmentFactory": "React.Fragment", // Фабрика фрагментов JSX
+    // "jsxImportSource": "react", // Источник импорта JSX
+    "lib": ["DOM", "DOM.Iterable", "ESNext"], // Библиотеки, включаемые в компиляцию
+    // "libReplacements": {} // Замены библиотек
+    "moduleDetection": "force", // Стратегия обнаружения модулей
+    // "noLib": false, // Не включать стандартные библиотеки
+    "target": "ESNext", // Целевая версия JavaScript
+    "useDefineForClassFields": true, // Использовать семантику определения для полей классов
+
+    // Проекты
+    "composite": true, // Включить поддержку композитных проектов
+    "incremental": true, // Включить инкрементную компиляцию
+    // "tsBuildInfoFile": "./.tsbuildinfo", // Файл для хранения информации о сборке TypeScript
+
+    // Полнота
+    "skipLibCheck": true // Пропустить проверку типов в файлах библиотек
+  }
+}
