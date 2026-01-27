@@ -1,6 +1,6 @@
 import type { CreatePluginType } from '@teleskop150750/embla-carousel/plugins'
 import type { EmblaCarouselType } from '@teleskop150750/embla-carousel'
-import type { AxisType } from "@teleskop150750/embla-carousel/useAxis"
+import type { AxisType } from '@teleskop150750/embla-carousel/useAxis'
 
 declare module '@teleskop150750/embla-carousel/plugins' {
   interface EmblaPluginsType {
@@ -15,17 +15,14 @@ export type TableOptionsType = TableType['options']
 export function Table(): TableType {
   let emblaApi: EmblaCarouselType
 
-  function init(
-    emblaApiInstance: EmblaCarouselType,
-  ): void {
+  function init(emblaApiInstance: EmblaCarouselType): void {
     emblaApi = emblaApiInstance
     const containers = [...(emblaApi.rootNode().children as unknown as HTMLElement[])]
     const engine = emblaApi.internalEngine()
     engine.translate = useTranslate(engine.axis, containers)
   }
 
-  function destroy(): void {
-  }
+  function destroy(): void {}
 
   const self: TableType = {
     name: 'table',
@@ -99,13 +96,13 @@ export function useTranslate(axis: AxisType, containers: HTMLElement[]) {
     for (const container of containers) {
       container.style.transform = ''
       if (!container.getAttribute('style')) container.removeAttribute('style')
-    }      
+    }
   }
 
   const self = {
     to,
     toggleActive,
-    clear,
+    clear
   } as const
 
   return self

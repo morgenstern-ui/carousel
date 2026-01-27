@@ -1,14 +1,13 @@
-import { useEmblaCarousel,type EmblaOptionsType, type EmblaCarouselType } from '@teleskop150750/embla-carousel'
+import { useEmblaCarousel, type EmblaOptionsType, type EmblaCarouselType } from '@teleskop150750/embla-carousel'
 import './styles/base.css'
 import './styles/embla.css'
 import './styles/sandbox.css'
 import { Table } from './table'
 import { AutoScroll } from './AutoScroll'
 
-
 const OPTIONS: EmblaOptionsType = {
   align: 'start',
-  slidesToScroll: 1,
+  slidesToScroll: 1
 }
 
 const emblaNode = document.querySelector<HTMLElement>('.embla')!
@@ -17,11 +16,7 @@ const prevBtnNode = emblaNode.querySelector<HTMLElement>('.embla__button--prev')
 const nextBtnNode = emblaNode.querySelector<HTMLElement>('.embla__button--next')!
 // const dotsNode = <HTMLElement>emblaNode.querySelector('.embla__dots')
 
-const emblaApi = useEmblaCarousel(
-  viewportNode,
-  OPTIONS, 
-  [Table(), AutoScroll()]
-)
+const emblaApi = useEmblaCarousel(viewportNode, OPTIONS, [Table(), AutoScroll()])
 
 console.log(emblaApi)
 
@@ -31,7 +26,7 @@ function addTogglePrevNextBtnsActive(
   emblaApi: EmblaCarouselType,
   prevBtn: HTMLElement,
   nextBtn: HTMLElement
-): (() => void) {
+): () => void {
   const togglePrevNextBtnsState = (): void => {
     if (emblaApi.canScrollPrev()) prevBtn.removeAttribute('disabled')
     else prevBtn.setAttribute('disabled', 'disabled')
@@ -51,11 +46,7 @@ function addTogglePrevNextBtnsActive(
   }
 }
 
-function addPrevNextBtnsClickHandlers(
-  emblaApi: EmblaCarouselType,
-  prevBtn: HTMLElement,
-  nextBtn: HTMLElement
-) {
+function addPrevNextBtnsClickHandlers(emblaApi: EmblaCarouselType, prevBtn: HTMLElement, nextBtn: HTMLElement) {
   const scrollPrev = (): void => {
     emblaApi.scrollPrev()
   }
@@ -65,11 +56,7 @@ function addPrevNextBtnsClickHandlers(
   prevBtn.addEventListener('click', scrollPrev, false)
   nextBtn.addEventListener('click', scrollNext, false)
 
-  const removeTogglePrevNextBtnsActive = addTogglePrevNextBtnsActive(
-    emblaApi,
-    prevBtn,
-    nextBtn
-  )
+  const removeTogglePrevNextBtnsActive = addTogglePrevNextBtnsActive(emblaApi, prevBtn, nextBtn)
 
   return (): void => {
     removeTogglePrevNextBtnsActive()

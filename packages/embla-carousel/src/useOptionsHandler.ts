@@ -50,7 +50,7 @@ export function useOptionsHandler($ownerWindow: WindowType) {
    * @returns Массив списков медиа-запросов, соответствующих медиа-точкам в объектах параметров.
    */
   function optionsMediaQueries(optionsList: OptionsType[]): MediaQueryList[] {
-    const mediaQueries: MediaQueryList[] = [];
+    const mediaQueries: MediaQueryList[] = []
 
     for (const options of optionsList) {
       const queries = objectKeys(options.breakpoints || {}) as string[]
@@ -60,7 +60,7 @@ export function useOptionsHandler($ownerWindow: WindowType) {
       }
     }
 
-    return mediaQueries;
+    return mediaQueries
   }
 
   const self = {

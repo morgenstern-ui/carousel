@@ -42,7 +42,7 @@ export function useSlidesToScroll(
    * Группирует массив элементов на основе опции `slidesToScroll`.
    * Если `slidesToScroll` равно `'auto'`, то группирует элементы на основе размеров слайдов.
    * Если `slidesToScroll` равно числу, то группирует элементы на основе этого числа.
-   * 
+   *
    * @param array - Массив для группировки.
    * @returns Массив сгруппированных элементов.
    */
@@ -109,7 +109,6 @@ export function useSlidesToScroll(
 
     return groups
   }
-
 
   const self = {
     groupSlides

@@ -287,7 +287,6 @@ export function useDragHandler(
     return focusNodes.includes(nodeName)
   }
 
-
   const self = {
     init,
     pointerDown,

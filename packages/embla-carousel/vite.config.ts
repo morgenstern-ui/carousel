@@ -4,10 +4,12 @@ import { resolve } from 'path'
 import dts from 'vite-plugin-dts'
 
 export default defineConfig({
-  plugins: [dts({
-    // rollupTypes: true,
-    tsconfigPath: './tsconfig.app.json'
-  })],
+  plugins: [
+    dts({
+      // rollupTypes: true,
+      tsconfigPath: './tsconfig.app.json'
+    })
+  ],
   build: {
     minify: false,
     sourcemap: true,
@@ -16,8 +18,8 @@ export default defineConfig({
       entry: resolve(__dirname, 'src/index.ts'),
       // the proper extensions will be added
       fileName: 'index',
-      formats: ['es'],
-    },
+      formats: ['es']
+    }
   },
   test: {
     environment: 'jsdom'

@@ -2,13 +2,10 @@ import { defineConfig } from 'tsdown'
 
 export default defineConfig({
   exports: true,
-  entry: {
-    index: './src/index.ts',
-    plugins: './src/plugins.ts',
-  },
-  sourcemap: true,
+  entry: 'src/**/*.ts',
+  // entry: ['src/index.ts'],
+  // unbundle: true,
   dts: {
-    build: true,
-    sourcemap: true,
-  },
+    build: true
+  }
 })

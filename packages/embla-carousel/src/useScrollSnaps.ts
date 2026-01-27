@@ -90,7 +90,7 @@ export function useScrollSnaps(
 
   const self = {
     slideSnaps,
-    slideGroupSnaps,
+    slideGroupSnaps
   } as const
 
   return self

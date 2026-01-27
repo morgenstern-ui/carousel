@@ -106,22 +106,22 @@ export function useScrollTarget(
   function findTargetSnap(target: number): TargetType {
     const distance = loop ? removeOffset(target) : constrain(target)
 
-    const scrollSnapsLength = scrollSnaps.length;
+    const scrollSnapsLength = scrollSnaps.length
 
-    let minDiff = Infinity;
-    let index = 0;
+    let minDiff = Infinity
+    let index = 0
 
     for (let i = 0; i < scrollSnapsLength; i++) {
-      const scrollSnap = scrollSnaps[i]!;
-      const diff = shortcut(scrollSnap - distance, 0);
+      const scrollSnap = scrollSnaps[i]!
+      const diff = shortcut(scrollSnap - distance, 0)
 
       if (mathAbs(diff) < mathAbs(minDiff)) {
-        minDiff = diff;
-        index = i;
+        minDiff = diff
+        index = i
       }
     }
 
-    return { index, distance };
+    return { index, distance }
   }
 
   const self = {

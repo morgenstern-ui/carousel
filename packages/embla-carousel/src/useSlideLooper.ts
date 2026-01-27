@@ -57,8 +57,7 @@ export function useSlideLooper(
     for (const { index } of loopPoints) {
       const otherIndexes = ascItems.filter((i) => i !== index)
 
-      if (removeSlideSizes(otherIndexes, containerSize) > 0.1)
-        return false
+      if (removeSlideSizes(otherIndexes, containerSize) > 0.1) return false
     }
 
     return true
@@ -127,10 +126,8 @@ export function useSlideLooper(
     for (const index of indexes) {
       const remainingGap = removeSlideSizes(slides, gap)
 
-      if (remainingGap > 0)
-        slides.push(index)
-      else
-        break
+      if (remainingGap > 0) slides.push(index)
+      else break
     }
 
     return slides
@@ -200,7 +197,7 @@ export function useSlideLooper(
     const slideSnapsLength = slideSnaps.length
 
     for (let i = 0; i < slideSnapsLength; i++) {
-      const slideSnap = slideSnaps[i]!;
+      const slideSnap = slideSnaps[i]!
 
       bounds.push({
         start: slideSnap - slideSizes[i]! + roundingSafety + offset,

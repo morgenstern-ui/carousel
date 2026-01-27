@@ -178,7 +178,7 @@ export function useEmblaCarousel(
     engine = createEngine(options)
 
     for (const mediaQuery of optionsMediaQueries([optionsBase, ...pluginList.map(({ options }) => options)])) {
-      mediaHandlers.add(mediaQuery, 'change', reActivate);
+      mediaHandlers.add(mediaQuery, 'change', reActivate)
     }
 
     if (!options.active) return
@@ -194,7 +194,6 @@ export function useEmblaCarousel(
 
     if (engine.options.loop) engine.slideLooper.loop()
     if ($container.offsetParent && $slides.length) engine.dragHandler.init(self)
-
   }
 
   function reActivate(withOptions?: EmblaOptionsType, withPlugins?: EmblaPluginType[]): void {
@@ -310,7 +309,7 @@ export function useEmblaCarousel(
     const { container: userContainer, slides: userSlides } = options
 
     const customContainer = isString(userContainer) ? $root.querySelector<HTMLElement>(userContainer) : userContainer
-    $container = customContainer || $root.children[0] as HTMLElement
+    $container = customContainer || ($root.children[0] as HTMLElement)
 
     const customSlides = isString(userSlides) ? $container.querySelectorAll<HTMLElement>(userSlides) : userSlides
     $slides = [].slice.call(customSlides || $container.children)
@@ -323,7 +322,7 @@ export function useEmblaCarousel(
       const optionsWithoutLoop = Object.assign({}, options, { loop: false })
       return createEngine(optionsWithoutLoop)
     }
-  
+
     return engine
   }
 
@@ -353,7 +352,7 @@ export function useEmblaCarousel(
 
   activate(userOptions, userPlugins)
   setTimeout(() => eventHandler.emit('init'), 0)
- 
+
   return self
 }
 

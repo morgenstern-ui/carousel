@@ -60,7 +60,7 @@ export function useTranslate(axis: AxisType, container: HTMLElement) {
   const self = {
     to,
     toggleActive,
-    clear,
+    clear
   } as const
 
   return self

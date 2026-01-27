@@ -175,7 +175,15 @@ export function useEngine(
 
   const scrollBody = useScrollBody(locationVector, offsetLocationVector, targetVector, duration, friction)
   const scrollTarget = useScrollTarget(loop, scrollSnaps, contentSize, limit, targetVector)
-  const scrollTo = useScrollTo(animation, indexCurrent, indexPrevious, scrollBody, scrollTarget, targetVector, eventHandler)
+  const scrollTo = useScrollTo(
+    animation,
+    indexCurrent,
+    indexPrevious,
+    scrollBody,
+    scrollTarget,
+    targetVector,
+    eventHandler
+  )
 
   const scrollProgress = useScrollProgress(limit)
 
@@ -235,7 +243,11 @@ export function useEngine(
     resizeHandler: useResizeHandler($container, eventHandler, $ownerWindow, $slides, axis, watchResize, nodeRects),
     scrollBody,
     scrollBounds: useScrollBounds(limit, offsetLocationVector, targetVector, scrollBody, percentOfContainer),
-    scrollLooper: useScrollLooper(contentSize, limit, offsetLocationVector, [locationVector, offsetLocationVector, targetVector]),
+    scrollLooper: useScrollLooper(contentSize, limit, offsetLocationVector, [
+      locationVector,
+      offsetLocationVector,
+      targetVector
+    ]),
     scrollProgress,
     scrollSnapList: scrollSnaps.map(scrollProgress.get),
     scrollSnaps,

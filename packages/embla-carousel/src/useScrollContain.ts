@@ -31,7 +31,7 @@ export function useScrollContain(
 
   /**
    * Рассчитывает ограниченные снапы группы слайдов на основе ограничения прокрутки.
-   * 
+   *
    * @returns Массив ограниченных снапов группы слайдов.
    */
   function measureSlideGroupSnapsBounded(): number[] {
@@ -69,7 +69,7 @@ export function useScrollContain(
 
   /**
    * Рассчитывает ограничение снапов группы слайдов на основе ограниченных снапов группы слайдов.
-   * 
+   *
    * @returns Ограничение снапов группы слайдов.
    */
   function getSlideGroupSnapsLimit(): LimitType {
@@ -84,7 +84,7 @@ export function useScrollContain(
 
   /**
    * Рассчитывает снапы группы слайдов, которые содержатся в контейнере прокрутки.
-   * 
+   *
    * @returns Массив снапов группы слайдов, которые содержатся в контейнере прокрутки.
    */
   function measureSlideGroupSnapsContained(): number[] {
@@ -98,7 +98,7 @@ export function useScrollContain(
 
   /**
    * Проверяет, находится ли разница между двумя значениями в пределах пиксельной допустимости.
-   * 
+   *
    * @param bound - Ограничение.
    * @param snap - Снап.
    * @returns True, если разница между ограничением и снапом меньше 1, иначе false.
@@ -109,7 +109,7 @@ export function useScrollContain(
 
   const self = {
     slideGroupSnapsLimit,
-    slideGroupSnapsContained,
+    slideGroupSnapsContained
   } as const
 
   return self

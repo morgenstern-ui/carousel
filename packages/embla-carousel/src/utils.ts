@@ -89,14 +89,14 @@ export function factorAbs(valueB: number, valueA: number): number {
  * @returns Возвращает массив ключей.
  */
 export function arrayKeys<Type>(array: Type[]): number[] {
-  const result: number[] = [];
-  const length = array.length;
+  const result: number[] = []
+  const length = array.length
 
   for (let i = 0; i < length; i++) {
-    result.push(i);
+    result.push(i)
   }
 
-  return result;
+  return result
 }
 
 /**
