@@ -151,6 +151,7 @@ export function useEmblaCarousel($root: HTMLElement): EmblaCarouselType {
   const { mergeOptions, optionsAtMedia, optionsMediaQueries } = optionsHandler
   const { on, off, emit } = eventHandler
 
+  let activated = false
   let destroyed = false
   let engine: EngineType
   let optionsBase = mergeOptions(defaultOptions, useEmblaCarousel.globalOptions)
@@ -164,6 +165,7 @@ export function useEmblaCarousel($root: HTMLElement): EmblaCarouselType {
   function activate(withOptions?: EmblaOptionsType, withPlugins?: EmblaPluginType[]): void {
     if (destroyed) return
 
+    activated = true
     optionsBase = mergeOptions(optionsBase, withOptions)
     options = optionsAtMedia(optionsBase)
     pluginList = withPlugins || pluginList
@@ -192,9 +194,14 @@ export function useEmblaCarousel($root: HTMLElement): EmblaCarouselType {
   }
 
   function reInit(withOptions?: EmblaOptionsType, withPlugins?: EmblaPluginType[]): void {
-    const startIndex = selectedScrollSnap()
-    deActivate()
-    activate(mergeOptions({ startIndex }, withOptions), withPlugins)
+    if (activated) {
+      const startIndex = selectedScrollSnap()
+      deActivate()
+      activate(mergeOptions({ startIndex }, withOptions), withPlugins)
+      eventHandler.emit('init')
+    } else {
+      activate(withOptions, withPlugins)
+    }
     eventHandler.emit('reInit')
   }
 
@@ -344,6 +351,9 @@ export function useEmblaCarousel($root: HTMLElement): EmblaCarouselType {
     slidesInView,
     slidesNotInView
   } as const
+
+  // activate(userOptions, userPlugins)
+  // setTimeout(() => eventHandler.emit('init'), 0)
 
   return self
 }
