@@ -55,7 +55,7 @@ export function useTranslate(axis: AxisType, $containers: HTMLElement[]) {
   }
 }
 
-export function Table(userOptions: TableOptionsType = {}): TableType {
+export function TableCarousel(userOptions: TableOptionsType = {}): TableType {
   function init(emblaApiInstance: EmblaCarouselType, optionsHandler: OptionsHandlerType): void {
     const { mergeOptions } = optionsHandler
     const allOptions = mergeOptions(defaultOptions, userOptions)
@@ -70,16 +70,16 @@ export function Table(userOptions: TableOptionsType = {}): TableType {
   function destroy(): void {}
 
   return {
-    name: 'mainTable',
+    name: 'tableCarousel',
     options: {},
     init,
     destroy
   }
 }
-Table.globalOptions = undefined as TableOptionsType | undefined
+TableCarousel.globalOptions = undefined as TableOptionsType | undefined
 
 declare module '@teleskop150750/embla-carousel/plugins' {
   interface EmblaPluginsType {
-    mainTable?: TableType
+    tableCarousel?: TableType
   }
 }
