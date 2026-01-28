@@ -1,6 +1,6 @@
 {
   "name": "@teleskop150750/embla-carousel",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": false,
   "sideEffects": false,
   "type": "module",
@@ -49,6 +49,9 @@
     "./utils": "./dist/utils.mjs",
     "./package.json": "./package.json"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsdown",
     "typecheck": "tsc -b --force",
