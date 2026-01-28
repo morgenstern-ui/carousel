@@ -1,24 +1,11 @@
 import type { EmblaCarouselType } from '@teleskop150750/embla-carousel'
-import type { CreateOptionsType } from '@teleskop150750/embla-carousel/options'
 import type { CreatePluginType } from '@teleskop150750/embla-carousel/plugins'
 import type { AxisType } from '@teleskop150750/embla-carousel/useAxis'
 import type { OptionsHandlerType } from '@teleskop150750/embla-carousel/useOptionsHandler'
+import type { OptionsType } from './Options'
+import { defaultOptions } from './Options'
 
-export type OptionsType = CreateOptionsType<{
-  row: string
-}>
-
-const defaultOptions: OptionsType = {
-  active: true,
-  breakpoints: {},
-  row: '.embla__container'
-}
-
-export type TableType = CreatePluginType<
-  {
-  },
-  OptionsType
->
+export type TableType = CreatePluginType<{}, OptionsType>
 
 export type TableOptionsType = TableType['options']
 
@@ -61,13 +48,11 @@ export function useTranslate(axis: AxisType, $containers: HTMLElement[]) {
     }
   }
 
-  const self = {
+  return {
     to,
     toggleActive,
     clear
-  } as const
-
-  return self
+  }
 }
 
 export function Table(userOptions: TableOptionsType = {}): TableType {
@@ -76,7 +61,7 @@ export function Table(userOptions: TableOptionsType = {}): TableType {
     const allOptions = mergeOptions(defaultOptions, userOptions)
     const $root = emblaApiInstance.rootNode()
 
-    const $rows = [...$root.querySelectorAll<HTMLElement>(allOptions.row)]
+    const $rows = [...$root.querySelectorAll<HTMLElement>(allOptions.rowSelector)]
 
     const engine = emblaApiInstance.internalEngine()
     engine.translate = useTranslate(engine.axis, $rows)
@@ -84,27 +69,17 @@ export function Table(userOptions: TableOptionsType = {}): TableType {
 
   function destroy(): void {}
 
-  const self: TableType = {
-    name: 'table',
+  return {
+    name: 'mainTable',
     options: {},
     init,
     destroy
   }
-  return self
 }
-
-export type AutoplayType = CreatePluginType<
-  {
-    play: (jump?: boolean) => void
-    stop: () => void
-    reset: () => void
-    isPlaying: () => boolean
-  },
-  OptionsType
->
+Table.globalOptions = undefined as TableOptionsType | undefined
 
 declare module '@teleskop150750/embla-carousel/plugins' {
   interface EmblaPluginsType {
-    autoplay?: AutoplayType
+    mainTable?: TableType
   }
 }
