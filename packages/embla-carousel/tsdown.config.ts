@@ -4,7 +4,7 @@ export default defineConfig({
   exports: true,
   entry: 'src/**/*.ts',
   // entry: ['src/index.ts'],
-  // unbundle: true,
+  unbundle: true,
   dts: {
     build: true
   }
