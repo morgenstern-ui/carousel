@@ -7,15 +7,18 @@ const MEDIA_QUERY_EXTRA_LARGE = '(min-width: 1200px)'
 const MEDIA_QUERY_EXTRA_SMALL = '(min-width: 576px)'
 
 describe('➡️  Breakpoints', () => {
-  const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_BREAKPOINTS), {
-    align: 'start',
-    breakpoints: {
-      [MEDIA_QUERY_EXTRA_LARGE]: {
-        align: 'center',
-        startIndex: 1
-      },
-      [MEDIA_QUERY_EXTRA_SMALL]: {
-        align: 'end'
+  const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_BREAKPOINTS))
+  emblaApi.initOrUpdate({
+    options: {
+      align: 'start',
+      breakpoints: {
+        [MEDIA_QUERY_EXTRA_LARGE]: {
+          align: 'center',
+          startIndex: 1
+        },
+        [MEDIA_QUERY_EXTRA_SMALL]: {
+          align: 'end'
+        }
       }
     }
   })
@@ -25,7 +28,7 @@ describe('➡️  Breakpoints', () => {
   })
 
   test('Применяет опции на уровне корневого элемента, когда нет совпадения с медиа-запросом', () => {
-    emblaApi.reInit()
+    emblaApi.initOrUpdate()
 
     const engine = emblaApi.internalEngine()
     const expectedScrollSnaps = [0, -800, -1200]
@@ -35,7 +38,7 @@ describe('➡️  Breakpoints', () => {
 
   test('Применяет опции для совпадающего медиа-запроса', () => {
     setMatchingMediaQuery(MEDIA_QUERY_EXTRA_LARGE)
-    emblaApi.reInit()
+    emblaApi.initOrUpdate()
 
     const engine = emblaApi.internalEngine()
     const expectedScrollSnaps = [0, -500, -800, -1150, -1200]
@@ -45,7 +48,7 @@ describe('➡️  Breakpoints', () => {
 
   test('Применяет опции для последнего совпадающего запроса, если несколько запросов совпадают и опции конфликтуют', () => {
     setMatchingMediaQuery([MEDIA_QUERY_EXTRA_LARGE, MEDIA_QUERY_EXTRA_SMALL])
-    emblaApi.reInit()
+    emblaApi.initOrUpdate()
 
     const engine = emblaApi.internalEngine()
     const expectedScrollSnaps = [0, -200, -400, -900, -1200]
@@ -55,7 +58,7 @@ describe('➡️  Breakpoints', () => {
 
   test('Объединяет опции, когда несколько запросов совпадают и опции не конфликтуют', () => {
     setMatchingMediaQuery([MEDIA_QUERY_EXTRA_LARGE, MEDIA_QUERY_EXTRA_SMALL])
-    emblaApi.reInit()
+    emblaApi.initOrUpdate()
 
     const engine = emblaApi.internalEngine()
     const expectedScrollSnaps = [0, -200, -400, -900, -1200]

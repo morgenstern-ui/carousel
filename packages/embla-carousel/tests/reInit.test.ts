@@ -8,6 +8,7 @@ const FIRST_SNAP_INDEX = 0
 describe('➡️  ReInit', () => {
   test('Учитывает изменения размеров элемента', () => {
     const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_RE_INIT_1))
+    emblaApi.initOrUpdate()
 
     const engine = emblaApi.internalEngine()
     const expectedScrollSnaps = [0, -500, -800, -1150, -1200]
@@ -15,7 +16,7 @@ describe('➡️  ReInit', () => {
     expect(engine.locationVector.get()).toBe(expectedScrollSnaps[FIRST_SNAP_INDEX])
 
     mockTestElementDimensions(FIXTURE_RE_INIT_2, emblaApi.rootNode())
-    emblaApi.reInit()
+    emblaApi.initOrUpdate()
 
     const newEngine = emblaApi.internalEngine()
     const newExpectedScrollSnaps = [0, -530, -850, -1220, -1300]
@@ -25,6 +26,7 @@ describe('➡️  ReInit', () => {
 
   test('Учитывает изменения количества слайдов', () => {
     const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_RE_INIT_1))
+    emblaApi.initOrUpdate()
 
     const engine = emblaApi.internalEngine()
     const expectedScrollSnaps = [0, -500, -800, -1150, -1200]
@@ -37,7 +39,7 @@ describe('➡️  ReInit', () => {
       slideOffsets: slideOffsets.slice(0, slideOffsets.length - 1)
     }
     mockTestElementDimensions(fixtureAllSlidesButFirst, emblaApi.rootNode())
-    emblaApi.reInit()
+    emblaApi.initOrUpdate()
 
     const newEngine = emblaApi.internalEngine()
     const newExpectedScrollSnaps = [0, -500, -800, -900]

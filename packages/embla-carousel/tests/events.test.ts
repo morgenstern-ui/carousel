@@ -5,6 +5,7 @@ import { FIXTURE_EVENTS } from './fixtures/events.fixture'
 
 describe('➡️  Events', () => {
   const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_EVENTS))
+  emblaApi.initOrUpdate()
 
   describe('События, добавленные с помощью on():', () => {
     test('Вызывает указанный обратный вызов при возникновении связанного события', () => {
@@ -15,7 +16,7 @@ describe('➡️  Events', () => {
       expect(callback).toHaveBeenCalledTimes(1)
 
       emblaApi.on('reInit', callback)
-      emblaApi.reInit()
+      emblaApi.initOrUpdate()
       expect(callback).toHaveBeenCalledTimes(2)
     })
 

@@ -15,7 +15,7 @@ describe('➡️  SlidesToScroll - Вертикальный', () => {
     const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_SLIDES_TO_SCROLL_Y_1))
 
     beforeEach(() => {
-      emblaApi.reInit({ ...defaultOptions, slidesToScroll: 'auto', axis: 'y' })
+      emblaApi.initOrUpdate({ options: { ...defaultOptions, slidesToScroll: 'auto', axis: 'y' } })
     })
 
     test('LOOP:FALSE', () => {
@@ -34,7 +34,7 @@ describe('➡️  SlidesToScroll - Вертикальный', () => {
     })
 
     test('LOOP:FALSE и CONTAINSCROLL:FALSE', () => {
-      emblaApi.reInit({ containScroll: false })
+      emblaApi.initOrUpdate({ options: { containScroll: false } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0, -1000, -2000, -3000.5]
@@ -51,7 +51,7 @@ describe('➡️  SlidesToScroll - Вертикальный', () => {
     })
 
     test('LOOP:TRUE', () => {
-      emblaApi.reInit({ loop: true })
+      emblaApi.initOrUpdate({ options: { loop: true } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0, -1000, -2000, -3000.5]
@@ -72,7 +72,7 @@ describe('➡️  SlidesToScroll - Вертикальный', () => {
     const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_SLIDES_TO_SCROLL_Y_2))
 
     beforeEach(() => {
-      emblaApi.reInit({ ...defaultOptions, slidesToScroll: 'auto', axis: 'y' })
+      emblaApi.initOrUpdate({ options: { ...defaultOptions, slidesToScroll: 'auto', axis: 'y' } })
     })
 
     test('LOOP:FALSE', () => {
@@ -91,7 +91,7 @@ describe('➡️  SlidesToScroll - Вертикальный', () => {
     })
 
     test('LOOP:FALSE и CONTAINSCROLL:FALSE', () => {
-      emblaApi.reInit({ containScroll: false })
+      emblaApi.initOrUpdate({ options: { containScroll: false } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [-10, -1020, -2030, -3030.5]
@@ -108,7 +108,7 @@ describe('➡️  SlidesToScroll - Вертикальный', () => {
     })
 
     test('LOOP:TRUE', () => {
-      emblaApi.reInit({ loop: true })
+      emblaApi.initOrUpdate({ options: { loop: true } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [-10, -1020, -2030, -3030.5]
@@ -129,10 +129,12 @@ describe('➡️  SlidesToScroll - Вертикальный', () => {
     const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_SLIDES_TO_SCROLL_Y_3))
 
     beforeEach(() => {
-      emblaApi.reInit({
-        ...defaultOptions,
-        slidesToScroll: 'auto',
-        axis: 'y'
+      emblaApi.initOrUpdate({
+        options: {
+          ...defaultOptions,
+          slidesToScroll: 'auto',
+          axis: 'y'
+        }
       })
     })
 
@@ -147,7 +149,7 @@ describe('➡️  SlidesToScroll - Вертикальный', () => {
     })
 
     test('LOOP:FALSE и CONTAINSCROLL:FALSE', () => {
-      emblaApi.reInit({ containScroll: false })
+      emblaApi.initOrUpdate({ options: { containScroll: false } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [-19, -247, -475, -703, -931, -1159]
@@ -159,7 +161,7 @@ describe('➡️  SlidesToScroll - Вертикальный', () => {
     })
 
     test('LOOP:TRUE', () => {
-      emblaApi.reInit({ loop: true })
+      emblaApi.initOrUpdate({ options: { loop: true } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [-19, -247, -475, -703, -931, -1159]
@@ -175,7 +177,7 @@ describe('➡️  SlidesToScroll - Вертикальный', () => {
     const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_SLIDES_TO_SCROLL_Y_1))
 
     beforeEach(() => {
-      emblaApi.reInit({ ...defaultOptions, slidesToScroll: 2, axis: 'y' })
+      emblaApi.initOrUpdate({ options: { ...defaultOptions, slidesToScroll: 2, axis: 'y' } })
     })
 
     test('LOOP:FALSE', () => {
@@ -195,7 +197,7 @@ describe('➡️  SlidesToScroll - Вертикальный', () => {
     })
 
     test('LOOP:FALSE и CONTAINSCROLL:FALSE', () => {
-      emblaApi.reInit({ containScroll: false })
+      emblaApi.initOrUpdate({ options: { containScroll: false } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0, -750, -1250, -2000, -3000.5]
@@ -213,7 +215,7 @@ describe('➡️  SlidesToScroll - Вертикальный', () => {
     })
 
     test('LOOP:TRUE', () => {
-      emblaApi.reInit({ loop: true })
+      emblaApi.initOrUpdate({ options: { loop: true } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0, -750, -1250, -2000, -3000.5]
@@ -235,7 +237,7 @@ describe('➡️  SlidesToScroll - Вертикальный', () => {
     const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_SLIDES_TO_SCROLL_Y_2))
 
     beforeEach(() => {
-      emblaApi.reInit({ ...defaultOptions, slidesToScroll: 2, axis: 'y' })
+      emblaApi.initOrUpdate({ options: { ...defaultOptions, slidesToScroll: 2, axis: 'y' } })
     })
 
     test('LOOP:FALSE', () => {
@@ -255,7 +257,7 @@ describe('➡️  SlidesToScroll - Вертикальный', () => {
     })
 
     test('LOOP:FALSE и CONTAINSCROLL:FALSE', () => {
-      emblaApi.reInit({ containScroll: false })
+      emblaApi.initOrUpdate({ options: { containScroll: false } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [-10, -765, -1275, -2030, -3030.5]
@@ -273,7 +275,7 @@ describe('➡️  SlidesToScroll - Вертикальный', () => {
     })
 
     test('LOOP:TRUE', () => {
-      emblaApi.reInit({ loop: true })
+      emblaApi.initOrUpdate({ options: { loop: true } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [-10, -765, -1275, -2030, -3030.5]

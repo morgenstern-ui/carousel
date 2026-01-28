@@ -16,7 +16,7 @@ describe('➡️  useEmblaCarousel', () => {
 
   describe('Выбрасывает ошибку при инициализации и', () => {
     test('Параметр корневого узла опущен', () => {
-      expect(() => useEmblaCarousel(undefined as any)).toThrow()
+      expect(() => useEmblaCarousel(undefined as any).initOrUpdate()).toThrow()
     })
 
     test('Узел контейнера опущен', () => {
@@ -29,7 +29,7 @@ describe('➡️  useEmblaCarousel', () => {
               value: 0
             }
           })
-        )
+        ).initOrUpdate()
       ).toThrow()
     })
   })

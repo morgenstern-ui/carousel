@@ -23,7 +23,10 @@ describe('➡️  Plugins', () => {
 
   beforeEach(() => {
     vi.clearAllMocks()
-    emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_PLUGINS), {}, [PLUGIN_ONE, PLUGIN_TWO])
+    emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_PLUGINS))
+    emblaApi.initOrUpdate({
+      plugins: [PLUGIN_ONE, PLUGIN_TWO]
+    })
   })
 
   test('Инициализируются при инициализации карусели с помощью конструктора', () => {
@@ -32,7 +35,7 @@ describe('➡️  Plugins', () => {
   })
 
   test('Уничтожаются и инициализируются заново при вызове метода reInit() карусели', () => {
-    emblaApi.reInit()
+    emblaApi.initOrUpdate()
     expect(PLUGIN_ONE.destroy).toHaveBeenCalledTimes(1)
     expect(PLUGIN_TWO.destroy).toHaveBeenCalledTimes(1)
     expect(PLUGIN_ONE.init).toHaveBeenCalledTimes(2)

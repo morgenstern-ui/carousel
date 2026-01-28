@@ -5,14 +5,14 @@ import { FIXTURE_SELECTED_PREVIOUS_SNAP_Y } from './fixtures/selectedAndPrevious
 
 describe('➡️  SelectedScrollSnap & PreviousScrollSnap - Vertical', () => {
   describe('Корректно, когда LOOP:FALSE, когда:', () => {
-    const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_SELECTED_PREVIOUS_SNAP_Y), {
-      axis: 'y'
-    })
+    const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_SELECTED_PREVIOUS_SNAP_Y))
+    emblaApi.initOrUpdate({ options: { axis: 'y' } })
+
     const lastIndex = FIXTURE_SELECTED_PREVIOUS_SNAP_Y.slideOffsets.length - 1
     const firstIndex = 0
 
     beforeEach(() => {
-      emblaApi.reInit({ startIndex: firstIndex })
+      emblaApi.initOrUpdate({ options: { startIndex: firstIndex } })
     })
 
     test('startIndex не установлен', () => {
@@ -21,14 +21,14 @@ describe('➡️  SelectedScrollSnap & PreviousScrollSnap - Vertical', () => {
     })
 
     test('startIndex установлен', () => {
-      emblaApi.reInit({ startIndex: 2 })
+      emblaApi.initOrUpdate({ options: { startIndex: 2 } })
 
       expect(emblaApi.selectedScrollSnap()).toBe(2)
       expect(emblaApi.previousScrollSnap()).toBe(2)
     })
 
     test('Пользователь пытается прокрутить вперед за последним слайдом', () => {
-      emblaApi.reInit({ startIndex: lastIndex })
+      emblaApi.initOrUpdate({ options: { startIndex: lastIndex } })
       emblaApi.scrollNext()
 
       expect(emblaApi.selectedScrollSnap()).toBe(lastIndex)
@@ -68,7 +68,7 @@ describe('➡️  SelectedScrollSnap & PreviousScrollSnap - Vertical', () => {
     })
 
     test('Шаг назад по одному снэпу от конца', () => {
-      emblaApi.reInit({ startIndex: lastIndex })
+      emblaApi.initOrUpdate({ options: { startIndex: lastIndex } })
       let i = lastIndex
 
       while (i !== firstIndex) {
@@ -81,15 +81,13 @@ describe('➡️  SelectedScrollSnap & PreviousScrollSnap - Vertical', () => {
   })
 
   describe('Корректно, когда LOOP:TRUE, когда:', () => {
-    const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_SELECTED_PREVIOUS_SNAP_Y), {
-      axis: 'y',
-      loop: true
-    })
+    const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_SELECTED_PREVIOUS_SNAP_Y))
+    emblaApi.initOrUpdate({ options: { axis: 'y', loop: true } })
     const lastIndex = FIXTURE_SELECTED_PREVIOUS_SNAP_Y.slideOffsets.length - 1
     const firstIndex = 0
 
     beforeEach(() => {
-      emblaApi.reInit({ startIndex: firstIndex })
+      emblaApi.initOrUpdate({ options: { startIndex: firstIndex } })
     })
 
     test('startIndex не установлен', () => {
@@ -98,14 +96,14 @@ describe('➡️  SelectedScrollSnap & PreviousScrollSnap - Vertical', () => {
     })
 
     test('startIndex установлен', () => {
-      emblaApi.reInit({ startIndex: 2 })
+      emblaApi.initOrUpdate({ options: { startIndex: 2 } })
 
       expect(emblaApi.selectedScrollSnap()).toBe(2)
       expect(emblaApi.previousScrollSnap()).toBe(2)
     })
 
     test('Пользователь пытается прокрутить вперед за последним слайдом', () => {
-      emblaApi.reInit({ startIndex: lastIndex })
+      emblaApi.initOrUpdate({ options: { startIndex: lastIndex } })
       emblaApi.scrollNext()
 
       expect(emblaApi.selectedScrollSnap()).toBe(firstIndex)
@@ -145,7 +143,7 @@ describe('➡️  SelectedScrollSnap & PreviousScrollSnap - Vertical', () => {
     })
 
     test('Шаг назад по одному снэпу от конца', () => {
-      emblaApi.reInit({ startIndex: lastIndex })
+      emblaApi.initOrUpdate({ options: { startIndex: lastIndex } })
       let i = lastIndex
 
       while (i !== firstIndex) {

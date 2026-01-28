@@ -66,7 +66,7 @@ export function useResizeHandler(
 
         if (diffSize >= 0.5) {
           $ownerWindow.requestAnimationFrame(() => {
-            emblaApi.reInit()
+            emblaApi.initOrUpdate()
             eventHandler.emit('resize')
           })
 

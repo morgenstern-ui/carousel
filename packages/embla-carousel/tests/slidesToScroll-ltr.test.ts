@@ -15,7 +15,7 @@ describe('➡️  Скролл слайдов - Горизонтальный LTR
     const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_SLIDES_TO_SCROLL_LTR_1))
 
     beforeEach(() => {
-      emblaApi.reInit({ ...defaultOptions, slidesToScroll: 'auto' })
+      emblaApi.initOrUpdate({ options: { ...defaultOptions, slidesToScroll: 'auto' } })
     })
 
     test('LOOP:FALSE', () => {
@@ -33,7 +33,7 @@ describe('➡️  Скролл слайдов - Горизонтальный LTR
     })
 
     test('LOOP:FALSE и CONTAINSCROLL:FALSE', () => {
-      emblaApi.reInit({ containScroll: false })
+      emblaApi.initOrUpdate({ options: { containScroll: false } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0, -1000, -2000, -3000.5]
@@ -50,7 +50,7 @@ describe('➡️  Скролл слайдов - Горизонтальный LTR
     })
 
     test('LOOP:TRUE', () => {
-      emblaApi.reInit({ loop: true })
+      emblaApi.initOrUpdate({ options: { loop: true } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0, -1000, -2000, -3000.5]
@@ -71,7 +71,7 @@ describe('➡️  Скролл слайдов - Горизонтальный LTR
     const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_SLIDES_TO_SCROLL_LTR_2))
 
     beforeEach(() => {
-      emblaApi.reInit({ ...defaultOptions, slidesToScroll: 'auto' })
+      emblaApi.initOrUpdate({ options: { ...defaultOptions, slidesToScroll: 'auto' } })
     })
 
     test('LOOP:FALSE', () => {
@@ -90,7 +90,7 @@ describe('➡️  Скролл слайдов - Горизонтальный LTR
     })
 
     test('LOOP:FALSE и CONTAINSCROLL:FALSE', () => {
-      emblaApi.reInit({ containScroll: false })
+      emblaApi.initOrUpdate({ options: { containScroll: false } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [-10, -1020, -2030, -3030.5]
@@ -107,7 +107,7 @@ describe('➡️  Скролл слайдов - Горизонтальный LTR
     })
 
     test('LOOP:TRUE', () => {
-      emblaApi.reInit({ loop: true })
+      emblaApi.initOrUpdate({ options: { loop: true } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [-10, -1020, -2030, -3030.5]
@@ -128,7 +128,7 @@ describe('➡️  Скролл слайдов - Горизонтальный LTR
     const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_SLIDES_TO_SCROLL_LTR_3))
 
     beforeEach(() => {
-      emblaApi.reInit({ ...defaultOptions, slidesToScroll: 'auto' })
+      emblaApi.initOrUpdate({ options: { ...defaultOptions, slidesToScroll: 'auto' } })
     })
 
     test('LOOP:FALSE', () => {
@@ -142,7 +142,7 @@ describe('➡️  Скролл слайдов - Горизонтальный LTR
     })
 
     test('LOOP:FALSE и CONTAINSCROLL:FALSE', () => {
-      emblaApi.reInit({ containScroll: false })
+      emblaApi.initOrUpdate({ options: { containScroll: false } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [-48, -624, -1200, -1776, -2352, -2928]
@@ -154,7 +154,7 @@ describe('➡️  Скролл слайдов - Горизонтальный LTR
     })
 
     test('LOOP:TRUE', () => {
-      emblaApi.reInit({ loop: true })
+      emblaApi.initOrUpdate({ options: { loop: true } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [-48, -624, -1200, -1776, -2352, -2928]
@@ -170,7 +170,7 @@ describe('➡️  Скролл слайдов - Горизонтальный LTR
     const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_SLIDES_TO_SCROLL_LTR_1))
 
     beforeEach(() => {
-      emblaApi.reInit({ ...defaultOptions, slidesToScroll: 2 })
+      emblaApi.initOrUpdate({ options: { ...defaultOptions, slidesToScroll: 2 } })
     })
 
     test('LOOP:FALSE', () => {
@@ -190,7 +190,7 @@ describe('➡️  Скролл слайдов - Горизонтальный LTR
     })
 
     test('LOOP:FALSE и CONTAINSCROLL:FALSE', () => {
-      emblaApi.reInit({ containScroll: false })
+      emblaApi.initOrUpdate({ options: { containScroll: false } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0, -750, -1250, -2000, -3000.5]
@@ -208,7 +208,7 @@ describe('➡️  Скролл слайдов - Горизонтальный LTR
     })
 
     test('LOOP:TRUE', () => {
-      emblaApi.reInit({ loop: true })
+      emblaApi.initOrUpdate({ options: { loop: true } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0, -750, -1250, -2000, -3000.5]
@@ -230,7 +230,7 @@ describe('➡️  Скролл слайдов - Горизонтальный LTR
     const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_SLIDES_TO_SCROLL_LTR_2))
 
     beforeEach(() => {
-      emblaApi.reInit({ ...defaultOptions, slidesToScroll: 2 })
+      emblaApi.initOrUpdate({ options: { ...defaultOptions, slidesToScroll: 2 } })
     })
 
     test('LOOP:FALSE', () => {
@@ -250,7 +250,7 @@ describe('➡️  Скролл слайдов - Горизонтальный LTR
     })
 
     test('LOOP:FALSE и CONTAINSCROLL:FALSE', () => {
-      emblaApi.reInit({ containScroll: false })
+      emblaApi.initOrUpdate({ options: { containScroll: false } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [-10, -765, -1275, -2030, -3030.5]
@@ -268,7 +268,7 @@ describe('➡️  Скролл слайдов - Горизонтальный LTR
     })
 
     test('LOOP:TRUE', () => {
-      emblaApi.reInit({ loop: true })
+      emblaApi.initOrUpdate({ options: { loop: true } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [-10, -765, -1275, -2030, -3030.5]

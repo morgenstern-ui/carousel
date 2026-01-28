@@ -15,10 +15,11 @@ const FIRST_SNAP_INDEX = 0
 
 describe('➡️  ContainScroll - Horizontal LTR', () => {
   describe('Правильное значение "trimSnaps" для слайдов БЕЗ ОТСТУПОВ и ВЫРАВНИВАНИЯ:', () => {
-    const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_LTR_1), { containScroll: 'trimSnaps' })
+    const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_LTR_1))
+    emblaApi.initOrUpdate({ options: { containScroll: 'trimSnaps' } })
 
     test('В начале', () => {
-      emblaApi.reInit({ align: 'start' })
+      emblaApi.initOrUpdate({ options: { align: 'start' } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0, -100, -300, -450, -660]
@@ -30,7 +31,7 @@ describe('➡️  ContainScroll - Horizontal LTR', () => {
     })
 
     test('По центру', () => {
-      emblaApi.reInit({ align: 'center' })
+      emblaApi.initOrUpdate({ options: { align: 'center' } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0, -75, -265, -380, -530, -660]
@@ -42,7 +43,7 @@ describe('➡️  ContainScroll - Horizontal LTR', () => {
     })
 
     test('В конце', () => {
-      emblaApi.reInit({ align: 'end' })
+      emblaApi.initOrUpdate({ options: { align: 'end' } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0, -130, -280, -530, -660]
@@ -54,7 +55,7 @@ describe('➡️  ContainScroll - Horizontal LTR', () => {
     })
 
     test('Пользовательское значение', () => {
-      emblaApi.reInit({ align: (viewSize) => viewSize * 0.1 })
+      emblaApi.initOrUpdate({ options: { align: (viewSize) => viewSize * 0.1 } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0, -200, -350, -600, -660]
@@ -67,10 +68,11 @@ describe('➡️  ContainScroll - Horizontal LTR', () => {
   })
 
   describe('Правильное значение "trimSnaps" для слайдов С ОТСТУПАМИ и ВЫРАВНИВАНИЕМ:', () => {
-    const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_LTR_2), { containScroll: 'trimSnaps' })
+    const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_LTR_2))
+    emblaApi.initOrUpdate({ options: { containScroll: 'trimSnaps' } })
 
     test('В начале', () => {
-      emblaApi.reInit({ align: 'start' })
+      emblaApi.initOrUpdate({ options: { align: 'start' } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0, -130, -350, -520, -790, -860]
@@ -82,7 +84,7 @@ describe('➡️  ContainScroll - Horizontal LTR', () => {
     })
 
     test('По центру', () => {
-      emblaApi.reInit({ align: 'center' })
+      emblaApi.initOrUpdate({ options: { align: 'center' } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0, -145, -355, -490, -660, -855, -860]
@@ -94,7 +96,7 @@ describe('➡️  ContainScroll - Horizontal LTR', () => {
     })
 
     test('В конце', () => {
-      emblaApi.reInit({ align: 'end' })
+      emblaApi.initOrUpdate({ options: { align: 'end' } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0, -40, -260, -430, -700, -860]
@@ -106,7 +108,7 @@ describe('➡️  ContainScroll - Horizontal LTR', () => {
     })
 
     test('Пользовательское значение', () => {
-      emblaApi.reInit({ align: (viewSize) => viewSize * 0.1 })
+      emblaApi.initOrUpdate({ options: { align: (viewSize) => viewSize * 0.1 } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0, -30, -250, -420, -690, -840, -860]
@@ -121,6 +123,7 @@ describe('➡️  ContainScroll - Horizontal LTR', () => {
   describe('Правильное значение "trimSnaps" для крайних случаев, когда:', () => {
     test('Размер контента на 2 пикселя больше видимой области', () => {
       const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_LTR_3))
+      emblaApi.initOrUpdate()
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0]
@@ -132,6 +135,7 @@ describe('➡️  ContainScroll - Horizontal LTR', () => {
 
     test('Размер контента на 3 пикселя больше видимой области', () => {
       const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_LTR_4))
+      emblaApi.initOrUpdate()
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0, -3]
@@ -143,6 +147,7 @@ describe('➡️  ContainScroll - Horizontal LTR', () => {
 
     test('Размер контента меньше видимой области', () => {
       const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_LTR_5))
+      emblaApi.initOrUpdate()
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0]
@@ -154,6 +159,7 @@ describe('➡️  ContainScroll - Horizontal LTR', () => {
 
     test('Смещение в начало меньше 1 пикселя', () => {
       const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_LTR_6))
+      emblaApi.initOrUpdate()
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0, -80.5, -167.5, -254.5, -341.5, -428]
@@ -165,6 +171,7 @@ describe('➡️  ContainScroll - Horizontal LTR', () => {
 
     test('Смещение в конец меньше 1 пикселя', () => {
       const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_LTR_7))
+      emblaApi.initOrUpdate()
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0, -215.5, -430.5, -646]
@@ -176,10 +183,11 @@ describe('➡️  ContainScroll - Horizontal LTR', () => {
   })
 
   describe('Правильное значение "keepSnaps" для слайдов БЕЗ ОТСТУПОВ и выравнивание:', () => {
-    const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_LTR_1), { containScroll: 'keepSnaps' })
+    const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_LTR_1))
+    emblaApi.initOrUpdate({ options: { containScroll: 'keepSnaps' } })
 
     test('В начале', () => {
-      emblaApi.reInit({ align: 'start' })
+      emblaApi.initOrUpdate({ options: { align: 'start' } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0, -100, -300, -450, -660, -660, -660, -660, -660, -660]
@@ -190,7 +198,7 @@ describe('➡️  ContainScroll - Horizontal LTR', () => {
     })
 
     test('По центру', () => {
-      emblaApi.reInit({ align: 'center' })
+      emblaApi.initOrUpdate({ options: { align: 'center' } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0, 0, 0, -75, -265, -380, -530, -660, -660, -660]
@@ -201,7 +209,7 @@ describe('➡️  ContainScroll - Horizontal LTR', () => {
     })
 
     test('В конце', () => {
-      emblaApi.reInit({ align: 'end' })
+      emblaApi.initOrUpdate({ options: { align: 'end' } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0, 0, 0, 0, 0, 0, -130, -280, -530, -660]
@@ -213,7 +221,7 @@ describe('➡️  ContainScroll - Horizontal LTR', () => {
     })
 
     test('Пользовательское значение', () => {
-      emblaApi.reInit({ align: (viewSize) => viewSize * 0.1 })
+      emblaApi.initOrUpdate({ options: { align: (viewSize) => viewSize * 0.1 } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0, 0, -200, -350, -600, -660, -660, -660, -660, -660]
@@ -225,10 +233,11 @@ describe('➡️  ContainScroll - Horizontal LTR', () => {
   })
 
   describe('Правильное значение "keepSnaps" для слайдов С ОТСТУПАМИ и выравнивание:', () => {
-    const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_LTR_2), { containScroll: 'keepSnaps' })
+    const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_LTR_2))
+    emblaApi.initOrUpdate({ options: { containScroll: 'keepSnaps' } })
 
     test('В начале', () => {
-      emblaApi.reInit({ align: 'start' })
+      emblaApi.initOrUpdate({ options: { align: 'start' } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0, -130, -350, -520, -790, -860, -860, -860, -860, -860]
@@ -239,7 +248,7 @@ describe('➡️  ContainScroll - Horizontal LTR', () => {
     })
 
     test('По центру', () => {
-      emblaApi.reInit({ align: 'center' })
+      emblaApi.initOrUpdate({ options: { align: 'center' } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0, 0, 0, -145, -355, -490, -660, -855, -860, -860]
@@ -250,7 +259,7 @@ describe('➡️  ContainScroll - Horizontal LTR', () => {
     })
 
     test('В конце', () => {
-      emblaApi.reInit({ align: 'end' })
+      emblaApi.initOrUpdate({ options: { align: 'end' } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0, 0, 0, 0, 0, -40, -260, -430, -700, -860]
@@ -262,7 +271,7 @@ describe('➡️  ContainScroll - Horizontal LTR', () => {
     })
 
     test('Пользовательское значение', () => {
-      emblaApi.reInit({ align: (viewSize) => viewSize * 0.1 })
+      emblaApi.initOrUpdate({ options: { align: (viewSize) => viewSize * 0.1 } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0, -30, -250, -420, -690, -840, -860, -860, -860, -860]
@@ -275,7 +284,8 @@ describe('➡️  ContainScroll - Horizontal LTR', () => {
 
   describe('Правильное значение "keepSnaps" для крайних случаев, когда размер контента:', () => {
     test('На 2 пикселя больше видимой области', () => {
-      const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_LTR_3), { containScroll: 'keepSnaps' })
+      const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_LTR_3))
+      emblaApi.initOrUpdate({ options: { containScroll: 'keepSnaps' } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0]
@@ -286,7 +296,8 @@ describe('➡️  ContainScroll - Horizontal LTR', () => {
     })
 
     test('На 3 пикселя больше видимой области', () => {
-      const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_LTR_4), { containScroll: 'keepSnaps' })
+      const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_LTR_4))
+      emblaApi.initOrUpdate({ options: { containScroll: 'keepSnaps' } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0, -3]
@@ -297,7 +308,8 @@ describe('➡️  ContainScroll - Horizontal LTR', () => {
     })
 
     test('Меньше видимой области', () => {
-      const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_LTR_5), { containScroll: 'keepSnaps' })
+      const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_CONTAIN_SCROLL_LTR_5))
+      emblaApi.initOrUpdate({ options: { containScroll: 'keepSnaps' } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0]

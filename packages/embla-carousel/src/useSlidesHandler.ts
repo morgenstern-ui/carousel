@@ -38,7 +38,7 @@ export function useSlidesHandler(
     function callback(mutations: MutationRecord[]): void {
       for (const mutation of mutations) {
         if (mutation.type === 'childList') {
-          emblaApi.reInit()
+          emblaApi.initOrUpdate()
           eventHandler.emit('slidesChanged')
           break
         }

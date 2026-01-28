@@ -6,10 +6,8 @@ import { FIXTURE_AXIS_Y } from './fixtures/axis-vertical.fixture'
 describe('➡️  Axis - Vertical LTR', () => {
   describe('Корректное перемещение при следующих настройках:', () => {
     test('Вертикальное', () => {
-      const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_AXIS_Y), {
-        containScroll: false,
-        axis: 'y'
-      })
+      const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_AXIS_Y))
+      emblaApi.initOrUpdate({ options: { containScroll: false, axis: 'y' } })
 
       expect(emblaApi.containerNode().style.transform).toBe('translate3d(0px,100px,0px)')
     })
@@ -18,11 +16,8 @@ describe('➡️  Axis - Vertical LTR', () => {
 
 describe('➡️  Axis - Vertical RTL', () => {
   test('Корректное перемещение', () => {
-    const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_AXIS_Y), {
-      containScroll: false,
-      direction: 'rtl',
-      axis: 'y'
-    })
+    const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_AXIS_Y))
+    emblaApi.initOrUpdate({ options: { containScroll: false, direction: 'rtl', axis: 'y' } })
 
     expect(emblaApi.containerNode().style.transform).toBe('translate3d(0px,100px,0px)')
   })

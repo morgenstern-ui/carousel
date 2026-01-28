@@ -19,9 +19,12 @@ describe('➡️  Loop - Horizontal LTR', () => {
     const LOOP_POINTS_START = [-660.5, -760.5, -960.5, -1110.5, -1360.5, -1490.5, -1590.5]
 
     describe('Положение при выравнивании в начало и прокрутке карусели:', () => {
-      const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_LOOP_LTR_1), {
-        loop: true,
-        align: 'start'
+      const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_LOOP_LTR_1))
+      emblaApi.initOrUpdate({
+        options: {
+          loop: true,
+          align: 'start'
+        }
       })
       const engine = emblaApi.internalEngine()
 
@@ -39,9 +42,12 @@ describe('➡️  Loop - Horizontal LTR', () => {
     })
 
     describe('Позиции слайдов при выравнивании в начало и прокрутке карусели:', () => {
-      const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_LOOP_LTR_1), {
-        loop: true,
-        align: 'start'
+      const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_LOOP_LTR_1))
+      emblaApi.initOrUpdate({
+        options: {
+          loop: true,
+          align: 'start'
+        }
       })
       const engine = emblaApi.internalEngine()
       const slides = emblaApi.slideNodes()
@@ -242,9 +248,12 @@ describe('➡️  Loop - Horizontal LTR', () => {
     const LOOP_POINTS_CENTER = [380.5, 130.5, 0.5, -660.5, -760.5, -960.5, -1110.5]
 
     describe('Положение при выравнивании в центр и прокрутке карусели:', () => {
-      const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_LOOP_LTR_1), {
-        loop: true,
-        align: 'center'
+      const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_LOOP_LTR_1))
+      emblaApi.initOrUpdate({
+        options: {
+          loop: true,
+          align: 'center'
+        }
       })
       const engine = emblaApi.internalEngine()
 
@@ -262,9 +271,12 @@ describe('➡️  Loop - Horizontal LTR', () => {
     })
 
     describe('Позиции слайдов при выравнивании в центр и прокрутке карусели:', () => {
-      const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_LOOP_LTR_1), {
-        loop: true,
-        align: 'center'
+      const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_LOOP_LTR_1))
+      emblaApi.initOrUpdate({
+        options: {
+          loop: true,
+          align: 'center'
+        }
       })
       const engine = emblaApi.internalEngine()
       const slides = emblaApi.slideNodes()
@@ -465,9 +477,12 @@ describe('➡️  Loop - Horizontal LTR', () => {
     const LOOP_POINTS_END = [830.5, 730.5, 530.5, 380.5, 130.5, 0.5, -660.5]
 
     describe('Положение при выравнивании в конец и прокрутке карусели:', () => {
-      const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_LOOP_LTR_1), {
-        loop: true,
-        align: 'end'
+      const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_LOOP_LTR_1))
+      emblaApi.initOrUpdate({
+        options: {
+          loop: true,
+          align: 'end'
+        }
       })
       const engine = emblaApi.internalEngine()
 
@@ -485,9 +500,12 @@ describe('➡️  Loop - Horizontal LTR', () => {
     })
 
     describe('Позиции слайдов при выравнивании в конец и прокрутке карусели:', () => {
-      const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_LOOP_LTR_1), {
-        loop: true,
-        align: 'end'
+      const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_LOOP_LTR_1))
+      emblaApi.initOrUpdate({
+        options: {
+          loop: true,
+          align: 'end'
+        }
       })
       const engine = emblaApi.internalEngine()
       const slides = emblaApi.slideNodes()
@@ -690,9 +708,12 @@ describe('➡️  Loop - Horizontal LTR', () => {
     const LOOP_POINTS_START = [-870.5, -990.5, -1210.5, -1380.5, -1650.5, -1800.5]
 
     describe('Положение при выравнивании в начало и прокрутке карусели:', () => {
-      const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_LOOP_LTR_2), {
-        loop: true,
-        align: 'start'
+      const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_LOOP_LTR_2))
+      emblaApi.initOrUpdate({
+        options: {
+          loop: true,
+          align: 'start'
+        }
       })
       const engine = emblaApi.internalEngine()
 
@@ -710,9 +731,12 @@ describe('➡️  Loop - Horizontal LTR', () => {
     })
 
     describe('Позиции слайдов при выравнивании в начало и прокрутке карусели:', () => {
-      const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_LOOP_LTR_2), {
-        loop: true,
-        align: 'start'
+      const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_LOOP_LTR_2))
+      emblaApi.initOrUpdate({
+        options: {
+          loop: true,
+          align: 'start'
+        }
       })
       const engine = emblaApi.internalEngine()
       const slides = emblaApi.slideNodes()
@@ -874,9 +898,12 @@ describe('➡️  Loop - Horizontal LTR', () => {
     const LOOP_POINTS_CENTER = [430.5, 160.5, 10.5, -870.5, -990.5, -1210.5, -1380.5]
 
     describe('Положение при выравнивании в центр и прокрутке карусели:', () => {
-      const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_LOOP_LTR_2), {
-        loop: true,
-        align: 'center'
+      const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_LOOP_LTR_2))
+      emblaApi.initOrUpdate({
+        options: {
+          loop: true,
+          align: 'center'
+        }
       })
       const engine = emblaApi.internalEngine()
 
@@ -894,9 +921,12 @@ describe('➡️  Loop - Horizontal LTR', () => {
     })
 
     describe('Позиции слайдов при выравнивании в центр и прокрутке карусели:', () => {
-      const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_LOOP_LTR_2), {
-        loop: true,
-        align: 'center'
+      const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_LOOP_LTR_2))
+      emblaApi.initOrUpdate({
+        options: {
+          loop: true,
+          align: 'center'
+        }
       })
       const engine = emblaApi.internalEngine()
       const slides = emblaApi.slideNodes()
@@ -1097,9 +1127,12 @@ describe('➡️  Loop - Horizontal LTR', () => {
     const LOOP_POINTS_END = [820.5, 600.5, 430.5, 160.5, 10.5, -870.5]
 
     describe('Положение при выравнивании в конец и прокрутке карусели:', () => {
-      const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_LOOP_LTR_2), {
-        loop: true,
-        align: 'end'
+      const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_LOOP_LTR_2))
+      emblaApi.initOrUpdate({
+        options: {
+          loop: true,
+          align: 'end'
+        }
       })
       const engine = emblaApi.internalEngine()
 
@@ -1117,9 +1150,12 @@ describe('➡️  Loop - Horizontal LTR', () => {
     })
 
     describe('Позиции слайдов при выравнивании в конец и прокрутке карусели:', () => {
-      const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_LOOP_LTR_2), {
-        loop: true,
-        align: 'end'
+      const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_LOOP_LTR_2))
+      emblaApi.initOrUpdate({
+        options: {
+          loop: true,
+          align: 'end'
+        }
       })
       const engine = emblaApi.internalEngine()
       const slides = emblaApi.slideNodes()

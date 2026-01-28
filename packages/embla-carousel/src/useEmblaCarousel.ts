@@ -77,7 +77,7 @@ export type EmblaCarouselType = {
    * @param options Новые параметры для карусели.
    * @param plugins Новые плагины для карусели.
    */
-  reInit: (options?: EmblaOptionsType, plugins?: EmblaPluginType[]) => void
+  initOrUpdate: (props?: { options?: Partial<OptionsType> | undefined; plugins?: EmblaPluginType[] }) => void
 
   /**
    * Возвращает корневой узел карусели.
@@ -175,7 +175,7 @@ export function useEmblaCarousel($root: HTMLElement): EmblaCarouselType {
     engine = createEngine(options)
 
     for (const mediaQuery of optionsMediaQueries([optionsBase, ...pluginList.map(({ options }) => options)])) {
-      mediaHandlers.add(mediaQuery, 'change', reInit)
+      mediaHandlers.add(mediaQuery, 'change', initOrUpdate)
     }
 
     if (!options.active) return
@@ -193,14 +193,14 @@ export function useEmblaCarousel($root: HTMLElement): EmblaCarouselType {
     if ($container.offsetParent && $slides.length) engine.dragHandler.init(self)
   }
 
-  function reInit(withOptions?: EmblaOptionsType, withPlugins?: EmblaPluginType[]): void {
+  function initOrUpdate({ options, plugins }: { options?: EmblaOptionsType; plugins?: EmblaPluginType[] } = {}): void {
     if (activated) {
       const startIndex = selectedScrollSnap()
       deActivate()
-      activate(mergeOptions({ startIndex }, withOptions), withPlugins)
+      activate(mergeOptions({ startIndex }, options || {}), plugins)
       eventHandler.emit('init')
     } else {
-      activate(withOptions, withPlugins)
+      activate(options, plugins)
     }
     eventHandler.emit('reInit')
   }
@@ -339,7 +339,7 @@ export function useEmblaCarousel($root: HTMLElement): EmblaCarouselType {
     emit,
     plugins,
     previousScrollSnap,
-    reInit,
+    initOrUpdate,
     rootNode,
     scrollNext,
     scrollPrev,

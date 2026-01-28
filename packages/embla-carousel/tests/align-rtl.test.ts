@@ -7,13 +7,16 @@ const FIRST_SNAP_INDEX = 0
 
 describe('➡️  Align - Horizontal RTL', () => {
   describe('Корректно для слайдов БЕЗ ОТСТУПОВ и ВЫРАВНИВАНИЯ:', () => {
-    const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_ALIGN_RTL_1), {
-      containScroll: false,
-      direction: 'rtl'
+    const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_ALIGN_RTL_1))
+    emblaApi.initOrUpdate({
+      options: {
+        containScroll: false,
+        direction: 'rtl'
+      }
     })
 
     test('Начало', () => {
-      emblaApi.reInit({ align: 'start' })
+      emblaApi.initOrUpdate({ options: { align: 'start' } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [0, -800, -1200, -1400, -1900]
@@ -23,7 +26,7 @@ describe('➡️  Align - Horizontal RTL', () => {
     })
 
     test('Центр', () => {
-      emblaApi.reInit({ align: 'center' })
+      emblaApi.initOrUpdate({ options: { align: 'center' } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [100, -500, -800, -1150, -1550]
@@ -33,7 +36,7 @@ describe('➡️  Align - Horizontal RTL', () => {
     })
 
     test('Конец', () => {
-      emblaApi.reInit({ align: 'end' })
+      emblaApi.initOrUpdate({ options: { align: 'end' } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [200, -200, -400, -900, -1200]
@@ -43,7 +46,7 @@ describe('➡️  Align - Horizontal RTL', () => {
     })
 
     test('Пользовательское', () => {
-      emblaApi.reInit({ align: (viewSize) => viewSize * 0.1 })
+      emblaApi.initOrUpdate({ options: { align: (viewSize) => viewSize * 0.1 } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [100, -700, -1100, -1300, -1800]
@@ -54,13 +57,16 @@ describe('➡️  Align - Horizontal RTL', () => {
   })
 
   describe('Корректно для слайдов С ОТСТУПАМИ и ВЫРАВНИВАНИЕМ:', () => {
-    const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_ALIGN_RTL_2), {
-      containScroll: false,
-      direction: 'rtl'
+    const emblaApi = useEmblaCarousel(mockTestElements(FIXTURE_ALIGN_RTL_2))
+    emblaApi.initOrUpdate({
+      options: {
+        containScroll: false,
+        direction: 'rtl'
+      }
     })
 
     test('Начало', () => {
-      emblaApi.reInit({ align: 'start' })
+      emblaApi.initOrUpdate({ options: { align: 'start' } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [-10, -830, -1250, -1470, -1990]
@@ -70,7 +76,7 @@ describe('➡️  Align - Horizontal RTL', () => {
     })
 
     test('Центр', () => {
-      emblaApi.reInit({ align: 'center' })
+      emblaApi.initOrUpdate({ options: { align: 'center' } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [90, -530, -850, -1220, -1640]
@@ -80,7 +86,7 @@ describe('➡️  Align - Horizontal RTL', () => {
     })
 
     test('Конец', () => {
-      emblaApi.reInit({ align: 'end' })
+      emblaApi.initOrUpdate({ options: { align: 'end' } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [190, -230, -450, -970, -1290]
@@ -90,7 +96,7 @@ describe('➡️  Align - Horizontal RTL', () => {
     })
 
     test('Пользовательское', () => {
-      emblaApi.reInit({ align: (viewSize) => viewSize * 0.1 })
+      emblaApi.initOrUpdate({ options: { align: (viewSize) => viewSize * 0.1 } })
 
       const engine = emblaApi.internalEngine()
       const expectedScrollSnaps = [90, -730, -1150, -1370, -1890]
