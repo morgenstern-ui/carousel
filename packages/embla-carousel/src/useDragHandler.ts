@@ -26,7 +26,11 @@ export type DragHandlerOptionType = boolean | DragHandlerCallbackType
 /**
  * Определение типа для обработчика перетаскивания.
  */
-export type DragHandlerType = ReturnType<typeof useDragHandler>
+export type DragHandlerType = {
+  init: (emblaApi: EmblaCarouselType) => void
+  pointerDown: () => boolean
+  destroy: () => void
+}
 
 /**
  * Функция для обработки поведения перетаскивания.
@@ -72,7 +76,7 @@ export function useDragHandler(
   skipSnaps: boolean,
   baseFriction: number,
   watchDrag: DragHandlerOptionType
-) {
+): DragHandlerType {
   const { cross: crossAxis, direction } = axis
   const focusNodes = ['INPUT', 'SELECT', 'TEXTAREA']
   const nonPassiveEvent = { passive: false }
@@ -287,11 +291,9 @@ export function useDragHandler(
     return focusNodes.includes(nodeName)
   }
 
-  const self = {
+  return {
     init,
     pointerDown,
     destroy
-  } as const
-
-  return self
+  }
 }

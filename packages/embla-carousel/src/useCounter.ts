@@ -4,7 +4,12 @@ import { mathAbs } from './utils.ts'
 /**
  * Тип счетчика.
  */
-export type CounterType = ReturnType<typeof useCounter>
+export type CounterType = {
+  get: () => number
+  set: (n: number) => CounterType
+  add: (n: number) => CounterType
+  clone: () => CounterType
+}
 
 /**
  * Создает и возвращает счетчик.
@@ -14,7 +19,7 @@ export type CounterType = ReturnType<typeof useCounter>
  * @param loop - Флаг, указывающий, должен ли счетчик зацикливаться.
  * @returns Возвращает объект счетчика.
  */
-export function useCounter(max: number, start: number, loop: boolean) {
+export function useCounter(max: number, start: number, loop: boolean): CounterType {
   const { constrain } = useLimit(0, max)
   const loopEnd = max + 1
 
@@ -70,12 +75,12 @@ export function useCounter(max: number, start: number, loop: boolean) {
     return !loop ? constrain(n) : mathAbs((loopEnd + n) % loopEnd)
   }
 
-  const self = {
+  const self: CounterType = {
     get,
     set,
     add,
     clone
-  } as const
+  }
 
   return self
 }

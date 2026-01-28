@@ -6,7 +6,10 @@ type SlidesHandlerCallbackType = (emblaApi: EmblaCarouselType, mutations: Mutati
 
 export type SlidesHandlerOptionType = boolean | SlidesHandlerCallbackType
 
-export type SlidesHandlerType = ReturnType<typeof useSlidesHandler>
+export type SlidesHandlerType = {
+  init: (emblaApi: EmblaCarouselType) => void
+  destroy: () => void
+}
 
 /**
  * Создает экземпляр SlidesHandler.
@@ -20,7 +23,7 @@ export function useSlidesHandler(
   $container: HTMLElement,
   eventHandler: EventHandlerType,
   watchSlides: SlidesHandlerOptionType
-) {
+): SlidesHandlerType {
   let mutationObserver: MutationObserver
   let destroyed = false
 
@@ -62,10 +65,8 @@ export function useSlidesHandler(
     destroyed = true
   }
 
-  const self = {
+  return {
     init,
     destroy
-  } as const
-
-  return self
+  }
 }

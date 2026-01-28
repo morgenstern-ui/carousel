@@ -3,13 +3,16 @@ type EventHandlerType = (evt: any) => void
 type EventOptionsType = boolean | AddEventListenerOptions | undefined
 type EventRemoverType = () => void
 
-export type EventStoreType = ReturnType<typeof useEventStore>
+export type EventStoreType = {
+  add: (node: EventTarget, type: EventNameType, handler: EventHandlerType, options?: EventOptionsType) => EventStoreType
+  clear: () => void
+}
 
 /**
  * Функция, которая создает хранилище событий для управления слушателями событий.
  * @returns Объект с методами `add` и `clear`.
  */
-export function useEventStore() {
+export function useEventStore(): EventStoreType {
   let listeners: EventRemoverType[] = []
 
   /**

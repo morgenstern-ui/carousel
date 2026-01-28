@@ -1,6 +1,15 @@
 import { mathAbs } from './utils.ts'
 
-export type LimitType = ReturnType<typeof useLimit>
+export type LimitType = {
+  length: number
+  max: number
+  min: number
+  constrain: (n: number) => number
+  reachedAny: (n: number) => boolean
+  reachedMax: (n: number) => boolean
+  reachedMin: (n: number) => boolean
+  removeOffset: (n: number) => number
+}
 
 /**
  * Создает объект ограничения, который может использоваться для ограничения числа в заданном диапазоне.
@@ -8,7 +17,7 @@ export type LimitType = ReturnType<typeof useLimit>
  * @param max - Максимальное значение диапазона. По умолчанию 0.
  * @returns Объект с утилитарными функциями для ограничения и манипулирования числами в заданном диапазоне.
  */
-export function useLimit(min: number = 0, max: number = 0) {
+export function useLimit(min: number = 0, max: number = 0): LimitType {
   const length = mathAbs(min - max)
 
   /**
@@ -58,7 +67,7 @@ export function useLimit(min: number = 0, max: number = 0) {
     return n - length * Math.ceil((n - max) / length)
   }
 
-  const self = {
+  return {
     length,
     max,
     min,
@@ -67,7 +76,5 @@ export function useLimit(min: number = 0, max: number = 0) {
     reachedMax,
     reachedMin,
     removeOffset
-  } as const
-
-  return self
+  }
 }

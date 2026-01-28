@@ -1,36 +1,72 @@
 import { useAlignment } from './useAlignment.ts'
-import { useAnimations } from './useAnimations.ts'
-import { useAxis } from './useAxis.ts'
-import { useCounter } from './useCounter.ts'
-import { useDragHandler } from './useDragHandler.ts'
+import { useAnimations, type AnimationsType } from './useAnimations.ts'
+import { useAxis, type AxisType } from './useAxis.ts'
+import { useCounter, type CounterType } from './useCounter.ts'
+import { useDragHandler, type DragHandlerType } from './useDragHandler.ts'
 import { useDragTracker } from './useDragTracker.ts'
 import type { EventHandlerType } from './useEventHandler.ts'
-import { useEventStore } from './useEventStore.ts'
-import { useNodeRects } from './useNodeRects.ts'
+import { useEventStore, type EventStoreType } from './useEventStore.ts'
+import { useNodeRects, type NodeRectType } from './useNodeRects.ts'
 import type { OptionsType } from './options.ts'
-import { usePercentOfContainer } from './usePercentOfContainer.ts'
-import { useResizeHandler } from './useResizeHandler.ts'
-import { useScrollBody } from './useScrollBody.ts'
-import { useScrollBounds } from './useScrollBounds.ts'
+import { usePercentOfContainer, type PercentOfViewType } from './usePercentOfContainer.ts'
+import { useResizeHandler, type ResizeHandlerType } from './useResizeHandler.ts'
+import { useScrollBody, type ScrollBodyType } from './useScrollBody.ts'
+import { useScrollBounds, type ScrollBoundsType } from './useScrollBounds.ts'
 import { useScrollContain } from './useScrollContain.ts'
 import { useScrollLimit } from './useScrollLimit.ts'
-import { useScrollLooper } from './useScrollLooper.ts'
-import { useScrollProgress } from './useScrollProgress.ts'
+import { useScrollLooper, type ScrollLooperType } from './useScrollLooper.ts'
+import { useScrollProgress, type ScrollProgressType } from './useScrollProgress.ts'
 import { useScrollSnaps } from './useScrollSnaps.ts'
 import { useSlideRegistry } from './useSlideRegistry.ts'
-import { useScrollTarget } from './useScrollTarget.ts'
-import { useScrollTo } from './useScrollTo.ts'
-import { useSlideFocus } from './useSlideFocus.ts'
-import { useSlideLooper } from './useSlideLooper.ts'
-import { useSlidesHandler } from './useSlidesHandler.ts'
-import { useSlidesInView } from './useSlidesInView.ts'
+import { useScrollTarget, type ScrollTargetType } from './useScrollTarget.ts'
+import { useScrollTo, type ScrollToType } from './useScrollTo.ts'
+import { useSlideFocus, type SlideFocusType } from './useSlideFocus.ts'
+import { useSlideLooper, type SlideLooperType } from './useSlideLooper.ts'
+import { useSlidesHandler, type SlidesHandlerType } from './useSlidesHandler.ts'
+import { useSlidesInView, type SlidesInViewType } from './useSlidesInView.ts'
 import { useSlideSizes } from './useSlideSizes.ts'
-import { useSlidesToScroll } from './useSlidesToScroll.ts'
-import { useTranslate } from './useTranslate.ts'
+import { useSlidesToScroll, type SlidesToScrollType } from './useSlidesToScroll.ts'
+import { useTranslate, type TranslateType } from './useTranslate.ts'
 import { arrayKeys, arrayLast, arrayLastIndex, type WindowType } from './utils.ts'
-import { useVector1D } from './useVector1D.ts'
+import { useVector1D, type Vector1DType } from './useVector1D.ts'
+import type { LimitType } from './useLimit.ts'
 
-export type EngineType = ReturnType<typeof useEngine>
+export type EngineType = {
+  $ownerDocument: Document
+  $ownerWindow: WindowType
+  eventHandler: EventHandlerType
+  containerRect: NodeRectType
+  slideRects: NodeRectType[]
+  animation: AnimationsType
+  axis: AxisType
+  dragHandler: DragHandlerType
+  eventStore: EventStoreType
+  percentOfContainer: PercentOfViewType
+  indexCurrent: CounterType
+  indexPrevious: CounterType
+  limit: LimitType
+  locationVector: Vector1DType
+  offsetLocationVector: Vector1DType
+  options: OptionsType
+  resizeHandler: ResizeHandlerType
+  scrollBody: ScrollBodyType
+  scrollBounds: ScrollBoundsType
+  scrollLooper: ScrollLooperType
+  scrollProgress: ScrollProgressType
+  scrollSnapList: number[]
+  scrollSnaps: number[]
+  scrollTarget: ScrollTargetType
+  scrollTo: ScrollToType
+  slideLooper: SlideLooperType
+  slideFocus: SlideFocusType
+  slidesHandler: SlidesHandlerType
+  slidesInView: SlidesInViewType
+  slideIndexes: number[]
+  slideRegistry: number[][]
+  slidesToScroll: SlidesToScrollType
+  targetVector: Vector1DType
+  translate: TranslateType
+}
 
 export function useEngine(
   $root: HTMLElement,
@@ -40,7 +76,7 @@ export function useEngine(
   $ownerWindow: WindowType,
   options: OptionsType,
   eventHandler: EventHandlerType
-) {
+): EngineType {
   // Options
   const {
     align,
@@ -203,7 +239,7 @@ export function useEngine(
   const slideFocus = useSlideFocus($root, $slides, slideRegistry, scrollTo, scrollBody, eventStore)
 
   // Engine
-  const engine = {
+  const engine: EngineType = {
     $ownerDocument,
     $ownerWindow,
     eventHandler,

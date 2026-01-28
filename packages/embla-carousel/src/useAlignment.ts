@@ -14,7 +14,9 @@ export type AlignmentOptionType =
   | 'end'
   | ((viewSize: number, snapSize: number, index: number) => number)
 
-export type AlignmentType = ReturnType<typeof useAlignment>
+export type AlignmentType = {
+  measure: (slideSize: number, index: number) => number
+}
 
 /**
  * Возвращает функцию измерения на основе опции выравнивания и размера контейнера.
@@ -22,7 +24,7 @@ export type AlignmentType = ReturnType<typeof useAlignment>
  * @param containerSize - Размер контейнера.
  * @returns Объект с функцией `measure`, которая вычисляет измерение на основе опции выравнивания и размера контейнера.
  */
-export function useAlignment(align: AlignmentOptionType, containerSize: number) {
+export function useAlignment(align: AlignmentOptionType, containerSize: number): AlignmentType {
   const predefined = { start, center, end }
 
   /**
@@ -62,9 +64,7 @@ export function useAlignment(align: AlignmentOptionType, containerSize: number) 
     return align(containerSize, slideSize, index)
   }
 
-  const self = {
+  return {
     measure
-  } as const
-
-  return self
+  }
 }

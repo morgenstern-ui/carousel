@@ -7,7 +7,9 @@ import { isNumber } from './utils.ts'
 /**
  * Представляет тип хука `useSlideFocus`.
  */
-export type SlideFocusType = ReturnType<typeof useSlideFocus>
+export type SlideFocusType = {
+  init: () => void
+}
 
 /**
  * Хук, управляющий поведением фокуса слайдов в карусели.
@@ -26,7 +28,7 @@ export function useSlideFocus(
   scrollTo: ScrollToType,
   scrollBody: ScrollBodyType,
   eventStore: EventStoreType
-) {
+): SlideFocusType {
   let lastTabPressTime = 0
 
   /**
@@ -75,9 +77,7 @@ export function useSlideFocus(
     })
   }
 
-  const self = {
+  return {
     init
-  } as const
-
-  return self
+  }
 }

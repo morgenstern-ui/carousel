@@ -7,7 +7,10 @@ import type { PercentOfViewType } from './usePercentOfContainer.ts'
 /**
  * Представляет тип хука `useScrollBounds`.
  */
-export type ScrollBoundsType = ReturnType<typeof useScrollBounds>
+export type ScrollBoundsType = {
+  constrain: (pointerDown: boolean) => void
+  toggleActive: (active: boolean) => void
+}
 
 /**
  * Хук, предоставляющий функциональность ограничения прокрутки.
@@ -24,7 +27,7 @@ export function useScrollBounds(
   targetVector: Vector1DType,
   scrollBody: ScrollBodyType,
   percentOfContainer: PercentOfViewType
-) {
+): ScrollBoundsType {
   const pullBackThreshold = percentOfContainer.measure(10)
   const edgeOffsetTolerance = percentOfContainer.measure(50)
   const frictionLimit = useLimit(0.1, 0.99)
@@ -71,10 +74,8 @@ export function useScrollBounds(
     return true
   }
 
-  const self = {
+  return {
     constrain,
     toggleActive
-  } as const
-
-  return self
+  }
 }

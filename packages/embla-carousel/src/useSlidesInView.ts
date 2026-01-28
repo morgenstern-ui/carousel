@@ -7,7 +7,11 @@ type IntersectionEntryMapType = {
 
 export type SlidesInViewOptionsType = IntersectionObserverInit['threshold']
 
-export type SlidesInViewType = ReturnType<typeof useSlidesInView>
+export type SlidesInViewType = {
+  init: () => void
+  destroy: () => void
+  get: (inView?: boolean) => number[]
+}
 
 /**
  * Создает пользовательский хук, который отслеживает, какие слайды находятся в видимости внутри контейнера.
@@ -22,7 +26,7 @@ export function useSlidesInView(
   $slides: HTMLElement[],
   eventHandler: EventHandlerType,
   threshold: SlidesInViewOptionsType
-) {
+): SlidesInViewType {
   const intersectionEntryMap: IntersectionEntryMapType = {}
   let inViewCache: number[] | null = null
   let notInViewCache: number[] | null = null
@@ -101,11 +105,9 @@ export function useSlidesInView(
     return list
   }
 
-  const self = {
+  return {
     init,
     destroy,
     get
-  } as const
-
-  return self
+  }
 }

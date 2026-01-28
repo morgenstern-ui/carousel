@@ -1,7 +1,17 @@
 import { mathSign, mathAbs } from './utils.ts'
 import type { Vector1DType } from './useVector1D.ts'
 
-export type ScrollBodyType = ReturnType<typeof useScrollBody>
+export type ScrollBodyType = {
+  direction: () => number
+  duration: () => number
+  velocity: () => number
+  seek: () => ScrollBodyType
+  settled: () => boolean
+  useBaseFriction: () => ScrollBodyType
+  useBaseDuration: () => ScrollBodyType
+  useFriction: (n: number) => ScrollBodyType
+  useDuration: (n: number) => ScrollBodyType
+}
 
 /**
  * Хук, который обеспечивает поведение прокрутки для прокручиваемого тела.
@@ -19,7 +29,7 @@ export function useScrollBody(
   targetVector: Vector1DType,
   baseDuration: number,
   baseFriction: number
-) {
+): ScrollBodyType {
   let bodyVelocity = 0
   let scrollDirection = 0
   let scrollDuration = baseDuration
@@ -137,7 +147,7 @@ export function useScrollBody(
     return self
   }
 
-  const self = {
+  const self: ScrollBodyType = {
     direction,
     duration,
     velocity,
@@ -147,7 +157,7 @@ export function useScrollBody(
     useBaseDuration,
     useFriction,
     useDuration
-  } as const
+  }
 
   return self
 }

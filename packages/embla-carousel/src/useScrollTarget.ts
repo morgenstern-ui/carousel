@@ -13,7 +13,11 @@ export type TargetType = {
 /**
  * Представляет операции с целью прокрутки.
  */
-export type ScrollTargetType = ReturnType<typeof useScrollTarget>
+export type ScrollTargetType = {
+  byIndex: (index: number, direction: number) => TargetType
+  byDistance: (distance: number, snap: boolean) => TargetType
+  shortcut: (target: number, direction: number) => number
+}
 
 /**
  * Создает объект цели прокрутки.
@@ -31,7 +35,7 @@ export function useScrollTarget(
   contentSize: number,
   limit: LimitType,
   targetVector: Vector1DType
-) {
+): ScrollTargetType {
   const { reachedAny, removeOffset, constrain } = limit
 
   /**
@@ -124,11 +128,9 @@ export function useScrollTarget(
     return { index, distance }
   }
 
-  const self = {
+  return {
     byIndex,
     byDistance,
     shortcut
-  } as const
-
-  return self
+  }
 }

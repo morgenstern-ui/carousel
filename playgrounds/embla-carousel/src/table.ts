@@ -24,13 +24,12 @@ export function Table(): TableType {
 
   function destroy(): void {}
 
-  const self: TableType = {
+  return {
     name: 'table',
     options: {},
     init,
     destroy
   }
-  return self
 }
 
 /**

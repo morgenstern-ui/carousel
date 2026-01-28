@@ -7,13 +7,15 @@ export type NodeRectType = {
   height: number
 }
 
-export type NodeRectsType = ReturnType<typeof useNodeRects>
+export type NodeRectsType = {
+  measure: (node: HTMLElement) => NodeRectType
+}
 
 /**
  * Возвращает хук, который предоставляет функцию для измерения размеров и позиции HTML-элемента.
  * @returns Объект, содержащий функцию `measure`.
  */
-export function useNodeRects() {
+export function useNodeRects(): NodeRectsType {
   /**
    * Измеряет размеры и позицию HTML-элемента.
    * @param node - HTML-элемент, который нужно измерить.
@@ -34,9 +36,7 @@ export function useNodeRects() {
     return offset
   }
 
-  const self = {
+  return {
     measure
-  } as const
-
-  return self
+  }
 }

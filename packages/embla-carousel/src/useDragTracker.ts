@@ -4,7 +4,12 @@ import { isMouseEvent, mathAbs, type WindowType } from './utils.ts'
 type PointerCoordType = keyof Touch | keyof MouseEvent
 export type PointerEventType = TouchEvent | MouseEvent
 
-export type DragTrackerType = ReturnType<typeof useDragTracker>
+export type DragTrackerType = {
+  pointerDown: (evt: PointerEventType) => number
+  pointerMove: (evt: PointerEventType) => number
+  pointerUp: (evt: PointerEventType) => number
+  readPoint: (evt: PointerEventType, evtAxis?: AxisOptionType) => number
+}
 
 /**
  * Создает отслеживатель перетаскивания для определенной оси.
@@ -13,7 +18,7 @@ export type DragTrackerType = ReturnType<typeof useDragTracker>
  * @param ownerWindow - Объект окна.
  * @returns Объект с методами для отслеживания событий указателя и расчета силы перетаскивания.
  */
-export function useDragTracker(axis: AxisType, ownerWindow: WindowType) {
+export function useDragTracker(axis: AxisType, ownerWindow: WindowType): DragTrackerType {
   const logInterval = 170
 
   let startEvent: PointerEventType
@@ -90,12 +95,10 @@ export function useDragTracker(axis: AxisType, ownerWindow: WindowType) {
     return isFlick ? force : 0
   }
 
-  const self = {
+  return {
     pointerDown,
     pointerMove,
     pointerUp,
     readPoint
-  } as const
-
-  return self
+  }
 }

@@ -3,7 +3,9 @@ import type { ScrollContainOptionType } from './useScrollContain.ts'
 import type { SlidesToScrollType } from './useSlidesToScroll.ts'
 import { arrayFromNumber, arrayLast, arrayLastIndex } from './utils.ts'
 
-export type SlideRegistryType = ReturnType<typeof useSlideRegistry>
+export type SlideRegistryType = {
+  slideRegistry: number[][]
+}
 
 /**
  * Создает реестр слайдов на основе предоставленных параметров.
@@ -23,7 +25,7 @@ export function useSlideRegistry(
   slideGroupSnapsLimit: LimitType,
   slidesToScroll: SlidesToScrollType,
   slideIndexes: number[]
-) {
+): SlideRegistryType {
   const { groupSlides } = slidesToScroll
   const { min, max } = slideGroupSnapsLimit
   const slideRegistry = createSlideRegistry()
@@ -66,9 +68,7 @@ export function useSlideRegistry(
     return slideRegistry
   }
 
-  const self = {
+  return {
     slideRegistry
-  } as const
-
-  return self
+  }
 }

@@ -326,7 +326,7 @@ export function useEmblaCarousel(
     return engine
   }
 
-  const self = {
+  const self: EmblaCarouselType = {
     canScrollNext,
     canScrollPrev,
     containerNode,

@@ -1,13 +1,18 @@
 import { isNumber } from './utils'
 
-export type Vector1DType = ReturnType<typeof useVector1D>
+export type Vector1DType = {
+  readonly get: () => number
+  readonly set: (n: Vector1DType | number) => void
+  readonly add: (n: Vector1DType | number) => void
+  readonly subtract: (n: Vector1DType | number) => void
+}
 
 /**
  * Создает вектор с одним измерением.
  * @param initialValue - Начальное значение вектора.
  * @returns Объект с методами для манипуляции вектором.
  */
-export function useVector1D(initialValue: number) {
+export function useVector1D(initialValue: number): Vector1DType {
   let value = initialValue
 
   /**
@@ -51,12 +56,10 @@ export function useVector1D(initialValue: number) {
     return isNumber(n) ? n : n.get()
   }
 
-  const self = {
+  return {
     get,
     set,
     add,
     subtract
-  } as const
-
-  return self
+  }
 }

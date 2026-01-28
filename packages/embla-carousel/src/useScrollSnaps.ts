@@ -4,7 +4,10 @@ import type { NodeRectType } from './useNodeRects.ts'
 import type { SlidesToScrollType } from './useSlidesToScroll.ts'
 import { arrayLast, mathAbs } from './utils.ts'
 
-export type ScrollSnapsType = ReturnType<typeof useScrollSnaps>
+export type ScrollSnapsType = {
+  slideSnaps: number[]
+  slideGroupSnaps: number[]
+}
 
 /**
  * Вычисляет точки прокрутки для карусели на основе предоставленных параметров.
@@ -22,7 +25,7 @@ export function useScrollSnaps(
   containerRect: NodeRectType,
   slideRects: NodeRectType[],
   slidesToScroll: SlidesToScrollType
-) {
+): ScrollSnapsType {
   const { startEdge, endEdge } = axis
   const { groupSlides } = slidesToScroll
 
@@ -88,10 +91,8 @@ export function useScrollSnaps(
     return slideGroupAlignments
   }
 
-  const self = {
+  return {
     slideSnaps,
     slideGroupSnaps
-  } as const
-
-  return self
+  }
 }

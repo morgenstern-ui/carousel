@@ -5,14 +5,17 @@ import type { EmblaPluginsType, EmblaPluginType } from './plugins.ts'
 /**
  * Представляет тип PluginsHandler.
  */
-export type PluginsHandlerType = ReturnType<typeof usePluginsHandler>
+export type PluginsHandlerType = {
+  init: (emblaApi: EmblaCarouselType, plugins: EmblaPluginType[]) => EmblaPluginsType
+  destroy: () => void
+}
 
 /**
  * Создает экземпляр PluginsHandler.
  * @param optionsHandler - Экземпляр OptionsHandler.
  * @returns Экземпляр PluginsHandler.
  */
-export function usePluginsHandler(optionsHandler: OptionsHandlerType) {
+export function usePluginsHandler(optionsHandler: OptionsHandlerType): PluginsHandlerType {
   let activePlugins: EmblaPluginType[] = []
 
   /**
@@ -42,10 +45,8 @@ export function usePluginsHandler(optionsHandler: OptionsHandlerType) {
     activePlugins = activePlugins.filter((plugin) => plugin.destroy())
   }
 
-  const self = {
+  return {
     init,
     destroy
-  } as const
-
-  return self
+  }
 }

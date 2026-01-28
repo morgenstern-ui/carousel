@@ -149,7 +149,7 @@ export function Autoplay(userOptions: AutoplayOptionsType = {}): AutoplayType {
     }
   }
 
-  const self: AutoplayType = {
+  return {
     name: 'autoplay',
     options: userOptions,
     init,
@@ -159,7 +159,6 @@ export function Autoplay(userOptions: AutoplayOptionsType = {}): AutoplayType {
     reset,
     isPlaying
   }
-  return self
 }
 
 Autoplay.globalOptions = undefined as AutoplayOptionsType | undefined

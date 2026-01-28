@@ -2,7 +2,14 @@
 import { useEventStore } from './useEventStore.ts'
 import { mathAbs, type WindowType } from './utils.ts'
 
-export type AnimationsType = ReturnType<typeof useAnimations>
+export type AnimationsType = {
+  init: () => void
+  destroy: () => void
+  start: () => void
+  stop: () => void
+  update: () => void
+  render: (lagOffset: number) => void
+}
 
 /**
  * Экспортируемая функция Animations, которая создает объект для управления анимациями.
@@ -18,7 +25,7 @@ export function useAnimations(
   $ownerWindow: WindowType,
   update: () => void,
   render: (lagOffset: number) => void
-) {
+): AnimationsType {
   const documentVisibleHandler = useEventStore()
   const timeStep = 1000 / 60
   let lastTimeStamp: number | null = null
@@ -113,14 +120,12 @@ export function useAnimations(
     lag = 0
   }
 
-  const self = {
+  return {
     init,
     destroy,
     start,
     stop,
     update,
     render
-  } as const
-
-  return self
+  }
 }

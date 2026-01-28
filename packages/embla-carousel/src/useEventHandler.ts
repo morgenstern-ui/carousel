@@ -19,12 +19,17 @@ export interface EmblaEventListType {
   resize: 'resize'
 }
 
-export type EventHandlerType = ReturnType<typeof useEventHandler>
+export type EventHandlerType = {
+  init: (emblaApi: EmblaCarouselType) => void
+  emit: (evt: EmblaEventType) => EventHandlerType
+  off: (evt: EmblaEventType, cb: CallbackType) => EventHandlerType
+  on: (evt: EmblaEventType, cb: CallbackType) => EventHandlerType
+}
 
 /**
  * Представляет обработчик событий для Embla Carousel.
  */
-export function useEventHandler() {
+export function useEventHandler(): EventHandlerType {
   /**
    * Определение типа для объекта слушателей.
    */
@@ -88,12 +93,12 @@ export function useEventHandler() {
   }
 
   // Экземпляр обработчика событий
-  const self = {
+  const self: EventHandlerType = {
     init,
     emit,
     off,
     on
-  } as const
+  }
 
   return self
 }

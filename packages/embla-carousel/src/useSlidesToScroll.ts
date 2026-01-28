@@ -8,7 +8,9 @@ import { isNumber, mathAbs } from './utils.ts'
  */
 export type SlidesToScrollOptionType = 'auto' | number
 
-export type SlidesToScrollType = ReturnType<typeof useSlidesToScroll>
+export type SlidesToScrollType = {
+  groupSlides: <Type>(array: Type[]) => Type[][]
+}
 
 /**
  * Вычисляет группы слайдов для прокрутки на основе предоставленных параметров.
@@ -34,7 +36,7 @@ export function useSlidesToScroll(
   startGap: number,
   endGap: number,
   pixelTolerance: number
-) {
+): SlidesToScrollType {
   const { startEdge, endEdge, direction } = axis
   const groupByNumber = isNumber(slidesToScroll)
 
@@ -110,9 +112,7 @@ export function useSlidesToScroll(
     return groups
   }
 
-  const self = {
+  return {
     groupSlides
-  } as const
-
-  return self
+  }
 }

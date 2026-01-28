@@ -3,7 +3,10 @@ import { arrayLast, deltaAbs } from './utils.ts'
 
 export type ScrollContainOptionType = false | 'trimSnaps' | 'keepSnaps'
 
-export type ScrollContainType = ReturnType<typeof useScrollContain>
+export type ScrollContainType = {
+  slideGroupSnapsLimit: LimitType
+  slideGroupSnapsContained: number[]
+}
 
 /**
  * Рассчитывает ограниченные и содержащиеся снапы группы слайдов на основе размера контейнера, размера контента,
@@ -22,7 +25,7 @@ export function useScrollContain(
   slideGroupSnaps: number[],
   containScroll: ScrollContainOptionType,
   pixelTolerance: number
-) {
+): ScrollContainType {
   const scrollLimit = useLimit(-(contentSize - containerSize), 0)
 
   const slideGroupSnapsBounded = measureSlideGroupSnapsBounded()
@@ -107,10 +110,8 @@ export function useScrollContain(
     return deltaAbs(bound, snap) < 1
   }
 
-  const self = {
+  return {
     slideGroupSnapsLimit,
     slideGroupSnapsContained
-  } as const
-
-  return self
+  }
 }

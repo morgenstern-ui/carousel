@@ -2,7 +2,12 @@ import type { AxisType } from './useAxis.ts'
 import type { NodeRectType } from './useNodeRects.ts'
 import { arrayLast, mathAbs, type WindowType } from './utils.ts'
 
-export type SlideSizesType = ReturnType<typeof useSlideSizes>
+export type SlideSizesType = {
+  slideSizes: number[]
+  slideSizesWithGaps: number[]
+  startGap: number
+  endGap: number
+}
 
 /**
  * Вычисляет размеры слайдов и промежутки между ними.
@@ -22,7 +27,7 @@ export function useSlideSizes(
   $slides: HTMLElement[],
   readEdgeGap: boolean,
   $ownerWindow: WindowType
-) {
+): SlideSizesType {
   const { measureSize, startEdge, endEdge } = axis
 
   const withEdgeGap = slideRects[0] && readEdgeGap
@@ -86,12 +91,10 @@ export function useSlideSizes(
     return slideSizesWithGaps
   }
 
-  const self = {
+  return {
     slideSizes,
     slideSizesWithGaps,
     startGap,
     endGap
-  } as const
-
-  return self
+  }
 }

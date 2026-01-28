@@ -6,7 +6,14 @@ export type AxisDirectionOptionType = 'ltr' | 'rtl'
 
 type AxisEdgeType = 'top' | 'right' | 'bottom' | 'left'
 
-export type AxisType = ReturnType<typeof useAxis>
+export type AxisType = {
+  scroll: 'x' | 'y'
+  cross: 'x' | 'y'
+  startEdge: AxisEdgeType
+  endEdge: AxisEdgeType
+  measureSize: (nodeRect: NodeRectType) => number
+  direction: (n: number) => number
+}
 
 /**
  * Пользовательский хук, который предоставляет утилиты, связанные с осью.
@@ -14,7 +21,7 @@ export type AxisType = ReturnType<typeof useAxis>
  * @param contentDirection - Опция направления контента ('ltr' или 'rtl').
  * @returns Объект, содержащий свойства и функции, связанные с осью.
  */
-export function useAxis(axis: AxisOptionType, contentDirection: AxisDirectionOptionType) {
+export function useAxis(axis: AxisOptionType, contentDirection: AxisDirectionOptionType): AxisType {
   const isRightToLeft = contentDirection === 'rtl'
   const isVertical = axis === 'y'
 
@@ -62,14 +69,12 @@ export function useAxis(axis: AxisOptionType, contentDirection: AxisDirectionOpt
     return isRightToLeft ? 'left' : 'right'
   }
 
-  const self = {
+  return {
     scroll,
     cross,
     startEdge,
     endEdge,
     measureSize,
     direction
-  } as const
-
-  return self
+  }
 }

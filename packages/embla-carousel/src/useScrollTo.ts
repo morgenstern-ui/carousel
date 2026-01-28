@@ -5,7 +5,10 @@ import type { ScrollBodyType } from './useScrollBody.ts'
 import type { ScrollTargetType, TargetType } from './useScrollTarget.ts'
 import type { Vector1DType } from './useVector1D.ts'
 
-export type ScrollToType = ReturnType<typeof useScrollTo>
+export type ScrollToType = {
+  distance: (distance: number, snap: boolean) => void
+  index: (n: number, direction: number) => void
+}
 
 /**
  * Хук, который предоставляет функцию для прокрутки к определенной цели.
@@ -27,7 +30,7 @@ export function useScrollTo(
   scrollTarget: ScrollTargetType,
   targetVector: Vector1DType,
   eventHandler: EventHandlerType
-) {
+): ScrollToType {
   /**
    * Прокручивает до указанного индекса.
    *
@@ -79,10 +82,8 @@ export function useScrollTo(
     }
   }
 
-  const self = {
+  return {
     distance,
     index
-  } as const
-
-  return self
+  }
 }

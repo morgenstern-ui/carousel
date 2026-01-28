@@ -8,7 +8,10 @@ type ResizeHandlerCallbackType = (emblaApi: EmblaCarouselType, entries: ResizeOb
 
 export type ResizeHandlerOptionType = boolean | ResizeHandlerCallbackType
 
-export type ResizeHandlerType = ReturnType<typeof useResizeHandler>
+export type ResizeHandlerType = {
+  init: (emblaApi: EmblaCarouselType) => void
+  destroy: () => void
+}
 
 /**
  * Создает обработчик изменения размера для контейнера карусели.
@@ -30,7 +33,7 @@ export function useResizeHandler(
   axis: AxisType,
   watchResize: ResizeHandlerOptionType,
   nodeRects: NodeRectsType
-) {
+): ResizeHandlerType {
   let resizeObserver: ResizeObserver
   let containerSize: number
   let slideSizes: number[] = []
@@ -92,10 +95,8 @@ export function useResizeHandler(
     destroyed = true
   }
 
-  const self = {
+  return {
     init,
     destroy
-  } as const
-
-  return self
+  }
 }

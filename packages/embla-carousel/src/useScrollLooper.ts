@@ -1,7 +1,9 @@
 import { useLimit, type LimitType } from './useLimit.ts'
 import type { Vector1DType } from './useVector1D.ts'
 
-export type ScrollLooperType = ReturnType<typeof useScrollLooper>
+export type ScrollLooperType = {
+  loop: (direction: number) => void
+}
 
 /**
  * Пользовательский хук, который предоставляет функциональность циклической прокрутки.
@@ -17,7 +19,7 @@ export function useScrollLooper(
   limit: LimitType,
   offsetLocationVector: Vector1DType,
   vectors: [locationVector: Vector1DType, offsetLocationVector: Vector1DType, targetVector: Vector1DType]
-) {
+): ScrollLooperType {
   const jointSafety = 0.1
   const min = limit.min + jointSafety
   const max = limit.max + jointSafety
@@ -50,9 +52,7 @@ export function useScrollLooper(
     return false
   }
 
-  const self = {
+  return {
     loop
-  } as const
-
-  return self
+  }
 }

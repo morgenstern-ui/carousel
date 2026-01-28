@@ -3,14 +3,18 @@ import { objectKeys, objectsMergeDeep, type WindowType } from './utils.ts'
 
 type OptionsType = Partial<CreateOptionsType<LooseOptionsType>>
 
-export type OptionsHandlerType = ReturnType<typeof useOptionsHandler>
+export type OptionsHandlerType = {
+  mergeOptions: <TypeA extends OptionsType, TypeB extends OptionsType>(optionsA: TypeA, optionsB?: TypeB) => TypeA
+  optionsAtMedia: <Type extends OptionsType>(options: Type) => Type
+  optionsMediaQueries: (optionsList: OptionsType[]) => MediaQueryList[]
+}
 
 /**
  * Пользовательский хук, который предоставляет функции для обработки параметров в компоненте карусели.
  * @param $ownerWindow - Объект окна владельца компонента.
  * @returns Объект, содержащий функции для объединения параметров, получения параметров для конкретных медиа-точек и получения списков медиа-запросов для параметров.
  */
-export function useOptionsHandler($ownerWindow: WindowType) {
+export function useOptionsHandler($ownerWindow: WindowType): OptionsHandlerType {
   /**
    * Глубоко объединяет два объекта параметров.
    * @param optionsA - Первый объект параметров.
@@ -63,11 +67,9 @@ export function useOptionsHandler($ownerWindow: WindowType) {
     return mediaQueries
   }
 
-  const self = {
+  return {
     mergeOptions,
     optionsAtMedia,
     optionsMediaQueries
-  } as const
-
-  return self
+  }
 }

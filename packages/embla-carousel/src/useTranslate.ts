@@ -1,6 +1,10 @@
 import type { AxisType } from './useAxis'
 
-export type TranslateType = ReturnType<typeof useTranslate>
+export type TranslateType = {
+  to: (target: number) => void
+  toggleActive: (active: boolean) => void
+  clear: () => void
+}
 
 /**
  * Создает утилиту для трансляции заданной оси и контейнера.
@@ -8,7 +12,7 @@ export type TranslateType = ReturnType<typeof useTranslate>
  * @param container - Элемент контейнера, к которому применяется трансляция.
  * @returns Объект с утилитами для трансляции элемента контейнера.
  */
-export function useTranslate(axis: AxisType, container: HTMLElement) {
+export function useTranslate(axis: AxisType, container: HTMLElement): TranslateType {
   const translate = axis.scroll === 'x' ? x : y
   const containerStyle = container.style
   let disabled = false
@@ -57,11 +61,9 @@ export function useTranslate(axis: AxisType, container: HTMLElement) {
     if (!container.getAttribute('style')) container.removeAttribute('style')
   }
 
-  const self = {
+  return {
     to,
     toggleActive,
     clear
-  } as const
-
-  return self
+  }
 }

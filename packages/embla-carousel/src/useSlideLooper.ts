@@ -16,7 +16,12 @@ type LoopPointType = {
   target: () => number
 }
 
-export type SlideLooperType = ReturnType<typeof useSlideLooper>
+export type SlideLooperType = {
+  canLoop: () => boolean
+  loop: () => void
+  clear: () => void
+  loopPoints: LoopPointType[]
+}
 
 /**
  * Пользовательский хук, который обрабатывает циклическое поведение слайдов в карусели.
@@ -42,7 +47,7 @@ export function useSlideLooper(
   scrollSnaps: number[],
   offsetLocationVector: Vector1DType,
   $slides: HTMLElement[]
-) {
+): SlideLooperType {
   const roundingSafety = 0.5
   const ascItems = arrayKeys(slideSizesWithGaps)
   const descItems = [...ascItems].reverse()
@@ -208,12 +213,10 @@ export function useSlideLooper(
     return bounds
   }
 
-  const self = {
+  return {
     canLoop,
     loop,
     clear,
     loopPoints
-  } as const
-
-  return self
+  }
 }
